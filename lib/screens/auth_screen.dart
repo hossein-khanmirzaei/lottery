@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:lottery/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -90,12 +92,17 @@ class AuthCard extends StatefulWidget {
   _AuthCardState createState() => _AuthCardState();
 }
 
+enum ResidenceType { Kishvand, NotKishvand }
+
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
+  ResidenceType _residenceType = ResidenceType.Kishvand;
   Map<String, String> _authData = {
-    'email': '',
-    'password': '',
+    'Full_Name': '',
+    'National_ID': '',
+    'Mobile_No': '',
+    'Residence_Type': '1',
   };
   var _isLoading = false;
   final _passwordController = TextEditingController();
@@ -112,7 +119,12 @@ class _AuthCardState extends State<AuthCard> {
     if (_authMode == AuthMode.Login) {
       // Log user in
     } else {
-      // Sign user up
+      Provider.of<Auth>(context).signup(
+        _authData['Full_Name'],
+        _authData['National_ID'],
+        _authData['Mobile_No'],
+        _authData['Residence_Type'],
+      );
     }
     setState(() {
       _isLoading = false;
@@ -151,43 +163,81 @@ class _AuthCardState extends State<AuthCard> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'E-Mail'),
-                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(labelText: 'نام و نام خانوادگی'),
+                  keyboardType: TextInputType.text,
                   validator: (value) {
-                    if (value.isEmpty || !value.contains('@')) {
-                      return 'Invalid email!';
+                    if (value.isEmpty) {
+                      return 'نام نامعتبر است!';
                     }
                   },
                   onSaved: (value) {
-                    _authData['email'] = value;
+                    _authData['Full_Name'] = value;
                   },
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'کد ملی'),
+                  keyboardType: TextInputType.number,
                   validator: (value) {
-                    if (value.isEmpty || value.length < 5) {
-                      return 'Password is too short!';
+                    if (value.isEmpty) {
+                      return 'کد ملی نامعتبر!';
                     }
                   },
                   onSaved: (value) {
-                    _authData['password'] = value;
+                    _authData['National_ID'] = value;
                   },
                 ),
-                if (_authMode == AuthMode.Signup)
-                  TextFormField(
-                    enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: 'Confirm Password'),
-                    obscureText: true,
-                    validator: _authMode == AuthMode.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords do not match!';
-                            }
-                          }
-                        : null,
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'شماره موبایل'),
+                  obscureText: false,
+                  controller: _passwordController,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'شماره موبایل نامعتبر!';
+                    }
+                  },
+                  onSaved: (value) {
+                    _authData['Mobile_No'] = value;
+                  },
+                ),
+                // if (_authMode == AuthMode.Signup)
+                //   TextFormField(
+                //     enabled: _authMode == AuthMode.Signup,
+                //     decoration: InputDecoration(labelText: 'Confirm Password'),
+                //     obscureText: true,
+                //     validator: _authMode == AuthMode.Signup
+                //         ? (value) {
+                //             if (value != _passwordController.text) {
+                //               return 'Passwords do not match!';
+                //             }
+                //           }
+                //         : null,
+                //   ),
+                ListTile(
+                  title: const Text('کیشوند'),
+                  leading: Radio(
+                    value: ResidenceType.Kishvand,
+                    groupValue: _residenceType,
+                    onChanged: (ResidenceType value) {
+                      setState(() {
+                        _residenceType = value;
+                        _authData['Residence_Type'] = '1';
+                      });
+                    },
                   ),
+                ),
+                ListTile(
+                  title: const Text('غیر کیشوند'),
+                  leading: Radio(
+                    value: ResidenceType.NotKishvand,
+                    groupValue: _residenceType,
+                    onChanged: (ResidenceType value) {
+                      setState(() {
+                        _residenceType = value;
+                        _authData['Residence_Type'] = '2';
+                      });
+                    },
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),
