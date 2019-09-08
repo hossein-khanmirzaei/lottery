@@ -1,4 +1,4 @@
-//import 'dart:convert';
+import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -24,9 +24,13 @@ class Auth with ChangeNotifier {
           'Residence_Type': residenceType
         },
       );
-      print(response.body);
+      print(json.decode(response.body));
+      final responseData = json.decode(response.body);
+      if (responseData['success'] == false) {
+        throw HttpException(responseData['failureMessage']);
+      }
     } catch (error) {
-      print(error);
+      throw error;
     }
   }
 
@@ -44,7 +48,7 @@ class Auth with ChangeNotifier {
       if (response.statusCode == 401) {
         throw HttpException('نام کاربری یا کلمه عبور صحیح نمی باشد!');
       }
-      print(response.statusCode);
+      print(response.body);
     } catch (error) {
       print(error);
     }

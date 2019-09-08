@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -107,6 +108,24 @@ class _AuthCardState extends State<AuthCard> {
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('خطا!'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('بستن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
       // Invalid!
@@ -116,19 +135,26 @@ class _AuthCardState extends State<AuthCard> {
     setState(() {
       _isLoading = true;
     });
-    if (_authMode == AuthMode.Login) {
-      await Provider.of<Auth>(context, listen: false).login(
-        _authData['National_ID'],
-        _authData['Mobile_No'],
-      );
-    } else {
-      await Provider.of<Auth>(context, listen: false).signup(
-        _authData['Full_Name'],
-        _authData['National_ID'],
-        _authData['Mobile_No'],
-        _authData['Residence_Type'],
-      );
+    try {
+      if (_authMode == AuthMode.Login) {
+        await Provider.of<Auth>(context, listen: false).login(
+          _authData['National_ID'],
+          _authData['Mobile_No'],
+        );
+      } else {
+        await Provider.of<Auth>(context, listen: false).signup(
+          _authData['Full_Name'],
+          _authData['National_ID'],
+          _authData['Mobile_No'],
+          _authData['Residence_Type'],
+        );
+      }
+    } on HttpException catch (error) {
+      _showErrorDialog(error.toString());
+    } catch (error) {
+      _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
+
     setState(() {
       _isLoading = false;
     });
