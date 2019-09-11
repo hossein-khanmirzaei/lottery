@@ -41,36 +41,6 @@ class AuthScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Flexible(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
-                      transform: Matrix4.rotationZ(-8 * pi / 180)
-                        ..translate(-10.0),
-                      // ..translate(-10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.deepOrange.shade900,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                      ),
-                      child: Text(
-                        'MyShop',
-                        style: TextStyle(
-                          color: Theme.of(context).accentTextTheme.title.color,
-                          fontSize: 50,
-                          fontFamily: 'Anton',
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Flexible(
                     flex: deviceSize.width > 600 ? 2 : 1,
                     child: AuthCard(),
                   ),
@@ -84,6 +54,8 @@ class AuthScreen extends StatelessWidget {
   }
 }
 
+enum ResidenceType { Kishvand, NotKishvand }
+
 class AuthCard extends StatefulWidget {
   const AuthCard({
     Key key,
@@ -92,8 +64,6 @@ class AuthCard extends StatefulWidget {
   @override
   _AuthCardState createState() => _AuthCardState();
 }
-
-enum ResidenceType { Kishvand, NotKishvand }
 
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -142,12 +112,19 @@ class _AuthCardState extends State<AuthCard> {
           _authData['Mobile_No'],
         );
       } else {
-        await Provider.of<Auth>(context, listen: false).signup(
+        await Provider.of<Auth>(context, listen: false)
+            .signup(
           _authData['Full_Name'],
           _authData['National_ID'],
           _authData['Mobile_No'],
           _authData['Residence_Type'],
-        );
+        )
+            .then((_) async {
+          await Provider.of<Auth>(context, listen: false).login(
+            _authData['National_ID'],
+            _authData['Mobile_No'],
+          );
+        });
       }
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
@@ -183,7 +160,7 @@ class _AuthCardState extends State<AuthCard> {
       child: Container(
         height: _authMode == AuthMode.Signup ? 320 : 260,
         constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 420 : 360),
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -191,18 +168,20 @@ class _AuthCardState extends State<AuthCard> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'نام و نام خانوادگی'),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'نام نامعتبر است!';
-                    }
-                  },
-                  onSaved: (value) {
-                    _authData['Full_Name'] = value;
-                  },
-                ),
+                if (_authMode == AuthMode.Signup)
+                  TextFormField(
+                    decoration:
+                        InputDecoration(labelText: 'نام و نام خانوادگی'),
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'نام نامعتبر است!';
+                      }
+                    },
+                    onSaved: (value) {
+                      _authData['Full_Name'] = value;
+                    },
+                  ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'کد ملی'),
                   keyboardType: TextInputType.number,
@@ -228,19 +207,6 @@ class _AuthCardState extends State<AuthCard> {
                     _authData['Mobile_No'] = value;
                   },
                 ),
-                // if (_authMode == AuthMode.Signup)
-                //   TextFormField(
-                //     enabled: _authMode == AuthMode.Signup,
-                //     decoration: InputDecoration(labelText: 'Confirm Password'),
-                //     obscureText: true,
-                //     validator: _authMode == AuthMode.Signup
-                //         ? (value) {
-                //             if (value != _passwordController.text) {
-                //               return 'Passwords do not match!';
-                //             }
-                //           }
-                //         : null,
-                //   ),
                 ListTile(
                   title: const Text('کیشوند'),
                   leading: Radio(

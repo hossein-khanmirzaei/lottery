@@ -7,7 +7,24 @@ import 'package:lottery/models/http_exception.dart';
 class Auth with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
-  String _userId;
+  int _userId;
+
+  bool get isAuth {
+    return token != null;
+  }
+
+  String get token {
+    if (_expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now()) &&
+        _token != null) {
+      return _token;
+    }
+    return null;
+  }
+
+  int get userId {
+    return _userId;
+  }
 
   Future<void> signup(String fullName, String nationalID, String mobileNo,
       String residenceType) async {
@@ -24,11 +41,11 @@ class Auth with ChangeNotifier {
           'Residence_Type': residenceType
         },
       );
-      print(json.decode(response.body));
       final responseData = json.decode(response.body);
       if (responseData['success'] == false) {
         throw HttpException(responseData['failureMessage']);
       }
+      _userId = responseData['tbl_user']['User_ID'];
     } catch (error) {
       throw error;
     }
@@ -48,9 +65,48 @@ class Auth with ChangeNotifier {
       if (response.statusCode == 401) {
         throw HttpException('نام کاربری یا کلمه عبور صحیح نمی باشد!');
       }
-      print(response.body);
+      final responseData = json.decode(response.body);
+      _token = responseData['JWT'];
+      _expiryDate = new DateTime.fromMillisecondsSinceEpoch(
+        _parseJwt(_token)['exp'] * 1000,
+      );
+      notifyListeners();
     } catch (error) {
-      print(error);
+      throw (error);
     }
+  }
+
+  Map<String, dynamic> _parseJwt(String token) {
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      throw Exception('invalid token');
+    }
+
+    final payload = _decodeBase64(parts[1]);
+    final payloadMap = json.decode(payload);
+    if (payloadMap is! Map<String, dynamic>) {
+      throw Exception('invalid payload');
+    }
+
+    return payloadMap;
+  }
+
+  String _decodeBase64(String str) {
+    String output = str.replaceAll('-', '+').replaceAll('_', '/');
+
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw Exception('Illegal base64url string!"');
+    }
+
+    return utf8.decode(base64Url.decode(output));
   }
 }
