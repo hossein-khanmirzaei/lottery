@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottery/models/http_exception.dart';
 

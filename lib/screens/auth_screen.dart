@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 enum AuthMode { Signup, Login }
+enum ResidenceType { Kishvand, NotKishvand }
 
 class AuthScreen extends StatelessWidget {
   static const routeName = '/auth';
@@ -13,48 +12,12 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    // final transformConfig = Matrix4.rotationZ(-8 * pi / 180);
-    // transformConfig.translate(-10.0);
     return Scaffold(
       // resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
-                  Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            child: Container(
-              height: deviceSize.height,
-              width: deviceSize.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                    flex: deviceSize.width > 600 ? 2 : 1,
-                    child: AuthCard(),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: AuthCard(),
     );
   }
 }
-
-enum ResidenceType { Kishvand, NotKishvand }
 
 class AuthCard extends StatefulWidget {
   const AuthCard({
@@ -152,15 +115,11 @@ class _AuthCardState extends State<AuthCard> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 8.0,
+    return Center(
       child: Container(
         height: _authMode == AuthMode.Signup ? 320 : 260,
         constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 420 : 360),
+            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 520 : 430),
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -187,7 +146,7 @@ class _AuthCardState extends State<AuthCard> {
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'کد ملی نامعتبر!';
+                      return 'کد ملی نامعتبر است!';
                     }
                   },
                   onSaved: (value) {
@@ -200,7 +159,7 @@ class _AuthCardState extends State<AuthCard> {
                   controller: _passwordController,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'شماره موبایل نامعتبر!';
+                      return 'شماره موبایل نامعتبر است!';
                     }
                   },
                   onSaved: (value) {
@@ -241,7 +200,7 @@ class _AuthCardState extends State<AuthCard> {
                 else
                   RaisedButton(
                     child:
-                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                        Text(_authMode == AuthMode.Login ? 'ورود' : 'ثبت نام'),
                     onPressed: _submit,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -253,7 +212,7 @@ class _AuthCardState extends State<AuthCard> {
                   ),
                 FlatButton(
                   child: Text(
-                      '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                      '${_authMode == AuthMode.Login ? 'ثبت نام' : 'ورود'}'),
                   onPressed: _switchAuthMode,
                   padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

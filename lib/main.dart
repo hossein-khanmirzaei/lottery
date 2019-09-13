@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:lottery/screens/overview_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lottery/providers/auth_provider.dart';
@@ -36,14 +38,21 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale("fa", "IR"),
+            ],
+            locale: Locale("fa", "IR"),
             title: 'MyShop',
             theme: ThemeData(
               primarySwatch: Colors.purple,
               accentColor: Colors.deepOrange,
-              fontFamily: 'Lato',
+              fontFamily: 'IRANSans',
             ),
-            //home: auth.isAuth ? ProductsOverviewScreen() : AuthScreen(),
-            home: AuthScreen(),
+            home: auth.isAuth ? OverviewScreen() : AuthScreen(),
             routes: {
               // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
               // CartScreen.routeName: (ctx) => CartScreen(),
