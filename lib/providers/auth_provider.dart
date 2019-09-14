@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottery/models/http_exception.dart';
 
-class Auth with ChangeNotifier {
+class AuthProvider with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
   int _userId;
