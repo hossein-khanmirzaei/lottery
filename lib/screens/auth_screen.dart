@@ -70,12 +70,12 @@ class _AuthCardState extends State<AuthCard> {
     });
     try {
       if (_authMode == AuthMode.Login) {
-        await Provider.of<Auth>(context, listen: false).login(
+        await Provider.of<AuthProvider>(context, listen: false).login(
           _authData['National_ID'],
           _authData['Mobile_No'],
         );
       } else {
-        await Provider.of<Auth>(context, listen: false)
+        await Provider.of<AuthProvider>(context, listen: false)
             .signup(
           _authData['Full_Name'],
           _authData['National_ID'],
@@ -83,7 +83,7 @@ class _AuthCardState extends State<AuthCard> {
           _authData['Residence_Type'],
         )
             .then((_) async {
-          await Provider.of<Auth>(context, listen: false).login(
+          await Provider.of<AuthProvider>(context, listen: false).login(
             _authData['National_ID'],
             _authData['Mobile_No'],
           );
