@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/screens/card_list_screen.dart';
 import 'package:lottery/screens/gift_screen.dart';
 import 'package:lottery/screens/home_screen.dart';
 import 'package:lottery/screens/shop_screen.dart';
@@ -189,7 +190,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
                           fontSize: 16,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(CardListScreen.routeName);
+                      },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
