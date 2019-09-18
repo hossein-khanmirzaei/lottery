@@ -38,10 +38,12 @@ class _CardAddScreenState extends State<CardAddScreen> {
       _isLoading = true;
     });
     try {
-      await Provider.of<CardProvider>(context, listen: false).addCard(
-        cardTitle,
-        cardNumber,
-      );
+      await Provider.of<CardProvider>(context, listen: false)
+          .addCard(
+            cardTitle,
+            cardNumber,
+          )
+          .then((_) => Navigator.of(context).pop());
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
@@ -49,7 +51,6 @@ class _CardAddScreenState extends State<CardAddScreen> {
     }
     setState(() {
       _isLoading = false;
-      Navigator.of(context).pop();
     });
   }
 

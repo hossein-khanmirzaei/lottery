@@ -78,5 +78,5 @@ flutter:
   fonts:
     - family: IRANSans
       fonts:
-        - asset: assets/fonts/IRANSansMobile.ttf
-        - asset: assets/fonts/IRANSansMobile_Bold.ttf
+        - asset: assets/fonts/IRANSansMobile(FaNum).ttf
+        - asset: assets/fonts/IRANSansMobile(FaNum)_Bold.ttf
