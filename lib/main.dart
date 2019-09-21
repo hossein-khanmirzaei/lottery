@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:lottery/providers/card_provider.dart';
+import 'package:lottery/providers/credit_card_provider.dart';
 import 'package:lottery/providers/overview_provider.dart';
 import 'package:lottery/providers/transaction_provider.dart';
-import 'package:lottery/screens/card_add_screen.dart';
-import 'package:lottery/screens/card_list_screen.dart';
+import 'package:lottery/screens/credit_card_screen.dart';
 import 'package:lottery/screens/overview_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth_provider.dart';
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
           value: TransactionProvider(),
         ),
         ChangeNotifierProvider.value(
-          value: CardProvider(),
+          value: CreditCardProvider(),
         ),
       ],
       child: Consumer<AuthProvider>(
@@ -48,8 +47,7 @@ class MyApp extends StatelessWidget {
             home: OverviewScreen(),
             routes: {
               // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-              CardListScreen.routeName: (ctx) => CardListScreen(),
-              CardAddScreen.routeName: (ctx) => CardAddScreen(),
+              CreditCardScreen.routeName: (ctx) => CreditCardScreen(),
               // OrdersScreen.routeName: (ctx) => OrdersScreen(),
               // UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
               // EditProductScreen.routeName: (ctx) => EditProductScreen(),

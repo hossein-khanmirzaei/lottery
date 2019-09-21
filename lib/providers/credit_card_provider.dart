@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottery/models/credit_card.dart';
 import 'package:lottery/models/http_exception.dart';
 
-class CardProvider with ChangeNotifier {
-  var _cardList = [];
+class CreditCardProvider with ChangeNotifier {
+  List<CreditCard> _cardList = [];
 
   List get cardList {
     return _cardList;
@@ -30,7 +30,15 @@ class CardProvider with ChangeNotifier {
       if (responseData['success'] == false) {
         throw HttpException(responseData['failureMessage']);
       }
-      _cardList = responseData['tbl_user_card'];
+      cardList.clear();
+      (responseData['tbl_user_card'] as List).map((card) {
+        _cardList.add(CreditCard(
+          id: int.parse(card['Card_ID']),
+          title: card['Card_Title'],
+          status: int.parse(card['Status']),
+          cardNumber: card['Card_Number'],
+        ));
+      }).toList();
       notifyListeners();
     } catch (error) {
       print(error);
@@ -60,7 +68,12 @@ class CardProvider with ChangeNotifier {
       if (responseData['success'] == false) {
         throw HttpException(responseData['failureMessage']);
       }
-      print(responseData['tbl_user_card']['Card_ID']);
+      _cardList.add(CreditCard(
+        id: responseData['tbl_user_card']['Card_ID'],
+        title: responseData['tbl_user_card']['Card_Title'],
+        status: responseData['tbl_user_card']['Status'],
+        cardNumber: responseData['tbl_user_card']['Card_Number'],
+      ));
       notifyListeners();
     } catch (error) {
       print(error);

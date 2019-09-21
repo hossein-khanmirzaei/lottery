@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-class Card {
+class CreditCard {
   int id;
   int status;
   String title;
   String cardNumber;
-  Card({
+  CreditCard({
     @required this.id,
     this.status = 1,
     @required this.title,
