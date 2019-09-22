@@ -47,7 +47,7 @@ class CreditCardList extends StatelessWidget {
                         creditCards[index].cardNumber,
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.edit),
                         color: Theme.of(context).errorColor,
                         onPressed: () =>
                             deleteCreditCard(creditCards[index].id),

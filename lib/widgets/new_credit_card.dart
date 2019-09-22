@@ -28,10 +28,15 @@ class _NewCreditCardState extends State<NewCreditCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
+    return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.all(10),
+        //height: MediaQuery.of(context).size.height * .4,
+        padding: EdgeInsets.only(
+          top: 20,
+          left: 20,
+          right: 20,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
