@@ -28,7 +28,7 @@ class CreditCardList extends StatelessWidget {
                   return Card(
                     elevation: 5,
                     margin: EdgeInsets.symmetric(
-                      vertical: 8,
+                      vertical: 5,
                       horizontal: 5,
                     ),
                     child: ListTile(
@@ -41,7 +41,7 @@ class CreditCardList extends StatelessWidget {
                       ),
                       title: Text(
                         creditCards[index].title,
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme.of(context).textTheme.subhead,
                       ),
                       subtitle: Text(
                         creditCards[index].cardNumber,

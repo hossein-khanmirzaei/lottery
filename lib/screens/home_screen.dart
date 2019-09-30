@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/widgets/transaction_list.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/transaction_provider.dart';
 
@@ -57,16 +58,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: _transactionList.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(_transactionList[index]['User_Purchase_ID']),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider();
-      },
-    );
+    return TransactionList(_transactionList, null);
+    // ListView.separated(
+    //   itemCount: _transactionList.length,
+    //   itemBuilder: (context, index) {
+    //     return ListTile(
+    //       title: Text(_transactionList[index]['User_Purchase_ID']),
+    //     );
+    //   },
+    //   separatorBuilder: (context, index) {
+    //     return Divider();
+    //   },
+    // );
   }
 }

@@ -97,23 +97,22 @@ class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(200.0),
-        child: AppBar(
-          leading: IconButton(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {},
+        ),
+        actions: [
+          IconButton(
             icon: Icon(Icons.notifications),
             onPressed: () {},
           ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {},
-            ),
-          ],
-          flexibleSpace: Column(
+        ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(150),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 60.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -135,7 +134,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 25.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -157,54 +156,28 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  ButtonTheme(
-                    minWidth: 120.0,
-                    child: RaisedButton(
-                      child: Text(
-                        "افزودن کارت",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                      color: Colors.green,
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
+              SizedBox(height: 15.0),
+              ButtonTheme(
+                minWidth: 120.0,
+                child: RaisedButton(
+                  child: Text(
+                    "مدیریت کارت",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
                     ),
                   ),
-                  ButtonTheme(
-                    minWidth: 120.0,
-                    child: OutlineButton(
-                      child: Text(
-                        "لیست کارت ها",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(CreditCardScreen.routeName);
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                        style: BorderStyle.solid,
-                        width: 0.8,
-                      ),
-                    ),
+                  color: Colors.green,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(CreditCardScreen.routeName);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                ],
+                ),
               ),
+              SizedBox(height: 15.0),
             ],
           ),
         ),
