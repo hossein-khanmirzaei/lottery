@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottery/models/credit_card.dart';
+import 'package:lottery/models/creditcard.dart';
 
 class CreditCardList extends StatelessWidget {
   final List<CreditCard> creditCards;

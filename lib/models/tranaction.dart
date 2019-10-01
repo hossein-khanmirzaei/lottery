@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Transaction {
   int id;
   String date;
-  TimeOfDay time = TimeOfDay(hour: 12, minute: 10);
+  String time;
   double originalAmount;
   String pan1;
   int buyerID;

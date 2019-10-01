@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:lottery/models/credit_card.dart';
+import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
 
 class CreditCardProvider with ChangeNotifier {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lottery/models/credit_card.dart';
+import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/providers/credit_card_provider.dart';
+import 'package:lottery/providers/creditcards.dart';
 import 'package:lottery/widgets/credit_card_list.dart';
 import 'package:lottery/widgets/new_credit_card.dart';
 import 'package:provider/provider.dart';

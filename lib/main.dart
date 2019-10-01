@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:lottery/providers/credit_card_provider.dart';
+import 'package:lottery/providers/creditcards.dart';
 import 'package:lottery/providers/overview_provider.dart';
-import 'package:lottery/providers/transaction_provider.dart';
+import 'package:lottery/providers/transactions.dart';
 import 'package:lottery/screens/credit_card_screen.dart';
 import 'package:lottery/screens/overview_screen.dart';
 import 'package:provider/provider.dart';

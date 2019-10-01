@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/models/tranaction.dart';
 import 'package:lottery/widgets/transaction_list.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/transaction_provider.dart';
+import 'package:lottery/providers/transactions.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,7 +11,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List _transactionList = [];
+  List<Transaction> _transactions = [];
+  var _isLoading = false;
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -31,22 +33,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _getTransactionList() async {
-    // setState(() {
-    //   _isLoading = true;
-    // });
+    setState(() {
+      _isLoading = true;
+    });
     try {
       await Provider.of<TransactionProvider>(context, listen: false)
-          .getTransactionList();
+          .fetchTransactions();
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      _transactionList =
-          Provider.of<TransactionProvider>(context, listen: false)
-              .transactionList;
-      // _isLoading = false;
+      _transactions =
+          Provider.of<TransactionProvider>(context, listen: false).transactions;
+      _isLoading = false;
     });
   }
 
@@ -58,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return TransactionList(_transactionList, null);
+    return _isLoading ? Center(child: CircularProgressIndicator()) : TransactionList(_transactions, null);
     // ListView.separated(
     //   itemCount: _transactionList.length,
     //   itemBuilder: (context, index) {

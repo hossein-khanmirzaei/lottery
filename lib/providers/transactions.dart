@@ -2,26 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/models/tranaction.dart';
 
 class TransactionProvider with ChangeNotifier {
-  // String _totalCredit;
-  // String _totalPayment;
+  List<Transaction> _transactions = [];
 
-  // String get totalCredit {
-  //   return _totalCredit;
-  // }
-
-  // String get totalPayment {
-  //   return _totalPayment;
-  // }
-  var _transactionList;
-
-  List get transactionList {
-    return _transactionList;
+  List<Transaction> get transactions {
+    return _transactions;
   }
 
-  Future<void> getTransactionList() async {
+  Future<void> fetchTransactions() async {
+    final List<Transaction> loadedTransactions = [];
     final url = 'http://37.156.29.144/sosanpay/api/index.php';
     try {
       final response = await http.post(
@@ -37,11 +30,23 @@ class TransactionProvider with ChangeNotifier {
         },
       );
       final responseData = json.decode(response.body);
-      if (responseData['success'] == false) {
+      if (!responseData['success']) {
         throw HttpException(responseData['failureMessage']);
       }
-      _transactionList = responseData['tbl_user_purchase'];
-      print(_transactionList);
+      (responseData['tbl_user_purchase'] as List<dynamic>).forEach((p) {
+        loadedTransactions.add(Transaction(
+          id: int.parse(p['User_Purchase_ID']),
+          date: p['Transaction_Date'],
+          time: p['Transaction_Time'],
+          originalAmount: double.parse(p['OriginalAmount']),
+          pan1: p['PAN1'],
+          buyerID: int.parse(p['Buyer_ID']),
+          sellerID: int.parse(p['Seller_ID']),
+          mall: int.parse(p['Mall']),
+          confirm: int.parse(p['Confirm']),
+        ));
+      });
+      _transactions = loadedTransactions;
       notifyListeners();
     } catch (error) {
       print(error);
