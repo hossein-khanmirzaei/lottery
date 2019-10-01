@@ -10,7 +10,7 @@ class TransactionProvider with ChangeNotifier {
   List<Transaction> _transactions = [];
 
   List<Transaction> get transactions {
-    return _transactions;
+    return [..._transactions];
   }
 
   Future<void> fetchTransactions() async {

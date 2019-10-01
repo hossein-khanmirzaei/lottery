@@ -7,11 +7,12 @@ import 'package:lottery/models/http_exception.dart';
 class CreditCardProvider with ChangeNotifier {
   List<CreditCard> _cardList = [];
 
-  List get cardList {
-    return _cardList;
+  List<CreditCard> get cardList {
+    return [..._cardList];
   }
 
   Future<void> getCardList() async {
+    final List<CreditCard> loadedCreditcards = [];
     final url = 'http://37.156.29.144/sosanpay/api/index.php';
     try {
       final response = await http.post(
@@ -30,15 +31,15 @@ class CreditCardProvider with ChangeNotifier {
       if (responseData['success'] == false) {
         throw HttpException(responseData['failureMessage']);
       }
-      cardList.clear();
       (responseData['tbl_user_card'] as List).map((card) {
-        _cardList.add(CreditCard(
+        loadedCreditcards.add(CreditCard(
           id: int.parse(card['Card_ID']),
           title: card['Card_Title'],
           status: int.parse(card['Status']),
           cardNumber: card['Card_Number'],
         ));
       }).toList();
+      _cardList = loadedCreditcards;
       notifyListeners();
     } catch (error) {
       print(error);

@@ -11,7 +11,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
+    //final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: AuthCard(),
@@ -129,6 +129,7 @@ class _AuthCardState extends State<AuthCard> {
               children: <Widget>[
                 if (_authMode == AuthMode.Signup)
                   TextFormField(
+                    key: UniqueKey(),
                     decoration:
                         InputDecoration(labelText: 'نام و نام خانوادگی'),
                     keyboardType: TextInputType.text,
@@ -142,6 +143,7 @@ class _AuthCardState extends State<AuthCard> {
                     },
                   ),
                 TextFormField(
+                  key: UniqueKey(),
                   decoration: InputDecoration(labelText: 'کد ملی'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
@@ -154,6 +156,7 @@ class _AuthCardState extends State<AuthCard> {
                   },
                 ),
                 TextFormField(
+                  key: UniqueKey(),
                   decoration: InputDecoration(labelText: 'شماره موبایل'),
                   obscureText: false,
                   controller: _passwordController,
