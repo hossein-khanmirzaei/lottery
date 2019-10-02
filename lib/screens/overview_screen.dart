@@ -6,7 +6,7 @@ import 'package:lottery/screens/home_screen.dart';
 import 'package:lottery/screens/shop_screen.dart';
 import 'package:lottery/screens/tranaction_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/overview_provider.dart';
+import 'package:lottery/providers/overview.dart';
 
 class OverviewScreen extends StatefulWidget {
   @override
@@ -58,13 +58,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
       await Provider.of<OverviewProvider>(context, listen: false)
           .getTotalCredit('2755533528');
     } on HttpException catch (error) {
-      _showErrorDialog(error.toString());
+      //_showErrorDialog(error.toString());
     } catch (error) {
-      _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
+      //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
       _totalCredit =
-          Provider.of<OverviewProvider>(context, listen: false).totalCredit;
+          Provider.of<OverviewProvider>(context).totalCredit;
       // _isLoading = false;
     });
   }
@@ -77,13 +77,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
       await Provider.of<OverviewProvider>(context, listen: false)
           .getTotalPayment('2755533528');
     } on HttpException catch (error) {
-      _showErrorDialog(error.toString());
+      //_showErrorDialog(error.toString());
     } catch (error) {
-      _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
+      //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
       _totalPayment =
-          Provider.of<OverviewProvider>(context, listen: false).totalPayment;
+          Provider.of<OverviewProvider>(context).totalPayment;
       // _isLoading = false;
     });
   }
@@ -138,22 +138,32 @@ class _OverviewScreenState extends State<OverviewScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(
-                    _totalCredit,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(
-                    _totalPayment,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
+                  _totalCredit != null
+                      ? Text(
+                          _totalCredit,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        )
+                      : Icon(
+                          Icons.block,
+                          color: Colors.white54,
+                        ),
+                  _totalPayment != null
+                      ? Text(
+                          _totalPayment,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        )
+                      : Icon(
+                          Icons.block,
+                          color: Colors.white54,
+                        ),
                 ],
               ),
               SizedBox(height: 15.0),

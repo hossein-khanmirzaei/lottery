@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/providers/auth_provider.dart';
+import 'package:lottery/providers/auth.dart';
+import 'package:lottery/screens/login.dart';
+import 'package:lottery/screens/signup.dart';
 import 'package:provider/provider.dart';
 
 enum AuthMode { Signup, Login }
@@ -9,12 +11,68 @@ enum ResidenceType { Kishvand, NotKishvand }
 class AuthScreen extends StatelessWidget {
   static const routeName = '/auth';
 
-  @override
   Widget build(BuildContext context) {
-    //final deviceSize = MediaQuery.of(context).size;
+    final deviceSize = MediaQuery.of(context).size;
+    AuthMode _authMode = AuthMode.Login;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
-      body: AuthCard(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            InkWell(
+              onTap: () => Navigator.of(context).pushNamed(LoginScreen.routeName),
+              child: Container(
+                //width: 100.0,
+                height: 50.0,
+                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor, // Colors.blueAccent,
+                  border: Border.all(
+                    color: Theme.of(context).accentColor, //Colors.white54,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: Text(
+                    'ورود',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Theme.of(context).accentColor, //Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => Navigator.of(context).pushNamed(SignupScreen.routeName),
+              child: Container(
+                //width: 100.0,
+                height: 50.0,
+                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  border: Border.all(
+                    color: Theme.of(context).accentColor, //Colors.white54,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: Text(
+                    'ثبت نام',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Theme.of(context).accentColor, //Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
