@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.purple,
               accentColor: Colors.white,
-              canvasColor: Colors.white54,
+              canvasColor: Colors.white70,
               fontFamily: 'IRANSans',
             ),
             home: auth.isAuth ? OverviewScreen() : AuthScreen(),
