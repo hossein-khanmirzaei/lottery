@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lottery/providers/creditcards.dart';
 import 'package:lottery/providers/overview.dart';
 import 'package:lottery/providers/transactions.dart';
-import 'package:lottery/screens/auth_screen.dart';
+import 'package:lottery/screens/intro.dart';
 import 'package:lottery/screens/credit_card_screen.dart';
 import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/overview_screen.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
               canvasColor: Colors.white70,
               fontFamily: 'IRANSans',
             ),
-            home: auth.isAuth ? OverviewScreen() : AuthScreen(),
+            home: auth.isAuth ? OverviewScreen() : IntroScreen(),
             //home: AuthScreen(),
             routes: {
               // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),

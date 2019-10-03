@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottery/widgets/custome_textfield.dart';
 
 enum ResidenceType { kishvand, passenger }
 
@@ -26,26 +25,140 @@ class _SignupScreenState extends State<SignupScreen> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  CustomTextField(
-                    icon: Icon(Icons.person),
-                    hint: 'نام و نام خانوادگی',
-                    onSaved: null,
-                    keyboardType: TextInputType.number,
-                    validator: null,
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: TextFormField(
+                      onSaved: (value) {},
+                      validator: (value) {},
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.black26,
+                          ),
+                          hintText: 'نام و نام خانوادگی',
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 3,
+                            ),
+                          ),
+                          prefixIcon: Padding(
+                            child: IconTheme(
+                              data: IconThemeData(
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
+                              child: Icon(Icons.person),
+                            ),
+                            padding: EdgeInsets.only(left: 0, right: 25),
+                          )),
+                    ),
                   ),
-                  CustomTextField(
-                    icon: Icon(Icons.info),
-                    hint: 'کد ملی',
-                    obsecure: false,
-                    onSaved: null,
-                    validator: null,
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: TextFormField(
+                      onSaved: (value) {},
+                      validator: (value) {},
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.black26,
+                          ),
+                          hintText: 'کد ملی',
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 3,
+                            ),
+                          ),
+                          prefixIcon: Padding(
+                            child: IconTheme(
+                              data: IconThemeData(
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
+                              child: Icon(Icons.info),
+                            ),
+                            padding: EdgeInsets.only(left: 0, right: 25),
+                          )),
+                    ),
                   ),
-                  CustomTextField(
-                    icon: Icon(Icons.phone),
-                    hint: 'شماره موبایل',
-                    obsecure: false,
-                    onSaved: null,
-                    validator: null,
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: TextFormField(
+                      onSaved: (value) {},
+                      validator: (value) {},
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.black26,
+                          ),
+                          hintText: 'شماره موبایل',
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 3,
+                            ),
+                          ),
+                          prefixIcon: Padding(
+                            child: IconTheme(
+                              data: IconThemeData(
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
+                              child: Icon(Icons.phone),
+                            ),
+                            padding: EdgeInsets.only(left: 0, right: 25),
+                          )),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

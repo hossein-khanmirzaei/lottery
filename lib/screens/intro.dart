@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:lottery/models/http_exception.dart';
 
-import 'package:lottery/providers/auth.dart';
 import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/signup.dart';
 
 enum AuthMode { Signup, Login }
 enum ResidenceType { Kishvand, NotKishvand }
 
-class AuthScreen extends StatelessWidget {
-  static const routeName = '/auth';
+class IntroScreen extends StatelessWidget {
+  static const routeName = '/intro';
 
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
-    AuthMode _authMode = AuthMode.Login;
+    //final deviceSize = MediaQuery.of(context).size;
+    //AuthMode _authMode = AuthMode.Login;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: Center(
