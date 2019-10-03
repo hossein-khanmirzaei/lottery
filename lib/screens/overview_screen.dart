@@ -5,10 +5,12 @@ import 'package:lottery/screens/gift_screen.dart';
 import 'package:lottery/screens/home_screen.dart';
 import 'package:lottery/screens/shop_screen.dart';
 import 'package:lottery/screens/tranaction_screen.dart';
+import 'package:lottery/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/overview.dart';
 
 class OverviewScreen extends StatefulWidget {
+  static const routeName = '/overview';
   @override
   _OverviewScreenState createState() => _OverviewScreenState();
 }
@@ -63,8 +65,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      _totalCredit =
-          Provider.of<OverviewProvider>(context).totalCredit;
+      _totalCredit = Provider.of<OverviewProvider>(context).totalCredit;
       // _isLoading = false;
     });
   }
@@ -82,8 +83,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      _totalPayment =
-          Provider.of<OverviewProvider>(context).totalPayment;
+      _totalPayment = Provider.of<OverviewProvider>(context).totalPayment;
       // _isLoading = false;
     });
   }
@@ -193,6 +193,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
         ),
       ),
       body: _children[_currentIndex],
+      drawer: AppDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: onTabTapped,
