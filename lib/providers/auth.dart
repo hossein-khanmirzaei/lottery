@@ -80,6 +80,27 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  Future<void> sendVerificationCode(String nationalID, String mobileNo, String verificationCode) async {
+    const url = 'http://37.156.29.144/sosanpay/api/index.php';
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'action': 'verify_mobile',
+          'user': nationalID,
+          'verify_code': verificationCode,
+        },
+      );
+      final responseData = json.decode(response.body);
+      if (responseData == false) {
+        throw HttpException(responseData['failureMessage']);
+      }
+      login(nationalID, mobileNo);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   Future<bool> tryAutoLogin() async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) {

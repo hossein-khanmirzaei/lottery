@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottery/widgets/verification_input.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lottery/providers/auth.dart';
@@ -34,6 +35,17 @@ class _SignupScreenState extends State<SignupScreen> {
     try {
       await Provider.of<AuthProvider>(context, listen: false).signup(_fullname,
           _nationalCode, _mobileNumber, (_residenceType.index + 1).toString());
+
+      await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: VerificationCodeInput(_nationalCode, _mobileNumber),
+          );
+        },
+      );
+
       Navigator.of(context).pop();
     } catch (error) {
       _showErrorDialog(error.toString());
