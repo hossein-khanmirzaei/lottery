@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
+import 'package:lottery/screens/verification.dart';
 import 'package:lottery/widgets/verification_input.dart';
 import 'package:provider/provider.dart';
 
@@ -33,20 +35,12 @@ class _SignupScreenState extends State<SignupScreen> {
       _isLoading = true;
     });
     try {
-      await Provider.of<AuthProvider>(context, listen: false).signup(_fullname,
-          _nationalCode, _mobileNumber, (_residenceType.index + 1).toString());
+      // await Provider.of<AuthProvider>(context, listen: false).signup(_fullname,
+      //     _nationalCode, _mobileNumber, (_residenceType.index + 1).toString());
 
-      await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: VerificationCodeInput(_nationalCode, _mobileNumber),
-          );
-        },
-      );
+      await Navigator.of(context).pushNamed(VerificationScreen.routeName);
 
-      Navigator.of(context).pop();
+      //Navigator.of(context).pop();
     } catch (error) {
       _showErrorDialog(error.toString());
       print(error);
@@ -99,8 +93,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 Column(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: MediaQuery.of(context).size.width / 10,
+                      ),
                       child: TextFormField(
                         onSaved: (value) {
                           _fullname = value;
@@ -156,8 +152,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: MediaQuery.of(context).size.width / 10,
+                      ),
                       child: TextFormField(
                         onSaved: (value) {
                           _nationalCode = value;
@@ -214,8 +212,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: MediaQuery.of(context).size.width / 10,
+                      ),
                       child: TextFormField(
                         onSaved: (value) {
                           _mobileNumber = value;
@@ -273,6 +273,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Row(
                           children: <Widget>[
                             Radio(
+                              activeColor: Theme.of(context).primaryColor,
                               value: ResidenceType.kishvand,
                               groupValue: _residenceType,
                               onChanged: (ResidenceType value) {
@@ -292,6 +293,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Row(
                           children: <Widget>[
                             Radio(
+                              activeColor: Theme.of(context).primaryColor,
                               value: ResidenceType.passenger,
                               groupValue: _residenceType,
                               onChanged: (ResidenceType value) {
@@ -315,35 +317,64 @@ class _SignupScreenState extends State<SignupScreen> {
                             padding: EdgeInsets.symmetric(vertical: 17),
                             child: CircularProgressIndicator(),
                           )
-                        : InkWell(
-                            onTap: _submitForm,
-                            child: Container(
-                              //width: 100.0,
-                              height: 50.0,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 25, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .primaryColor, // Colors.blueAccent,
-                                border: Border.all(
-                                  color: Theme.of(context)
-                                      .accentColor, //Colors.white54,
-                                  width: 2.0,
+                        : Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width / 10,
+                                vertical: 10),
+                            child: RaisedButton(
+                              onPressed: _submitForm,
+                              child: Text(
+                                "ثبت نام",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              color: Theme.of(context).primaryColor,
+                              textColor: Theme.of(context).accentColor,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 15,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Theme.of(context).accentColor,
+                                  width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              child: Center(
-                                child: Text(
-                                  'ثبت نام',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Theme.of(context)
-                                        .accentColor, //Colors.white,
-                                  ),
-                                ),
-                              ),
                             ),
                           ),
+                    // InkWell(
+                    //                 onTap: _submitForm,
+                    //                 child: Container(
+                    //                   //width: 100.0,
+                    //                   height: 50.0,
+                    //                   margin: EdgeInsets.symmetric(
+                    //                       horizontal: 25, vertical: 10),
+                    //                   decoration: BoxDecoration(
+                    //                     color: Theme.of(context)
+                    //                         .primaryColor, // Colors.blueAccent,
+                    //                     border: Border.all(
+                    //                       color: Theme.of(context)
+                    //                           .accentColor, //Colors.white54,
+                    //                       width: 2.0,
+                    //                     ),
+                    //                     borderRadius: BorderRadius.circular(30),
+                    //                   ),
+                    //                   child: Center(
+                    //                     child: Text(
+                    //                       'ثبت نام',
+                    //                       style: TextStyle(
+                    //                         fontSize: 18.0,
+                    //                         color: Theme.of(context)
+                    //                             .accentColor, //Colors.white,
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ),
                   ],
                 )
               ],

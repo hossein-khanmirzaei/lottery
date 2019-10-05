@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-
-import 'package:lottery/providers/auth.dart';
 
 class VerificationCodeInput extends StatefulWidget {
-  final String nationalCode;
-  final String mobileNumber;
-  VerificationCodeInput(this.nationalCode, this.mobileNumber);
+  final Function _submitCode;
+  VerificationCodeInput(this._submitCode);
 
   @override
   _VerificationCodeInputState createState() => _VerificationCodeInputState();
 }
 
 class _VerificationCodeInputState extends State<VerificationCodeInput> {
-  var _isLoading = false;
-
+  var _isCodeReady = false;
   final FocusNode _firstNumberFocusNode = FocusNode();
   final FocusNode _secondNumberFocusNode = FocusNode();
   final FocusNode _thirdNumberFocusNode = FocusNode();
@@ -47,73 +42,32 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
     super.dispose();
   }
 
-  _submitCode() async {
+  void _checkCode() {
     var code = _firstController.text +
         _secondController.text +
         _thirdController.text +
         _fourthController.text +
         _fifthController.text +
         _sixthController.text;
-    if (int.tryParse(code) == null) return;
-    //final isValid = _form.currentState.validate();
-    //if (!isValid) {
-    //  return null;
-    //}
-    //_form.currentState.save();
     setState(() {
-      _isLoading = true;
+      _isCodeReady =
+          int.tryParse(code) == null || code.length < 6 ? false : true;
     });
-    try {
-      await Provider.of<AuthProvider>(context, listen: false)
-          .sendVerificationCode(widget.nationalCode, widget.mobileNumber, code);
-
-      Navigator.of(context).pop();
-    } catch (error) {
-      _showErrorDialog(error.toString());
-      print(error);
-    }
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('خطا!'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            textColor: Theme.of(context).accentColor,
-            color: Theme.of(context).primaryColor,
-            child: Text('بستن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      //scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.horizontal,
       child: Column(
-        children: [
-          Text("کد فعال سازی"),
-          SizedBox(
-            height: 25,
-          ),
+        children: <Widget>[
           Row(
             textDirection: TextDirection.ltr,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 30,
                 child: TextField(
                   autofocus: true,
@@ -134,6 +88,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                       FocusScope.of(context)
                           .requestFocus(_secondNumberFocusNode);
                     }
+                    _checkCode();
                   },
                   // onSubmitted: (String value) {
                   //   FocusScope.of(context).requestFocus(_secondNumberFocusNode);
@@ -141,7 +96,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 30,
                 child: TextField(
                   style: TextStyle(fontSize: 24),
@@ -164,6 +119,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                       FocusScope.of(context)
                           .requestFocus(_thirdNumberFocusNode);
                     }
+                    _checkCode();
                   },
                   // onSubmitted: (String value) {
                   //   FocusScope.of(context).requestFocus(_thirdNumberFocusNode);
@@ -171,7 +127,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 30,
                 child: TextField(
                   style: TextStyle(fontSize: 24),
@@ -195,6 +151,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                       FocusScope.of(context)
                           .requestFocus(_fourthNumberFocusNode);
                     }
+                    _checkCode();
                   },
                   // onSubmitted: (String value) {
                   //   FocusScope.of(context).requestFocus(_fourthNumberFocusNode);
@@ -202,7 +159,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 30,
                 child: TextField(
                   style: TextStyle(fontSize: 24),
@@ -225,6 +182,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                       FocusScope.of(context)
                           .requestFocus(_fifthNumberFocusNode);
                     }
+                    _checkCode();
                   },
                   // onSubmitted: (String value) {
                   //   FocusScope.of(context).requestFocus(_fifthNumberFocusNode);
@@ -232,7 +190,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 30,
                 child: TextField(
                   style: TextStyle(fontSize: 24),
@@ -255,6 +213,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                       FocusScope.of(context)
                           .requestFocus(_sixthNumberFocusNode);
                     }
+                    _checkCode();
                   },
                   // onSubmitted: (String value) {
                   //   FocusScope.of(context).requestFocus(_fifthNumberFocusNode);
@@ -262,7 +221,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 30,
                 child: TextField(
                   style: TextStyle(fontSize: 24),
@@ -285,6 +244,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
                       _sixthController.text = tmp;
                       FocusScope.of(context).unfocus();
                     }
+                    _checkCode();
                   },
                   //onSubmitted: (String value) {},
                 ),
@@ -292,38 +252,54 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
             ],
           ),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
-          _isLoading
-              ? Container(
-                  padding: EdgeInsets.symmetric(vertical: 17),
-                  child: CircularProgressIndicator(),
-                )
-              : InkWell(
-                  onTap: _submitCode,
-                  child: Container(
-                    //width: 100.0,
-                    height: 50.0,
-                    margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                    decoration: BoxDecoration(
-                      //color: Theme.of(context).primaryColor, // Colors.blueAccent,
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor, //Colors.white54,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'ارسال',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Theme.of(context).primaryColor, //Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+          Container(
+            width: MediaQuery.of(context).size.width / 2,
+            margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 10,
+                vertical: 10),
+            child: RaisedButton(
+              onPressed: _isCodeReady ? widget._submitCode : null,
+              child: Text(
+                "تایید",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal,
                 ),
+              ),
+              color: Theme.of(context).primaryColor,
+              textColor: Theme.of(context).accentColor,
+              padding: EdgeInsets.symmetric(
+                vertical: 15,
+              ),
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Theme.of(context).accentColor,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 2,
+            margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 10,
+                vertical: 10),
+            child: OutlineButton(
+              onPressed: null,
+              child: Text(
+                "درخواست مجدد کد",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              textColor: Theme.of(context).primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 15),
+              borderSide:
+                  BorderSide(color: Theme.of(context).primaryColor, width: 2),
+              shape: StadiumBorder(),
+            ),
+          ),
         ],
       ),
     );

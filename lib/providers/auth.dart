@@ -10,6 +10,9 @@ class AuthProvider with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
   int _userId;
+  String _userNationalCode;
+  String _userMobileNo;
+  int _userResidenceType;
   Timer _authTimer;
 
   bool get isAuth {
@@ -27,6 +30,18 @@ class AuthProvider with ChangeNotifier {
 
   int get userId {
     return _userId;
+  }
+
+  String get userNationalCode {
+    return _userNationalCode;
+  }
+
+  String get userMobileNo {
+    return _userMobileNo;
+  }
+
+  int get userResidenceType {
+    return _userResidenceType;
   }
 
   Future<void> signup(String fullName, String nationalID, String mobileNo,
@@ -48,7 +63,10 @@ class AuthProvider with ChangeNotifier {
       if (responseData['success'] == false) {
         throw HttpException(responseData['failureMessage']);
       }
-      //_userId = responseData['tbl_user']['User_ID'];
+      _userId = responseData['tbl_user']['User_ID'];
+      _userNationalCode = responseData['tbl_user']['National_ID'];
+      _userMobileNo = responseData['tbl_user']['Mobile_No'];
+      _userResidenceType = responseData['tbl_user']['Residence_Type'];
     } catch (error) {
       throw error;
     }
@@ -80,7 +98,8 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> sendVerificationCode(String nationalID, String mobileNo, String verificationCode) async {
+  Future<void> sendVerificationCode(
+      String nationalID, String mobileNo, String verificationCode) async {
     const url = 'http://37.156.29.144/sosanpay/api/index.php';
     try {
       final response = await http.post(
@@ -93,7 +112,7 @@ class AuthProvider with ChangeNotifier {
       );
       final responseData = json.decode(response.body);
       if (responseData == false) {
-        throw HttpException(responseData['failureMessage']);
+        throw HttpException("کد ارسالی نادرست است!");
       }
       login(nationalID, mobileNo);
     } catch (error) {

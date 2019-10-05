@@ -82,8 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Column(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: MediaQuery.of(context).size.width / 10,
+                      ),
                       child: TextFormField(
                         onSaved: (value) {
                           _username = value;
@@ -139,8 +141,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: MediaQuery.of(context).size.width / 10,
+                      ),
                       child: TextFormField(
                         onSaved: (value) {
                           _password = value;
@@ -150,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         validator: (value) {
                           if (value.isEmpty || value == null) {
-                            return "لطفا پسورد را وارد کنید!";
+                            return "لطفا کلمه عبور را وارد کنید!";
                           }
                           return null;
                         },
@@ -201,35 +205,64 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: EdgeInsets.symmetric(vertical: 17),
                             child: CircularProgressIndicator(),
                           )
-                        : InkWell(
-                            onTap: _submitForm,
-                            child: Container(
-                              //width: 100.0,
-                              height: 50.0,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 25, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .primaryColor, // Colors.blueAccent,
-                                border: Border.all(
-                                  color: Theme.of(context)
-                                      .accentColor, //Colors.white54,
-                                  width: 2.0,
+                        : Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width / 10,
+                                vertical: 10),
+                            child: RaisedButton(
+                              onPressed: _submitForm,
+                              child: Text(
+                                "ثبت نام",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              color: Theme.of(context).primaryColor,
+                              textColor: Theme.of(context).accentColor,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 15,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Theme.of(context).accentColor,
+                                  width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              child: Center(
-                                child: Text(
-                                  'ورود',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Theme.of(context)
-                                        .accentColor, //Colors.white,
-                                  ),
-                                ),
-                              ),
                             ),
                           ),
+                    // InkWell(
+                    //   onTap: _submitForm,
+                    //   child: Container(
+                    //     //width: 100.0,
+                    //     height: 50.0,
+                    //     margin: EdgeInsets.symmetric(
+                    //         horizontal: 25, vertical: 10),
+                    //     decoration: BoxDecoration(
+                    //       color: Theme.of(context)
+                    //           .primaryColor, // Colors.blueAccent,
+                    //       border: Border.all(
+                    //         color: Theme.of(context)
+                    //             .accentColor, //Colors.white54,
+                    //         width: 2.0,
+                    //       ),
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //     child: Center(
+                    //       child: Text(
+                    //         'ورود',
+                    //         style: TextStyle(
+                    //           fontSize: 18.0,
+                    //           color: Theme.of(context)
+                    //               .accentColor, //Colors.white,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 )
               ],

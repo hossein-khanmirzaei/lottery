@@ -18,55 +18,61 @@ class StartScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            InkWell(
-              onTap: () =>
-                  Navigator.of(context).pushNamed(LoginScreen.routeName),
-              child: Container(
-                //width: 100.0,
-                height: 50.0,
-                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor, // Colors.blueAccent,
-                  border: Border.all(
-                    color: Theme.of(context).accentColor, //Colors.white54,
-                    width: 2.0,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 10,
+                  vertical: 10),
+              child: RaisedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(LoginScreen.routeName),
+                child: Text(
+                  "ورود",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
                   ),
-                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: Center(
-                  child: Text(
-                    'ورود',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Theme.of(context).accentColor, //Colors.white,
-                    ),
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).accentColor,
+                padding: EdgeInsets.symmetric(
+                  vertical: 15,
+                ),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).accentColor,
+                    width: 2,
                   ),
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
             ),
-            InkWell(
-              onTap: () =>
-                  Navigator.of(context).pushNamed(SignupScreen.routeName),
-              child: Container(
-                //width: 100.0,
-                height: 50.0,
-                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  border: Border.all(
-                    color: Theme.of(context).accentColor, //Colors.white54,
-                    width: 2.0,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 10,
+                  vertical: 10),
+              child: RaisedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(SignupScreen.routeName),
+                child: Text(
+                  "ثبت نام",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
                   ),
-                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: Center(
-                  child: Text(
-                    'ثبت نام',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Theme.of(context).accentColor, //Colors.white,
-                    ),
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).accentColor,
+                padding: EdgeInsets.symmetric(
+                  vertical: 15,
+                ),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).accentColor,
+                    width: 2,
                   ),
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
             ),
