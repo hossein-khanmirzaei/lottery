@@ -214,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: RaisedButton(
                               onPressed: _submitForm,
                               child: Text(
-                                "ثبت نام",
+                                "ورود",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.normal,
