@@ -97,103 +97,169 @@ class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {},
+      // appBar: AppBar(
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.notifications),
+      //       onPressed: () {},
+      //     ),
+      //   ],
+      //   bottom: PreferredSize(
+      //     preferredSize: Size.fromHeight(150),
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         Row(
+      //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //           children: <Widget>[
+      //             Text(
+      //               'مجموع امتیاز',
+      //               textAlign: TextAlign.center,
+      //               style: TextStyle(
+      //                 color: Colors.white,
+      //                 fontSize: 24.0,
+      //               ),
+      //             ),
+      //             Text(
+      //               'مجموع خرید',
+      //               textAlign: TextAlign.center,
+      //               style: TextStyle(
+      //                 color: Colors.white,
+      //                 fontSize: 24.0,
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //         SizedBox(height: 25.0),
+      //         Row(
+      //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //           children: [
+      //             _totalCredit != null
+      //                 ? Text(
+      //                     _totalCredit,
+      //                     textAlign: TextAlign.center,
+      //                     style: TextStyle(
+      //                       color: Colors.white,
+      //                       fontSize: 20,
+      //                     ),
+      //                   )
+      //                 : Icon(
+      //                     Icons.block,
+      //                     color: Colors.white54,
+      //                   ),
+      //             _totalPayment != null
+      //                 ? Text(
+      //                     _totalPayment,
+      //                     textAlign: TextAlign.center,
+      //                     style: TextStyle(
+      //                       color: Colors.white,
+      //                       fontSize: 20,
+      //                     ),
+      //                   )
+      //                 : Icon(
+      //                     Icons.block,
+      //                     color: Colors.white54,
+      //                   ),
+      //           ],
+      //         ),
+      //         SizedBox(height: 15.0),
+      //         ButtonTheme(
+      //           minWidth: 120.0,
+      //           child: RaisedButton(
+      //             child: Text(
+      //               "مدیریت کارت",
+      //               textAlign: TextAlign.center,
+      //               style: TextStyle(
+      //                 color: Colors.white,
+      //                 fontSize: 16,
+      //               ),
+      //             ),
+      //             color: Colors.green,
+      //             onPressed: () {
+      //               Navigator.of(context).pushNamed(CreditCardScreen.routeName);
+      //             },
+      //             shape: RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.circular(20.0),
+      //             ),
+      //           ),
+      //         ),
+      //         SizedBox(height: 15.0),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      //drawer: AppDrawer(),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            title: Text("Sample Slivers"),
+            leading: Icon(Icons.menu),
+            backgroundColor: Colors.orangeAccent,
+            floating: false,
+            pinned: true,
+            snap: false,
           ),
+          
+          SliverList(
+            delegate: SliverChildListDelegate([
+              ListTile(
+                leading: Icon(Icons.volume_off),
+                title: Text("Volume Off"),
+              ),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_mute), title: Text("Volume Mute")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+              ListTile(
+                  leading: Icon(Icons.volume_down), title: Text("Volume Down")),
+            ]),
+          )
         ],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(150),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(
-                    'مجموع امتیاز',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                    ),
-                  ),
-                  Text(
-                    'مجموع خرید',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 25.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _totalCredit != null
-                      ? Text(
-                          _totalCredit,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        )
-                      : Icon(
-                          Icons.block,
-                          color: Colors.white54,
-                        ),
-                  _totalPayment != null
-                      ? Text(
-                          _totalPayment,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        )
-                      : Icon(
-                          Icons.block,
-                          color: Colors.white54,
-                        ),
-                ],
-              ),
-              SizedBox(height: 15.0),
-              ButtonTheme(
-                minWidth: 120.0,
-                child: RaisedButton(
-                  child: Text(
-                    "مدیریت کارت",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                  color: Colors.green,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(CreditCardScreen.routeName);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-              ),
-              SizedBox(height: 15.0),
-            ],
-          ),
-        ),
+
+        //child: _children[_currentIndex],
       ),
-      body: _children[_currentIndex],
-      drawer: AppDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: onTabTapped,
