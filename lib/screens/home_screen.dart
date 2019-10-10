@@ -87,17 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _transactions =
           Provider.of<TransactionProvider>(context, listen: false).transactions;
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
-      _transactions.add(_transactions[0]);
+      _transactions.addAll(_transactions.toList());
+      _transactions.addAll(_transactions.toList());
       _isLoading = false;
     });
   }
@@ -207,11 +198,44 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        SliverList(
+        SliverFixedExtentList(
+          itemExtent: 150,
+          //itemExtent: _transactions,
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              return TransactionList(_transactions, null);
+              if (index > _transactions.length) return null;
+              return Card(
+                elevation: 5,
+                margin: EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 5,
+                ),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Padding(
+                      padding: EdgeInsets.all(6),
+                      child: FittedBox(
+                        child: Text('\$${_transactions[index].originalAmount}'),
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    _transactions[index].mall.toString(),
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  subtitle: Text(
+                    _transactions[index].time.toString(),
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    color: Theme.of(context).errorColor,
+                    onPressed: null,
+                  ),
+                ),
+              );
             },
+            childCount: _transactions.length,
           ),
         )
       ],
