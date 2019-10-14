@@ -1,4 +1,5 @@
 import 'package:flutter/Material.dart';
+import 'package:flutter/rendering.dart';
 
 class GiftScreen extends StatefulWidget {
   @override
@@ -8,8 +9,17 @@ class GiftScreen extends StatefulWidget {
 class _GiftScreenState extends State<GiftScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Gift Screen'),
+    return SliverList(
+      delegate: SliverChildListDelegate(
+        [
+          Container(
+            margin: EdgeInsets.only(top: 200),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
