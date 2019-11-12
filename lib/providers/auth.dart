@@ -46,7 +46,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> signup(String fullName, String nationalID, String mobileNo,
       String residenceType) async {
-    const url = 'http://37.156.29.144/sosanpay/api/index.php';
+    const url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
@@ -73,7 +73,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> login(String userName, String password) async {
-    const url = 'http://37.156.29.144/sosanpay/api/index.php';
+    const url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
@@ -100,7 +100,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> sendVerificationCode(
       String nationalID, String mobileNo, String verificationCode) async {
-    const url = 'http://37.156.29.144/sosanpay/api/index.php';
+    const url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,

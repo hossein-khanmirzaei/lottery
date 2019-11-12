@@ -45,6 +45,7 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
+      print(error);
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {

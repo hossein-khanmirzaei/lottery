@@ -16,7 +16,7 @@ class OverviewProvider with ChangeNotifier {
   }
 
   Future<void> getTotalPayment(String username) async {
-    final url = 'http://37.156.29.144/sosanpay/api/index.php';
+    final url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
@@ -38,7 +38,7 @@ class OverviewProvider with ChangeNotifier {
   }
 
   Future<void> getTotalCredit(String username) async {
-    final url = 'http://37.156.29.144/sosanpay/api/index.php';
+    final url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,

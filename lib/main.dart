@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
             canvasColor: Colors.lightBlue[50],
             fontFamily: 'IRANSans',
           ),
-          //home: auth.isAuth ? OverviewScreen() : StartScreen(),
-          home: OverviewScreen(),
+          home: auth.isAuth ? OverviewScreen() : StartScreen(),
+          //home: OverviewScreen(),
           routes: {
             // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             SignupScreen.routeName: (ctx) => SignupScreen(),

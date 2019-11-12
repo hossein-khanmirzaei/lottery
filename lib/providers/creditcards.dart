@@ -13,7 +13,7 @@ class CreditCardProvider with ChangeNotifier {
 
   Future<void> getCardList() async {
     final List<CreditCard> loadedCreditcards = [];
-    final url = 'http://37.156.29.144/sosanpay/api/index.php';
+    final url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
@@ -23,7 +23,7 @@ class CreditCardProvider with ChangeNotifier {
         },
         headers: {
           'X-Authorization':
-              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1Njg2NTkxNTgsImp0aSI6IlUyWHlVRlFkSjBFTHR4N1VrNnZUc21YSzhmYUtER0wrXC8rRlZsUDVqMmJvPSIsImlzcyI6IjM3LjE1Ni4yOS4xNDQiLCJuYmYiOjE1Njg2NTkxNTgsImV4cCI6MTYwMDE5NTE1OCwic2VjdXJpdHkiOnsidXNlcm5hbWUiOiIyNzU1NTMzNTI4IiwidXNlcmlkIjoiMSIsInBhcmVudHVzZXJpZCI6IiIsInVzZXJsZXZlbGlkIjozMH19.rB2EgHNlOz2NTEFOeALzQ3R-2LXhDFADeNFJWk4A48-H_rOzoCD64o5G7WqetYXn9tTWOCieX-dkaTOmj85PRA',
+              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1NzM1NzcxNTEsImp0aSI6Im9jV1wvXC9tTGJNOXFrSGpxRXBhblRkUUp4N2ZDa0RPNisyZGNtQ01Jd0NKcz0iLCJpc3MiOiJoYW1pYm94LmlyIiwibmJmIjoxNTczNTc3MTUxLCJleHAiOjE2MDUxMTMxNTEsInNlY3VyaXR5Ijp7InVzZXJuYW1lIjoiMjY0OTQwMjAzMiIsInVzZXJpZCI6IjMwIiwicGFyZW50dXNlcmlkIjoiIiwidXNlcmxldmVsaWQiOjMwfX0.ZfFk6dEu52Z8RLQDaK513rvxNFqnVgEd7Sn78LdIPPIqgGlPZzVyKwXWC2nH22AEzTRa6fcwbYZ-Z0h-XAX0fQ',
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
@@ -48,7 +48,7 @@ class CreditCardProvider with ChangeNotifier {
   }
 
   Future<void> addCard(String cardTitle, String cardNumber) async {
-    final url = 'http://37.156.29.144/sosanpay/api/index.php';
+    final url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
@@ -61,7 +61,7 @@ class CreditCardProvider with ChangeNotifier {
         },
         headers: {
           'X-Authorization':
-              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1Njg2NTkxNTgsImp0aSI6IlUyWHlVRlFkSjBFTHR4N1VrNnZUc21YSzhmYUtER0wrXC8rRlZsUDVqMmJvPSIsImlzcyI6IjM3LjE1Ni4yOS4xNDQiLCJuYmYiOjE1Njg2NTkxNTgsImV4cCI6MTYwMDE5NTE1OCwic2VjdXJpdHkiOnsidXNlcm5hbWUiOiIyNzU1NTMzNTI4IiwidXNlcmlkIjoiMSIsInBhcmVudHVzZXJpZCI6IiIsInVzZXJsZXZlbGlkIjozMH19.rB2EgHNlOz2NTEFOeALzQ3R-2LXhDFADeNFJWk4A48-H_rOzoCD64o5G7WqetYXn9tTWOCieX-dkaTOmj85PRA',
+              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1NzM1NzcxNTEsImp0aSI6Im9jV1wvXC9tTGJNOXFrSGpxRXBhblRkUUp4N2ZDa0RPNisyZGNtQ01Jd0NKcz0iLCJpc3MiOiJoYW1pYm94LmlyIiwibmJmIjoxNTczNTc3MTUxLCJleHAiOjE2MDUxMTMxNTEsInNlY3VyaXR5Ijp7InVzZXJuYW1lIjoiMjY0OTQwMjAzMiIsInVzZXJpZCI6IjMwIiwicGFyZW50dXNlcmlkIjoiIiwidXNlcmxldmVsaWQiOjMwfX0.ZfFk6dEu52Z8RLQDaK513rvxNFqnVgEd7Sn78LdIPPIqgGlPZzVyKwXWC2nH22AEzTRa6fcwbYZ-Z0h-XAX0fQ',
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
