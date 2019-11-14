@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottery/screens/overview_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lottery/providers/auth.dart';
@@ -84,7 +85,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               Provider.of<AuthProvider>(context, listen: false).userMobileNo,
               code);
 
-      Navigator.of(context).pop();
+      Navigator.of(context).pushNamedAndRemoveUntil(OverviewScreen.routeName, (Route<dynamic> route) => false);
     } catch (error) {
       _showErrorDialog(error.toString());
       print(error);

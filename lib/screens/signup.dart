@@ -38,7 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
       await Navigator.of(context).pushNamed(VerificationScreen.routeName);
 
-      Navigator.of(context).pop();
+      //Navigator.of(context).pop();
     } catch (error) {
       _showErrorDialog(error.toString());
       print(error);
