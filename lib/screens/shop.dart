@@ -8,15 +8,11 @@ class ShopScreen extends StatefulWidget {
 class _ShopScreenState extends State<ShopScreen> {
   @override
   Widget build(BuildContext context) {
-    return SliverFixedExtentList(
-      itemExtent: 100,
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },  
-        childCount: 1      
+    return Container(
+      child: Center(
+        child: Text(
+          'Shop Screen',
+        ),
       ),
     );
   }

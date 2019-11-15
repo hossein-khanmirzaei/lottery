@@ -9,16 +9,11 @@ class GiftScreen extends StatefulWidget {
 class _GiftScreenState extends State<GiftScreen> {
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          Container(
-            margin: EdgeInsets.only(top: 200),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        ],
+    return Container(
+      child: Center(
+        child: Text(
+          'Gift Screen',
+        ),
       ),
     );
   }

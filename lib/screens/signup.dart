@@ -53,7 +53,10 @@ class _SignupScreenState extends State<SignupScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('خطا!'),
-        content: Text(message),
+        content: Text(
+          message,
+          textAlign: TextAlign.justify,
+        ),
         actions: <Widget>[
           FlatButton(
             textColor: Theme.of(context).accentColor,

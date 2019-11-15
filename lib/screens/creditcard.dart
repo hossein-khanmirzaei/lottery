@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/providers/creditcards.dart';
+import 'package:lottery/providers/creditcard.dart';
+import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/widgets/credit_card_list.dart';
-import 'package:lottery/widgets/new_credit_card.dart';
 import 'package:provider/provider.dart';
 
 class CreditCardScreen extends StatefulWidget {
@@ -21,7 +21,10 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('خطا!'),
-        content: Text(message),
+        content: Text(
+          message,
+          textAlign: TextAlign.justify,
+        ),
         actions: <Widget>[
           FlatButton(
             child: Text('بستن'),
@@ -84,28 +87,29 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
     super.initState();
   }
 
-  void _startAddNewTransaction(BuildContext ctx) {
-    showModalBottomSheet(
-      context: ctx,
-      builder: (_) {
-        return GestureDetector(
-          onTap: () {},
-          child: NewCreditCard(_addCreditCard),
-          behavior: HitTestBehavior.opaque,
-        );
-      },
-    );
-  }
+  // void _startAddNewTransaction(BuildContext ctx) {
+  //   showModalBottomSheet(
+  //     context: ctx,
+  //     builder: (_) {
+  //       return GestureDetector(
+  //         onTap: () {},
+  //         child: NewCreditCard(_addCreditCard),
+  //         behavior: HitTestBehavior.opaque,
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          _startAddNewTransaction(context);
+          Navigator.of(context).pushNamed(NewCreditCardScreen.routeName);
+          //_startAddNewTransaction(context);
         },
       ),
       body: _isLoading

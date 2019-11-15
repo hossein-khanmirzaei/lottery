@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lottery/screens/overview_screen.dart';
+import 'package:lottery/screens/overview.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lottery/providers/auth.dart';
@@ -85,7 +85,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
               Provider.of<AuthProvider>(context, listen: false).userMobileNo,
               code);
 
-      Navigator.of(context).pushNamedAndRemoveUntil(OverviewScreen.routeName, (Route<dynamic> route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          OverviewScreen.routeName, (Route<dynamic> route) => false);
     } catch (error) {
       _showErrorDialog(error.toString());
       print(error);
@@ -100,7 +101,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('خطا!'),
-        content: Text(message),
+        content: Text(
+          message,
+          textAlign: TextAlign.justify,
+        ),
         actions: <Widget>[
           FlatButton(
             textColor: Theme.of(context).accentColor,

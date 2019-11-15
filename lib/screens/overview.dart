@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/screens/credit_card_screen.dart';
-import 'package:lottery/screens/gift_screen.dart';
-import 'package:lottery/screens/home_screen.dart';
-import 'package:lottery/screens/shop_screen.dart';
-import 'package:lottery/screens/tranaction_screen.dart';
+import 'package:lottery/screens/creditcard.dart';
+import 'package:lottery/screens/gift.dart';
+import 'package:lottery/screens/home.dart';
+import 'package:lottery/screens/shop.dart';
+import 'package:lottery/screens/tranaction.dart';
 import 'package:lottery/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/overview.dart';
@@ -20,13 +20,28 @@ class _OverviewScreenState extends State<OverviewScreen> {
   String _totalCredit = '---';
   String _totalPayment = '---';
   var _isLoading = false;
-  // var _isLoading = false;
-  final List<Widget> _children = [
-    HomeScreen(),
-    TransactionScreen(),
-    ShopScreen(),
-    GiftScreen(),
-  ];
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('خطا!'),
+        content: Text(
+          message,
+          textAlign: TextAlign.justify,
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('بستن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   Future<void> _getTotalCredit() async {
     setState(() {
       _isLoading = true;
@@ -63,30 +78,12 @@ class _OverviewScreenState extends State<OverviewScreen> {
     });
   }
 
-  @override
-  void initState() {
-    _getTotalCredit();
-    _getTotalPayment();
-    super.initState();
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('خطا!'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('بستن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
-    );
-  }
+  final List<Widget> _children = [
+    HomeScreen(),
+    TransactionScreen(),
+    ShopScreen(),
+    GiftScreen(),
+  ];
 
   void onTabTapped(int index) {
     setState(() {
@@ -95,23 +92,25 @@ class _OverviewScreenState extends State<OverviewScreen> {
   }
 
   @override
+  void initState() {
+    _getTotalCredit();
+    _getTotalPayment();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Text(
-              "حامی باکس",
-            ),
-            centerTitle: true,
-            floating: false,
-            pinned: true,
-            snap: false,
-            expandedHeight: 250,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                margin: EdgeInsets.only(top: 100),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {},
+          ),
+        ],
+        bottom: (_currentIndex == 0)
+            ? PreferredSize(
+                preferredSize: Size.fromHeight(150),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -193,13 +192,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     SizedBox(height: 15.0),
                   ],
                 ),
-              ),
-            ),
-          ),          
-          _children[_currentIndex],
-        ],
+              )
+            : null,
       ),
-//      _children[_currentIndex],
+      drawer: AppDrawer(),
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: onTabTapped,
