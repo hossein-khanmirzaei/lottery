@@ -7,10 +7,10 @@ import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/store.dart';
 
 class StoreProvider with ChangeNotifier {
-  List<Store> _store = [];
+  List<Store> _storeList = [];
 
-  List<Store> get store {
-    return [..._store];
+  List<Store> get storeList {
+    return [..._storeList];
   }
 
   Future<void> fetchStores() async {
@@ -45,7 +45,7 @@ class StoreProvider with ChangeNotifier {
             faxNumber: s['Fax'],
             mobileNumber: s['Mobile']));
       });
-      _store = loadedStores;
+      _storeList = loadedStores;
       notifyListeners();
     } catch (error) {
       print(error);

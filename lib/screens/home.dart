@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/models/news.dart';
 import 'package:lottery/providers/overview.dart';
-import 'package:lottery/models/tranaction.dart';
+import 'package:lottery/screens/news_detail.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/transactions.dart';
+import 'package:lottery/providers/news.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Transaction> _transactions = [];
+  List<News> _news = [];
   String _totalCredit = '---';
   String _totalPayment = '---';
   var _isLoading = false;
@@ -73,23 +74,21 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<void> _getTransactionList() async {
+  Future<void> _getNewsList() async {
     setState(() {
       _isLoading = true;
     });
     try {
-      await Provider.of<TransactionProvider>(context, listen: false)
-          .fetchTransactions();
+      await Provider.of<NewsProvider>(context, listen: false).fetchNews();
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      _transactions =
-          Provider.of<TransactionProvider>(context, listen: false).transactions;
-      _transactions.addAll(_transactions.toList());
-      _transactions.addAll(_transactions.toList());
+      _news = Provider.of<NewsProvider>(context, listen: false).newsList;
+      //_transactions.addAll(_transactions.toList());
+      //_transactions.addAll(_transactions.toList());
       _isLoading = false;
     });
   }
@@ -98,43 +97,58 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _getTotalCredit();
     _getTotalPayment();
-    _getTransactionList();
+    _getNewsList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     //return _isLoading ? Center(child: CircularProgressIndicator()) : TransactionList(_transactions, null);
-    return ListView.separated(
-      itemCount: _transactions.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          leading: CircleAvatar(
-            radius: 30,
-            child: Padding(
-              padding: EdgeInsets.all(6),
-              child: FittedBox(
-                child: Text('\$${_transactions[index].originalAmount}'),
-              ),
+    return _isLoading
+        ? Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
             ),
-          ),
-          title: Text(
-            _transactions[index].mall.toString(),
-            style: Theme.of(context).textTheme.title,
-          ),
-          subtitle: Text(
-            _transactions[index].time.toString(),
-          ),
-          trailing: IconButton(
-              icon: Icon(Icons.delete),
-              color: Theme.of(context).errorColor,
-              onPressed: null //() => deleteTx(_transactions[index].id),
-              ),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider();
-      },
-    );
+          )
+        : ListView.separated(
+            itemCount: _news.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                // leading: CircleAvatar(
+                //   radius: 30,
+                //   child: Padding(
+                //     padding: EdgeInsets.all(6),
+                //     child: FittedBox(
+                //       child: Text('\$${_news[index].originalAmount}'),
+                //     ),
+                //   ),
+                // ),
+                title: Text(
+                  _news[index].title,
+                  style: Theme.of(context).textTheme.title,
+                ),
+                subtitle: Text(
+                  _news[index].time + ' ' + _news[index].date,
+                ),
+                // onTap: () {
+                //   Provider.of<NewsProvider>(context, listen: false)
+                //       .setCurrentNews(_news[index].id);
+                //   Navigator.of(context).pushNamed(NewsDetailScreen.routeName);
+                // },
+                trailing: IconButton(
+                    icon: Icon(Icons.search),
+                    color: Theme.of(context).errorColor,
+                    onPressed: () {
+                      Provider.of<NewsProvider>(context, listen: false)
+                          .setCurrentNews(_news[index].id);
+                      Navigator.of(context)
+                          .pushNamed(NewsDetailScreen.routeName);
+                    }),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
+          );
   }
 }

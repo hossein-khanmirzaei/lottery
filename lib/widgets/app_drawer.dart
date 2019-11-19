@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottery/screens/creditcard.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -16,7 +17,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.payment),
               title: Text('مدیریت کارت'),
               onTap: () {
-                //Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
+                Navigator.of(context)
+                    .pushNamed(CreditCardScreen.routeName);
               },
             ),
             Divider(),

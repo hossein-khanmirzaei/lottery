@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lottery/providers/creditcard.dart';
+import 'package:lottery/providers/news.dart';
 import 'package:lottery/providers/overview.dart';
-import 'package:lottery/providers/transactions.dart';
+import 'package:lottery/providers/store.dart';
+import 'package:lottery/providers/transaction.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/new_creditcard.dart';
+import 'package:lottery/screens/news_detail.dart';
 import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/signup.dart';
 import 'package:lottery/screens/verification.dart';
@@ -26,10 +29,16 @@ class MyApp extends StatelessWidget {
           value: OverviewProvider(),
         ),
         ChangeNotifierProvider.value(
+          value: NewsProvider(),
+        ),
+        ChangeNotifierProvider.value(
           value: TransactionProvider(),
         ),
         ChangeNotifierProvider.value(
           value: CreditCardProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: StoreProvider(),
         ),
       ],
       child: Consumer<AuthProvider>(
@@ -59,6 +68,7 @@ class MyApp extends StatelessWidget {
             OverviewScreen.routeName: (ctx) => OverviewScreen(),
             CreditCardScreen.routeName: (ctx) => CreditCardScreen(),
             NewCreditCardScreen.routeName: (ctx) => NewCreditCardScreen(),
+            NewsDetailScreen.routeName: (ctx) => NewsDetailScreen(),
             // OrdersScreen.routeName: (ctx) => OrdersScreen(),
             // UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
             // EditProductScreen.routeName: (ctx) => EditProductScreen(),

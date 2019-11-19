@@ -3,7 +3,7 @@ import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:lottery/screens/gift.dart';
 import 'package:lottery/screens/home.dart';
-import 'package:lottery/screens/shop.dart';
+import 'package:lottery/screens/store.dart';
 import 'package:lottery/screens/tranaction.dart';
 import 'package:lottery/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
@@ -81,7 +81,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
   final List<Widget> _children = [
     HomeScreen(),
     TransactionScreen(),
-    ShopScreen(),
+    StoreScreen(),
     GiftScreen(),
   ];
 
