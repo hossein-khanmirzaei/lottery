@@ -23,6 +23,8 @@ class _StoreScreenState extends State<StoreScreen> {
         ),
         actions: <Widget>[
           FlatButton(
+            textColor: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
             child: Text('بستن'),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -78,7 +80,7 @@ class _StoreScreenState extends State<StoreScreen> {
                 //   ),
                 // ),
                 title: Text(
-                  _stores[index].id.toString(),
+                  _stores[index].name.toString(),
                   style: Theme.of(context).textTheme.title,
                 ),
                 subtitle: Text(

@@ -11,6 +11,7 @@ import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/screens/news_detail.dart';
 import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/signup.dart';
+import 'package:lottery/screens/start.dart';
 import 'package:lottery/screens/verification.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';
@@ -25,20 +26,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: AuthProvider(),
         ),
-        ChangeNotifierProvider.value(
-          value: OverviewProvider(),
+        ChangeNotifierProxyProvider<AuthProvider, OverviewProvider>(
+          builder: (_, auth, __) => OverviewProvider(auth.token),
         ),
-        ChangeNotifierProvider.value(
-          value: NewsProvider(),
+        ChangeNotifierProxyProvider<AuthProvider, TransactionProvider>(
+          builder: (_, auth, __) => TransactionProvider(auth.token),
         ),
-        ChangeNotifierProvider.value(
-          value: TransactionProvider(),
+        ChangeNotifierProxyProvider<AuthProvider, NewsProvider>(
+          builder: (_, auth, __) => NewsProvider(auth.token),
         ),
-        ChangeNotifierProvider.value(
-          value: CreditCardProvider(),
+        ChangeNotifierProxyProvider<AuthProvider, CreditCardProvider>(
+          builder: (_, auth, __) => CreditCardProvider(auth.token),
         ),
-        ChangeNotifierProvider.value(
-          value: StoreProvider(),
+        ChangeNotifierProxyProvider<AuthProvider, StoreProvider>(
+          builder: (_, auth, __) => StoreProvider(auth.token),
         ),
       ],
       child: Consumer<AuthProvider>(
@@ -58,8 +59,8 @@ class MyApp extends StatelessWidget {
             canvasColor: Colors.lightBlue[50],
             fontFamily: 'IRANSans',
           ),
-          //home: auth.isAuth ? OverviewScreen() : StartScreen(),
-          home: OverviewScreen(),
+          home: auth.isAuth ? OverviewScreen() : StartScreen(),
+          //home: OverviewScreen(),
           routes: {
             // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             SignupScreen.routeName: (ctx) => SignupScreen(),

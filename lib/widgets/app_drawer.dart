@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/screens/creditcard.dart';
+import 'package:provider/provider.dart';
+import 'package:lottery/providers/auth.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -14,16 +16,15 @@ class AppDrawer extends StatelessWidget {
               automaticallyImplyLeading: false,
             ),
             ListTile(
-              leading: Icon(Icons.payment),
+              leading: Icon(Icons.credit_card),
               title: Text('مدیریت کارت'),
               onTap: () {
-                Navigator.of(context)
-                    .pushNamed(CreditCardScreen.routeName);
+                Navigator.of(context).pushNamed(CreditCardScreen.routeName);
               },
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.edit),
+              leading: Icon(Icons.verified_user),
               title: Text('تغییر کلمه عبور'),
               onTap: () {
                 //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
@@ -39,7 +40,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.edit),
+              leading: Icon(Icons.update),
               title: Text('بروز رسانی'),
               onTap: () {
                 //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
@@ -55,7 +56,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.edit),
+              leading: Icon(Icons.info_outline),
               title: Text('درباره ما'),
               onTap: () {
                 //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
@@ -63,7 +64,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.edit),
+              leading: Icon(Icons.help_outline),
               title: Text('راهنما'),
               onTap: () {
                 //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
@@ -71,10 +72,11 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.edit),
+              leading: Icon(Icons.exit_to_app),
               title: Text('خروج از حساب کاربری'),
               onTap: () {
-                //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
+                Navigator.of(context).pop();
+                Provider.of<AuthProvider>(context, listen: false).logout();
               },
             ),
           ],

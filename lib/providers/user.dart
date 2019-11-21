@@ -1,27 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 
-class User {
-  int id;
-  String fullName;
-  String nationalId;
-  String mobileNo;
-  String userName;
-  int residenceType;
-  int smsNotify;
-  int pushNotify;
-  String token;
-  User({
-    @required this.id,
-    @required this.fullName,
-    @required this.nationalId,
-    @required this.mobileNo,
-    @required this.userName,
-    @required this.residenceType,
-    this.smsNotify = 1,
-    this.pushNotify = 1,
-    this.token = "",
-  });
-}
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/models/user.dart';
 
 class UserProvider with ChangeNotifier {
   final User _currentUser = null;
@@ -29,6 +12,4 @@ class UserProvider with ChangeNotifier {
   User get currentUser {
     return _currentUser;
   }
-
-  
 }

@@ -23,6 +23,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
         ),
         actions: <Widget>[
           FlatButton(
+            textColor: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,            
             child: Text('بستن'),
             onPressed: () {
               Navigator.of(ctx).pop();

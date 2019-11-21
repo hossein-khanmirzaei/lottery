@@ -43,6 +43,28 @@ class AuthProvider with ChangeNotifier {
   int get userResidenceType {
     return _userResidenceType;
   }
+  Future<void> sendVerificationCode(
+      String nationalID, String mobileNo, String verificationCode) async {
+    const url = 'http://hamibox.ir/main/api/index.php';
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'action': 'verify_mobile',
+          'user': nationalID,
+          'verify_code': verificationCode,
+        },
+      );
+      final responseData = json.decode(response.body);
+      if (responseData == false) {
+        throw HttpException("کد ارسالی نادرست است!");
+      }
+      login(nationalID, mobileNo);
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
   Future<void> signup(String fullName, String nationalID, String mobileNo,
       String residenceType) async {
@@ -92,31 +114,10 @@ class AuthProvider with ChangeNotifier {
         _parseJwt(_token)['exp'] * 1000,
       );
       _userId = int.parse(_parseJwt(_token)['security']['userid']);
+      _autoLogout();
       notifyListeners();
     } catch (error) {
       throw (error);
-    }
-  }
-
-  Future<void> sendVerificationCode(
-      String nationalID, String mobileNo, String verificationCode) async {
-    const url = 'http://hamibox.ir/main/api/index.php';
-    try {
-      final response = await http.post(
-        url,
-        body: {
-          'action': 'verify_mobile',
-          'user': nationalID,
-          'verify_code': verificationCode,
-        },
-      );
-      final responseData = json.decode(response.body);
-      if (responseData == false) {
-        throw HttpException("کد ارسالی نادرست است!");
-      }
-      login(nationalID, mobileNo);
-    } catch (error) {
-      throw error;
     }
   }
 
@@ -135,8 +136,8 @@ class AuthProvider with ChangeNotifier {
     _token = extractedUserData['token'];
     _userId = extractedUserData['userId'];
     _expiryDate = expiryDate;
-    notifyListeners();
     _autoLogout();
+    notifyListeners();
     return true;
   }
 

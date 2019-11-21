@@ -7,6 +7,9 @@ import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/tranaction.dart';
 
 class TransactionProvider with ChangeNotifier {
+  final String authToken;
+  TransactionProvider(this.authToken);
+
   List<Transaction> _transactions = [];
 
   List<Transaction> get transactions {
@@ -24,8 +27,7 @@ class TransactionProvider with ChangeNotifier {
           'object': 'tbl_user_purchase',
         },
         headers: {
-          'X-Authorization':
-              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1NzM1NzcxNTEsImp0aSI6Im9jV1wvXC9tTGJNOXFrSGpxRXBhblRkUUp4N2ZDa0RPNisyZGNtQ01Jd0NKcz0iLCJpc3MiOiJoYW1pYm94LmlyIiwibmJmIjoxNTczNTc3MTUxLCJleHAiOjE2MDUxMTMxNTEsInNlY3VyaXR5Ijp7InVzZXJuYW1lIjoiMjY0OTQwMjAzMiIsInVzZXJpZCI6IjMwIiwicGFyZW50dXNlcmlkIjoiIiwidXNlcmxldmVsaWQiOjMwfX0.ZfFk6dEu52Z8RLQDaK513rvxNFqnVgEd7Sn78LdIPPIqgGlPZzVyKwXWC2nH22AEzTRa6fcwbYZ-Z0h-XAX0fQ',
+          'X-Authorization': authToken,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
