@@ -11,6 +11,7 @@ import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/screens/news_detail.dart';
 import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/signup.dart';
+import 'package:lottery/screens/splash.dart';
 import 'package:lottery/screens/start.dart';
 import 'package:lottery/screens/verification.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +60,16 @@ class MyApp extends StatelessWidget {
             canvasColor: Colors.lightBlue[50],
             fontFamily: 'IRANSans',
           ),
-          home: auth.isAuth ? OverviewScreen() : StartScreen(),
+          home: auth.isAuth
+              ? OverviewScreen()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : StartScreen(),
+                ),
           //home: OverviewScreen(),
           routes: {
             // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),

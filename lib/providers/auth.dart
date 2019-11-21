@@ -43,6 +43,7 @@ class AuthProvider with ChangeNotifier {
   int get userResidenceType {
     return _userResidenceType;
   }
+
   Future<void> sendVerificationCode(
       String nationalID, String mobileNo, String verificationCode) async {
     const url = 'http://hamibox.ir/main/api/index.php';
@@ -64,7 +65,6 @@ class AuthProvider with ChangeNotifier {
       throw error;
     }
   }
-
 
   Future<void> signup(String fullName, String nationalID, String mobileNo,
       String residenceType) async {
@@ -114,8 +114,15 @@ class AuthProvider with ChangeNotifier {
         _parseJwt(_token)['exp'] * 1000,
       );
       _userId = int.parse(_parseJwt(_token)['security']['userid']);
-      _autoLogout();
       notifyListeners();
+      _autoLogout();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode({
+        'token': _token,
+        'userId': _userId,
+        'expiryData': _expiryDate.toIso8601String()
+      });
+      prefs.setString('userData', userData);
     } catch (error) {
       throw (error);
     }
@@ -136,8 +143,8 @@ class AuthProvider with ChangeNotifier {
     _token = extractedUserData['token'];
     _userId = extractedUserData['userId'];
     _expiryDate = expiryDate;
-    _autoLogout();
     notifyListeners();
+    _autoLogout();
     return true;
   }
 
