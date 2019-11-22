@@ -3,10 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/models/user.dart';
 
 class CreditCardProvider with ChangeNotifier {
-  final String authToken;
-  CreditCardProvider(this.authToken);
+  final User currentUser;
+  CreditCardProvider(this.currentUser);
 
   CreditCard _currentCard;
 
@@ -35,7 +36,7 @@ class CreditCardProvider with ChangeNotifier {
           'object': 'tbl_user_card',
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
@@ -72,7 +73,7 @@ class CreditCardProvider with ChangeNotifier {
           'Card_Number': cardNumber,
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
@@ -106,7 +107,7 @@ class CreditCardProvider with ChangeNotifier {
           'Card_Title': cardTitle,
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );

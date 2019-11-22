@@ -4,55 +4,55 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
-  String _token;
-  DateTime _expiryDate;
-  int _userId;
-  String _userNationalCode;
-  String _userMobileNo;
-  int _userResidenceType;
+  User _currentUser = User(
+    id: -1,
+    fullName: '',
+    nationalId: '',
+    mobileNo: '',
+    userName: '',
+    residenceType: -1,
+    token: null,
+    expiryDate: null,
+  );
+
   Timer _authTimer;
 
   bool get isAuth {
-    return token != null;
+    return currentUser != null;
   }
 
-  String get token {
-    if (_expiryDate != null &&
-        _expiryDate.isAfter(DateTime.now()) &&
-        _token != null) {
-      return _token;
+  // String get token {
+  //   if (_currentUser != null &&
+  //       _currentUser.expiryDate != null &&
+  //       _currentUser.expiryDate.isAfter(DateTime.now()) &&
+  //       _currentUser.token != null) {
+  //     return _currentUser.token;
+  //   }
+  //   return null;
+  // }
+
+  User get currentUser {
+    if (_currentUser != null &&
+        _currentUser.expiryDate != null &&
+        _currentUser.expiryDate.isAfter(DateTime.now()) &&
+        _currentUser.token != null) {
+      return _currentUser;
     }
     return null;
   }
 
-  int get userId {
-    return _userId;
-  }
-
-  String get userNationalCode {
-    return _userNationalCode;
-  }
-
-  String get userMobileNo {
-    return _userMobileNo;
-  }
-
-  int get userResidenceType {
-    return _userResidenceType;
-  }
-
-  Future<void> sendVerificationCode(
-      String nationalID, String mobileNo, String verificationCode) async {
+  Future<void> sendVerificationCode(String verificationCode) async {
     const url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
         body: {
           'action': 'verify_mobile',
-          'user': nationalID,
+          'user': _currentUser.nationalId,
           'verify_code': verificationCode,
         },
       );
@@ -60,7 +60,7 @@ class AuthProvider with ChangeNotifier {
       if (responseData == false) {
         throw HttpException("کد ارسالی نادرست است!");
       }
-      login(nationalID, mobileNo);
+      login(_currentUser.nationalId, _currentUser.mobileNo);
     } catch (error) {
       throw error;
     }
@@ -85,10 +85,10 @@ class AuthProvider with ChangeNotifier {
       if (responseData['success'] == false) {
         throw HttpException(responseData['failureMessage']);
       }
-      _userId = responseData['tbl_user']['User_ID'];
-      _userNationalCode = responseData['tbl_user']['National_ID'];
-      _userMobileNo = responseData['tbl_user']['Mobile_No'];
-      _userResidenceType = responseData['tbl_user']['Residence_Type'];
+      _currentUser.id = responseData['tbl_user']['User_ID'];
+      _currentUser.nationalId = responseData['tbl_user']['National_ID'];
+      _currentUser.mobileNo = responseData['tbl_user']['Mobile_No'];
+      _currentUser.residenceType = responseData['tbl_user']['Residence_Type'];
     } catch (error) {
       throw error;
     }
@@ -109,18 +109,19 @@ class AuthProvider with ChangeNotifier {
         throw HttpException('نام کاربری یا کلمه عبور صحیح نمی باشد!');
       }
       final responseData = json.decode(response.body);
-      _token = responseData['JWT'];
-      _expiryDate = DateTime.fromMillisecondsSinceEpoch(
-        _parseJwt(_token)['exp'] * 1000,
+      _currentUser.token = responseData['JWT'];
+      _currentUser.expiryDate = DateTime.fromMillisecondsSinceEpoch(
+        _parseJwt(_currentUser.token)['exp'] * 1000,
       );
-      _userId = int.parse(_parseJwt(_token)['security']['userid']);
+      _currentUser.id =
+          int.parse(_parseJwt(_currentUser.token)['security']['userid']);
       notifyListeners();
       _autoLogout();
       final prefs = await SharedPreferences.getInstance();
       final userData = json.encode({
-        'token': _token,
-        'userId': _userId,
-        'expiryData': _expiryDate.toIso8601String()
+        'token': _currentUser.token,
+        'userId': _currentUser.id,
+        'expiryDate': _currentUser.expiryDate.toIso8601String()
       });
       prefs.setString('userData', userData);
     } catch (error) {
@@ -136,22 +137,19 @@ class AuthProvider with ChangeNotifier {
     final extractedUserData =
         json.decode(prefs.getString('userData')) as Map<String, Object>;
     final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
-
     if (expiryDate.isBefore(DateTime.now())) {
       return false;
     }
-    _token = extractedUserData['token'];
-    _userId = extractedUserData['userId'];
-    _expiryDate = expiryDate;
+    _currentUser.token = extractedUserData['token'];
+    _currentUser.id = extractedUserData['userId'];
+    _currentUser.expiryDate = expiryDate;
     notifyListeners();
     _autoLogout();
     return true;
   }
 
   Future<void> logout() async {
-    _token = null;
-    _userId = null;
-    _expiryDate = null;
+    _currentUser = null;
     if (_authTimer != null) {
       _authTimer.cancel();
       _authTimer = null;
@@ -166,7 +164,8 @@ class AuthProvider with ChangeNotifier {
     if (_authTimer != null) {
       _authTimer.cancel();
     }
-    final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
+    final timeToExpiry =
+        _currentUser.expiryDate.difference(DateTime.now()).inSeconds;
     _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
   }
 

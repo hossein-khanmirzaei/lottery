@@ -19,6 +19,7 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.credit_card),
               title: Text('مدیریت کارت'),
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).pushNamed(CreditCardScreen.routeName);
               },
             ),

@@ -7,7 +7,7 @@ import 'package:lottery/screens/store.dart';
 import 'package:lottery/screens/tranaction.dart';
 import 'package:lottery/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/overview.dart';
+import 'package:lottery/providers/transaction.dart';
 
 class OverviewScreen extends StatefulWidget {
   static const routeName = '/overview';
@@ -49,7 +49,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       _isLoading = true;
     });
     try {
-      await Provider.of<OverviewProvider>(context, listen: false)
+      await Provider.of<TransactionProvider>(context, listen: false)
           .getTotalCredit('2649402032');
     } on HttpException catch (error) {
       //_showErrorDialog(error.toString());
@@ -57,7 +57,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      _totalCredit = Provider.of<OverviewProvider>(context).totalCredit;
+      _totalCredit = Provider.of<TransactionProvider>(context).totalCredit;
       _isLoading = false;
     });
   }
@@ -67,7 +67,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       _isLoading = true;
     });
     try {
-      await Provider.of<OverviewProvider>(context, listen: false)
+      await Provider.of<TransactionProvider>(context, listen: false)
           .getTotalPayment('2649402032');
     } on HttpException catch (error) {
       //_showErrorDialog(error.toString());
@@ -75,7 +75,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      _totalPayment = Provider.of<OverviewProvider>(context).totalPayment;
+      _totalPayment = Provider.of<TransactionProvider>(context).totalPayment;
       _isLoading = false;
     });
   }

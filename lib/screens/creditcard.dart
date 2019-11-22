@@ -116,7 +116,9 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
       ),
       body: _isLoading
           ? Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
             )
           : CreditCardList(cards, () {}),
     );

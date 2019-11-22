@@ -5,6 +5,7 @@ import 'package:lottery/providers/news.dart';
 import 'package:lottery/providers/overview.dart';
 import 'package:lottery/providers/store.dart';
 import 'package:lottery/providers/transaction.dart';
+import 'package:lottery/providers/user.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/new_creditcard.dart';
@@ -27,20 +28,23 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: AuthProvider(),
         ),
-        ChangeNotifierProxyProvider<AuthProvider, OverviewProvider>(
-          builder: (_, auth, __) => OverviewProvider(auth.token),
-        ),
+        // ChangeNotifierProxyProvider<AuthProvider, OverviewProvider>(
+        //   builder: (_, auth, __) => OverviewProvider(auth.currentUser),
+        // ),
         ChangeNotifierProxyProvider<AuthProvider, TransactionProvider>(
-          builder: (_, auth, __) => TransactionProvider(auth.token),
+          builder: (_, auth, __) => TransactionProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, NewsProvider>(
-          builder: (_, auth, __) => NewsProvider(auth.token),
+          builder: (_, auth, __) => NewsProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, CreditCardProvider>(
-          builder: (_, auth, __) => CreditCardProvider(auth.token),
+          builder: (_, auth, __) => CreditCardProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, StoreProvider>(
-          builder: (_, auth, __) => StoreProvider(auth.token),
+          builder: (_, auth, __) => StoreProvider(auth.currentUser),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
+          builder: (_, auth, __) => UserProvider(auth.currentUser),
         ),
       ],
       child: Consumer<AuthProvider>(
@@ -72,7 +76,6 @@ class MyApp extends StatelessWidget {
                 ),
           //home: OverviewScreen(),
           routes: {
-            // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             SignupScreen.routeName: (ctx) => SignupScreen(),
             VerificationScreen.routeName: (ctx) => VerificationScreen(),
             LoginScreen.routeName: (ctx) => LoginScreen(),
@@ -80,9 +83,6 @@ class MyApp extends StatelessWidget {
             CreditCardScreen.routeName: (ctx) => CreditCardScreen(),
             NewCreditCardScreen.routeName: (ctx) => NewCreditCardScreen(),
             NewsDetailScreen.routeName: (ctx) => NewsDetailScreen(),
-            // OrdersScreen.routeName: (ctx) => OrdersScreen(),
-            // UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
-            // EditProductScreen.routeName: (ctx) => EditProductScreen(),
           },
         ),
       ),

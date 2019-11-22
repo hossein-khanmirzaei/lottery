@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/store.dart';
+import 'package:lottery/models/user.dart';
 
 class StoreProvider with ChangeNotifier {
-  final String authToken;
-  StoreProvider(this.authToken);
+  final User currentUser;
+  StoreProvider(this.currentUser);
 
   List<Store> _storeList = [];
 
@@ -27,7 +28,7 @@ class StoreProvider with ChangeNotifier {
           'object': 'tbl_store',
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );

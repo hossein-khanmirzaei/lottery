@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/models/user.dart';
 
 class OverviewProvider with ChangeNotifier {
-  final String authToken;
-  OverviewProvider(this.authToken);
+  final User currentUser;
+  OverviewProvider(this.currentUser);
 
   String _totalCredit;
   String _totalPayment;
@@ -29,7 +30,7 @@ class OverviewProvider with ChangeNotifier {
           'user': username,
         },
         headers: {
-          'X-Authorization': authToken,            
+          'X-Authorization': currentUser.token,            
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
@@ -55,7 +56,7 @@ class OverviewProvider with ChangeNotifier {
           'user': username,
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );

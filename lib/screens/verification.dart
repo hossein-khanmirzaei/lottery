@@ -79,11 +79,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     });
     try {
       await Provider.of<AuthProvider>(context, listen: false)
-          .sendVerificationCode(
-              Provider.of<AuthProvider>(context, listen: false)
-                  .userNationalCode,
-              Provider.of<AuthProvider>(context, listen: false).userMobileNo,
-              code);
+          .sendVerificationCode(code);
 
       Navigator.of(context).pushNamedAndRemoveUntil(
           OverviewScreen.routeName, (Route<dynamic> route) => false);

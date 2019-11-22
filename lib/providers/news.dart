@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/news.dart';
+import 'package:lottery/models/user.dart';
 
 class NewsProvider with ChangeNotifier {
-  final String authToken;
-  NewsProvider(this.authToken);
+  final User currentUser;
+  NewsProvider(this.currentUser);
 
   News _currentNews;
 
@@ -37,7 +38,7 @@ class NewsProvider with ChangeNotifier {
           'object': 'tbl_news',
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
@@ -77,7 +78,7 @@ class NewsProvider with ChangeNotifier {
           'News_ID': _currentNews.id.toString()
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/news.dart';
-import 'package:lottery/providers/overview.dart';
 import 'package:lottery/screens/news_detail.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/news.dart';
@@ -13,8 +12,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<News> _news = [];
-  String _totalCredit = '---';
-  String _totalPayment = '---';
   var _isLoading = false;
 
   void _showErrorDialog(String message) {
@@ -29,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[
           FlatButton(
             textColor: Theme.of(context).accentColor,
-            color: Theme.of(context).primaryColor,            
+            color: Theme.of(context).primaryColor,
             child: Text('بستن'),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -38,42 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> _getTotalCredit() async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      await Provider.of<OverviewProvider>(context, listen: false)
-          .getTotalCredit('2649402032');
-    } on HttpException catch (error) {
-      //_showErrorDialog(error.toString());
-    } catch (error) {
-      //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
-    }
-    setState(() {
-      _totalCredit = Provider.of<OverviewProvider>(context).totalCredit;
-      _isLoading = false;
-    });
-  }
-
-  Future<void> _getTotalPayment() async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      await Provider.of<OverviewProvider>(context, listen: false)
-          .getTotalPayment('2649402032');
-    } on HttpException catch (error) {
-      //_showErrorDialog(error.toString());
-    } catch (error) {
-      //_showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
-    }
-    setState(() {
-      _totalPayment = Provider.of<OverviewProvider>(context).totalPayment;
-      _isLoading = false;
-    });
   }
 
   Future<void> _getNewsList() async {
@@ -89,23 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     setState(() {
       _news = Provider.of<NewsProvider>(context, listen: false).newsList;
-      //_transactions.addAll(_transactions.toList());
-      //_transactions.addAll(_transactions.toList());
       _isLoading = false;
     });
   }
 
   @override
   void initState() {
-    _getTotalCredit();
-    _getTotalPayment();
     _getNewsList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    //return _isLoading ? Center(child: CircularProgressIndicator()) : TransactionList(_transactions, null);
     return _isLoading
         ? Center(
             child: CircularProgressIndicator(

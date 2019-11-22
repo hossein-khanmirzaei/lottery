@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/tranaction.dart';
+import 'package:lottery/models/user.dart';
 
 class TransactionProvider with ChangeNotifier {
-  final String authToken;
-  TransactionProvider(this.authToken);
+  final User currentUser;
+  TransactionProvider(this.currentUser);
 
   List<Transaction> _transactions = [];
 
@@ -27,7 +28,7 @@ class TransactionProvider with ChangeNotifier {
           'object': 'tbl_user_purchase',
         },
         headers: {
-          'X-Authorization': authToken,
+          'X-Authorization': currentUser.token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
@@ -49,6 +50,70 @@ class TransactionProvider with ChangeNotifier {
         ));
       });
       _transactions = loadedTransactions;
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+
+  String _totalCredit;
+  String _totalPayment;
+
+  String get totalCredit {
+    return _totalCredit;
+  }
+
+  String get totalPayment {
+    return _totalPayment;
+  }
+
+  Future<void> getTotalPayment(String username) async {
+    final url = 'http://hamibox.ir/main/api/index.php';
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'action': 'user_total_payment',
+          'user': username,
+        },
+        headers: {
+          'X-Authorization': currentUser.token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      final responseData = json.decode(response.body);
+      if (responseData['success'] == false) {
+        throw HttpException(responseData['failureMessage']);
+      }
+      _totalPayment = responseData['data']['Total_Amount'].toString();
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+
+  Future<void> getTotalCredit(String username) async {
+    final url = 'http://hamibox.ir/main/api/index.php';
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'action': 'user_total_credit',
+          'user': username,
+        },
+        headers: {
+          'X-Authorization': currentUser.token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      final responseData = json.decode(response.body);
+      //print(responseData);
+      if (responseData['success'] == false) {
+        throw HttpException(responseData['failureMessage']);
+      }
+      _totalCredit = responseData['data']['Total_Credit'].toString();
       notifyListeners();
     } catch (error) {
       print(error);
