@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
+enum ResidenceType { kishvand, passenger }
+
 class User {
   int id;
   String fullName;
   String nationalId;
   String mobileNo;
   String userName;
-  int residenceType;
+  ResidenceType residenceType;
   int smsNotify;
   int pushNotify;
   String token;

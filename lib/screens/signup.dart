@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/screens/verification.dart';
 import 'package:provider/provider.dart';
-
 import 'package:lottery/providers/auth.dart';
-
-enum ResidenceType { kishvand, passenger }
+import 'package:lottery/models/user.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';

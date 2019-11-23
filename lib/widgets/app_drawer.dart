@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';
+import 'package:lottery/screens/user_setting.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -36,16 +37,15 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.edit),
               title: Text('تنظیمات کاربری'),
               onTap: () {
-                //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(UserSettingsScreen.routeName);
               },
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.update),
               title: Text('بروز رسانی'),
-              onTap: () {
-                //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
-              },
+              onTap: () {},
             ),
             Divider(),
             ListTile(

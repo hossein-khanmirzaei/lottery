@@ -4,7 +4,6 @@ import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/signup.dart';
 
 enum AuthMode { Signup, Login }
-enum ResidenceType { Kishvand, NotKishvand }
 
 class StartScreen extends StatelessWidget {
   static const routeName = '/intro';

@@ -14,7 +14,7 @@ class AuthProvider with ChangeNotifier {
     nationalId: '',
     mobileNo: '',
     userName: '',
-    residenceType: -1,
+    residenceType: ResidenceType.passenger,
     token: null,
     expiryDate: null,
   );

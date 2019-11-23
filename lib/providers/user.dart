@@ -38,7 +38,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> changeUserSettings(
-      int smsNotify, int pushNotify) async {
+      bool residenceType, bool smsNotify, bool pushNotify) async {
     const url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
@@ -47,7 +47,7 @@ class UserProvider with ChangeNotifier {
           'action': 'edit',
           'object': 'tbl_user',
           'User_ID': currentUser.id,
-          'Residence_Type': currentUser.residenceType,
+          'Residence_Type': residenceType,
           'SMS_Notify': smsNotify,
           'PUSH_Notify': pushNotify
         },
