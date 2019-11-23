@@ -36,4 +36,32 @@ class UserProvider with ChangeNotifier {
       throw error;
     }
   }
+
+  Future<void> changeUserSettings(
+      int smsNotify, int pushNotify) async {
+    const url = 'http://hamibox.ir/main/api/index.php';
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'action': 'edit',
+          'object': 'tbl_user',
+          'User_ID': currentUser.id,
+          'Residence_Type': currentUser.residenceType,
+          'SMS_Notify': smsNotify,
+          'PUSH_Notify': pushNotify
+        },
+        headers: {
+          'X-Authorization': currentUser.token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      final responseData = json.decode(response.body);
+      if (!responseData['success']) {
+        throw HttpException(responseData['failureMessage']);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 }
