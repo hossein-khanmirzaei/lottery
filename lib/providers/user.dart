@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider with ChangeNotifier {
   final User currentUser;
@@ -70,12 +71,19 @@ class UserProvider with ChangeNotifier {
       if (!responseData['success']) {
         throw HttpException(responseData['failureMessage']);
       }
+      currentUser.residenceType =
+          residenceType == 1 ? ResidenceType.kishvand : ResidenceType.passenger;
+      notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = currentUser.toJson();
+      try {
+        prefs.setString('userData', jsonEncode(userData));
+      } catch (error) {
+        print(error);
+      }
     } catch (error) {
       throw error;
     }
-    currentUser.residenceType =
-        residenceType == 1 ? ResidenceType.kishvand : ResidenceType.passenger;
-    notifyListeners();
   }
 
   Future<void> changeSmsNotifySetting(bool smsNotify) async {
@@ -99,11 +107,18 @@ class UserProvider with ChangeNotifier {
       if (!responseData['success']) {
         throw HttpException(responseData['failureMessage']);
       }
+      currentUser.smsNotify = smsNotify;
+      notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = currentUser.toJson();
+      try {
+        prefs.setString('userData', jsonEncode(userData));
+      } catch (error) {
+        print(error);
+      }
     } catch (error) {
       throw error;
     }
-    currentUser.smsNotify = smsNotify;
-    notifyListeners();
   }
 
   Future<void> changePushNotifySetting(bool pushNotify) async {
@@ -127,10 +142,17 @@ class UserProvider with ChangeNotifier {
       if (!responseData['success']) {
         throw HttpException(responseData['failureMessage']);
       }
+      currentUser.pushNotify = pushNotify;
+      notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = currentUser.toJson();
+      try {
+        prefs.setString('userData', jsonEncode(userData));
+      } catch (error) {
+        print(error);
+      }
     } catch (error) {
       throw error;
     }
-    currentUser.pushNotify = pushNotify;
-    notifyListeners();
   }
 }

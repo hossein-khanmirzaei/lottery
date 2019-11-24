@@ -58,7 +58,7 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
     } catch (error) {
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
-    Provider.of<AuthProvider>(context, listen: false).logout();
+    //Provider.of<AuthProvider>(context, listen: false).logout();
   }
 
   @override

@@ -8,16 +8,21 @@ import 'package:lottery/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
-  User _currentUser = User(
-    id: -1,
-    fullName: '',
-    nationalId: '',
-    mobileNo: '',
-    userName: '',
-    residenceType: ResidenceType.passenger,
-    token: null,
-    expiryDate: null,
-  );
+  User _currentUser;
+  String _rules;
+  String _aboutUs;
+  //  = User(
+  //   id: null,
+  //   fullName: null,
+  //   nationalId: null,
+  //   mobileNo: null,
+  //   userName: null,
+  //   residenceType: null,
+  //   smsNotify: null,
+  //   pushNotify: null,
+  //   token: null,
+  //   expiryDate: null,
+  // );
 
   Timer _authTimer;
 
@@ -25,6 +30,13 @@ class AuthProvider with ChangeNotifier {
     return currentUser != null;
   }
 
+  String get rules {
+    return _rules;
+  }
+
+  String get aboutUs {
+    return _aboutUs;
+  }
   // String get token {
   //   if (_currentUser != null &&
   //       _currentUser.expiryDate != null &&
@@ -109,23 +121,81 @@ class AuthProvider with ChangeNotifier {
         throw HttpException('نام کاربری یا کلمه عبور صحیح نمی باشد!');
       }
       final responseData = json.decode(response.body);
-      _currentUser.token = responseData['JWT'];
-      _currentUser.expiryDate = DateTime.fromMillisecondsSinceEpoch(
-        _parseJwt(_currentUser.token)['exp'] * 1000,
-      );
-      _currentUser.id =
-          int.parse(_parseJwt(_currentUser.token)['security']['userid']);
+      if (responseData['JWT'] == null) {
+        throw HttpException('خطا در ارتباط با سرور!');
+      }
+      await _getInitialData(responseData['JWT']);
       notifyListeners();
       _autoLogout();
       final prefs = await SharedPreferences.getInstance();
-      final userData = json.encode({
-        'token': _currentUser.token,
-        'userId': _currentUser.id,
-        'expiryDate': _currentUser.expiryDate.toIso8601String()
-      });
-      prefs.setString('userData', userData);
+      final userData = currentUser.toJson();
+      try {
+        prefs.setString('userData', jsonEncode(userData));
+      } catch (error) {
+        print(error);
+      }
     } catch (error) {
       throw (error);
+    }
+  }
+
+  Future<void> _getInitialData(String authToken) async {
+    const url = 'http://hamibox.ir/main/api/index.php';
+    final expiryDate = DateTime.fromMillisecondsSinceEpoch(
+      _parseJwt(authToken)['exp'] * 1000,
+    );
+    final userId = int.parse(_parseJwt(authToken)['security']['userid']);
+    try {
+      var response = await http.post(
+        url,
+        body: {
+          'action': 'view',
+          'object': 'tbl_user',
+          'User_ID': userId.toString(),
+        },
+        headers: {
+          'X-Authorization': authToken,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      var responseData = json.decode(response.body);
+      if (responseData['success'] == false) {
+        throw HttpException(responseData['failureMessage']);
+      }
+      _currentUser = User(
+        id: int.parse(responseData['tbl_user']['User_ID']),
+        fullName: responseData['tbl_user']['Full_Name'],
+        nationalId: responseData['tbl_user']['National_ID'],
+        mobileNo: responseData['tbl_user']['Mobile_No'],
+        userName: responseData['tbl_user']['User_Name'],
+        residenceType: responseData['tbl_user']['Residence_Type'] == '1'
+            ? ResidenceType.kishvand
+            : ResidenceType.passenger,
+        smsNotify: responseData['tbl_user']['SMS_Notify'] == '1' ? true : false,
+        pushNotify:
+            responseData['tbl_user']['PUSH_Notify'] == '1' ? true : false,
+        token: authToken,
+        expiryDate: expiryDate,
+      );
+      response = await http.post(
+        url,
+        body: {
+          'action': 'view',
+          'object': 'tbl_content',
+        },
+        headers: {
+          'X-Authorization': authToken,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      responseData = json.decode(response.body);
+      if (responseData['success'] == false) {
+        throw HttpException(responseData['failureMessage']);
+      }
+      _rules = responseData['tbl_content']['Role'];
+      _aboutUs = responseData['tbl_content']['About'];
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -134,15 +204,16 @@ class AuthProvider with ChangeNotifier {
     if (!prefs.containsKey('userData')) {
       return false;
     }
-    final extractedUserData =
-        json.decode(prefs.getString('userData')) as Map<String, Object>;
-    final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
-    if (expiryDate.isBefore(DateTime.now())) {
+    try {
+      Map userDataMap = jsonDecode(prefs.getString('userData'));
+      _currentUser = User.fromJson(userDataMap);
+      print(currentUser);
+    } catch (error) {
+      print(error);
+    }
+    if (_currentUser.expiryDate.isBefore(DateTime.now())) {
       return false;
     }
-    _currentUser.token = extractedUserData['token'];
-    _currentUser.id = extractedUserData['userId'];
-    _currentUser.expiryDate = expiryDate;
     notifyListeners();
     _autoLogout();
     return true;

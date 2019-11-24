@@ -26,4 +26,36 @@ class User {
     this.smsNotify = true,
     this.pushNotify = true,
   });
+
+  User.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        fullName = json['fullName'],
+        nationalId = json['nationalId'],
+        mobileNo = json['mobileNo'],
+        userName = json['userName'],
+        residenceType = json['residenceType'] == 1
+            ? ResidenceType.kishvand
+            : ResidenceType.passenger,
+        token = json['token'],
+        expiryDate = DateTime.parse(json['expiryDate']),
+        smsNotify = json['smsNotify'],
+        pushNotify = json['pushNotify'];
+
+  Map<String, dynamic> toJson() => {
+        'id': this.id,
+        'fullName': this.fullName,
+        'nationalId': this.nationalId,
+        'mobileNo': this.mobileNo,
+        'userName': this.userName,
+        'residenceType': this.residenceType == ResidenceType.kishvand ? 1 : 2,
+        'token': this.token,
+        'expiryDate': this.expiryDate.toIso8601String(),
+        'smsNotify': this.smsNotify,
+        'pushNotify': this.pushNotify,
+      };
+
+  // @override
+  // String toString() {
+  //   return '{"id": ${this.id}, "fullName": "${this.fullName}", "nationalId": "${this.nationalId}", "mobileNo": "${this.mobileNo}", "userName": "${this.userName}", "residenceType": ${this.residenceType == ResidenceType.kishvand ? 1 : 0}, "token": "${this.token}", "expiryDate": "${this.expiryDate.toIso8601String()}", "smsNotify": ${this.smsNotify}, "pushNotify": ${this.pushNotify}}';
+  // }
 }

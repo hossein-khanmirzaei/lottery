@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/screens/creditcard.dart';
+import 'package:lottery/screens/user_password.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';
 import 'package:lottery/screens/user_setting.dart';
@@ -29,7 +30,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.verified_user),
               title: Text('تغییر کلمه عبور'),
               onTap: () {
-                //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(UserPasswordScreen.routeName);
               },
             ),
             Divider(),
