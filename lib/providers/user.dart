@@ -74,13 +74,13 @@ class UserProvider with ChangeNotifier {
       currentUser.residenceType =
           residenceType == 1 ? ResidenceType.kishvand : ResidenceType.passenger;
       notifyListeners();
-      final prefs = await SharedPreferences.getInstance();
-      final userData = currentUser.toJson();
-      try {
-        prefs.setString('userData', jsonEncode(userData));
-      } catch (error) {
-        print(error);
-      }
+      // final prefs = await SharedPreferences.getInstance();
+      // final userData = currentUser.toJson();
+      // try {
+      //   prefs.setString('userData', jsonEncode(userData));
+      // } catch (error) {
+      //   print(error);
+      // }
     } catch (error) {
       throw error;
     }
@@ -109,13 +109,13 @@ class UserProvider with ChangeNotifier {
       }
       currentUser.smsNotify = smsNotify;
       notifyListeners();
-      final prefs = await SharedPreferences.getInstance();
-      final userData = currentUser.toJson();
-      try {
-        prefs.setString('userData', jsonEncode(userData));
-      } catch (error) {
-        print(error);
-      }
+      // final prefs = await SharedPreferences.getInstance();
+      // final userData = currentUser.toJson();
+      // try {
+      //   prefs.setString('userData', jsonEncode(userData));
+      // } catch (error) {
+      //   print(error);
+      // }
     } catch (error) {
       throw error;
     }
@@ -144,13 +144,13 @@ class UserProvider with ChangeNotifier {
       }
       currentUser.pushNotify = pushNotify;
       notifyListeners();
-      final prefs = await SharedPreferences.getInstance();
-      final userData = currentUser.toJson();
-      try {
-        prefs.setString('userData', jsonEncode(userData));
-      } catch (error) {
-        print(error);
-      }
+      // final prefs = await SharedPreferences.getInstance();
+      // final userData = currentUser.toJson();
+      // try {
+      //   prefs.setString('userData', jsonEncode(userData));
+      // } catch (error) {
+      //   print(error);
+      // }
     } catch (error) {
       throw error;
     }

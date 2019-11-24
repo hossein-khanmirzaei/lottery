@@ -6,11 +6,13 @@ import 'package:lottery/providers/overview.dart';
 import 'package:lottery/providers/store.dart';
 import 'package:lottery/providers/transaction.dart';
 import 'package:lottery/providers/user.dart';
+import 'package:lottery/screens/about.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/screens/news_detail.dart';
 import 'package:lottery/screens/overview.dart';
+import 'package:lottery/screens/rules.dart';
 import 'package:lottery/screens/signup.dart';
 import 'package:lottery/screens/splash.dart';
 import 'package:lottery/screens/start.dart';
@@ -87,6 +89,8 @@ class MyApp extends StatelessWidget {
             NewsDetailScreen.routeName: (ctx) => NewsDetailScreen(),
             UserSettingsScreen.routeName: (ctx) => UserSettingsScreen(),
             UserPasswordScreen.routeName: (ctx) => UserPasswordScreen(),
+            AboutScreen.routeName: (ctx) => AboutScreen(),
+            RulesScreen.routeName: (ctx) => RulesScreen(),
           },
         ),
       ),

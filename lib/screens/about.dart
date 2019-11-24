@@ -1,55 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:lottery/models/http_exception.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/news.dart';
+import 'package:lottery/providers/auth.dart';
 
-class NewsDetailScreen extends StatefulWidget {
-  static const routeName = '/newsDetail';
+class AboutScreen extends StatefulWidget {
+  static const routeName = '/about';
   @override
-  _NewsDetailScreenState createState() => _NewsDetailScreenState();
+  _AboutScreenScreenState createState() => _AboutScreenScreenState();
 }
 
-class _NewsDetailScreenState extends State<NewsDetailScreen> {
+class _AboutScreenScreenState extends State<AboutScreen> {
   var _isLoading = false;
-  var note;
+  String _aboutUS;
 
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('خطا!'),
-        content: Text(
-          message,
-          textAlign: TextAlign.justify,
-        ),
-        actions: <Widget>[
-          FlatButton(
-            textColor: Theme.of(context).accentColor,
-            color: Theme.of(context).primaryColor,
-            child: Text('بستن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  Future<void> _getNote() async {
+  void _getAboutContent() {
     setState(() {
       _isLoading = true;
     });
-    try {
-      await Provider.of<NewsProvider>(context, listen: false)
-          .fetchCurrentNewsDetail();
-    } on HttpException catch (error) {
-      _showErrorDialog(error.toString());
-    } catch (error) {
-      print(error);
-      _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
-    }
-    note = Provider.of<NewsProvider>(context, listen: false).currentNews.note;
+    _aboutUS = Provider.of<AuthProvider>(context, listen: false).aboutUs;
     setState(() {
       _isLoading = false;
     });
@@ -57,7 +24,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
 
   @override
   void initState() {
-    _getNote();
+    _getAboutContent();
     super.initState();
   }
 
@@ -71,7 +38,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             )
           : Container(
               child: Center(
-                child: Text(note),
+                child: Text(_aboutUS),
               ),
             ),
     );

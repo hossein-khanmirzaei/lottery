@@ -200,20 +200,22 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
+    User userData;
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) {
       return false;
     }
     try {
       Map userDataMap = jsonDecode(prefs.getString('userData'));
-      _currentUser = User.fromJson(userDataMap);
-      print(currentUser);
+      userData = User.fromJson(userDataMap);
+      //print(currentUser);
     } catch (error) {
       print(error);
     }
-    if (_currentUser.expiryDate.isBefore(DateTime.now())) {
+    if (userData.expiryDate.isBefore(DateTime.now())) {
       return false;
     }
+    await _getInitialData(userData.token);
     notifyListeners();
     _autoLogout();
     return true;

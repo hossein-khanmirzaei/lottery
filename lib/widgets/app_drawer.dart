@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottery/screens/about.dart';
 import 'package:lottery/screens/creditcard.dart';
+import 'package:lottery/screens/rules.dart';
 import 'package:lottery/screens/user_password.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';
@@ -54,7 +56,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.edit),
               title: Text('قوانین و مقررات'),
               onTap: () {
-                //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(RulesScreen.routeName);
               },
             ),
             Divider(),
@@ -62,7 +65,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.info_outline),
               title: Text('درباره ما'),
               onTap: () {
-                //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(AboutScreen.routeName);
               },
             ),
             Divider(),
