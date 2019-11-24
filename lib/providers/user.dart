@@ -10,8 +10,21 @@ class UserProvider with ChangeNotifier {
   final User currentUser;
   UserProvider(this.currentUser);
 
+  ResidenceType get residenceTypeStatus {
+    return currentUser.residenceType;
+  }
+
+  bool get smsNotifyStatus {
+    return currentUser.smsNotify;
+  }
+
+  bool get pushNotifyStatus {
+    return currentUser.pushNotify;
+  }
+
   Future<void> changeUserPassword(
       String currentPassword, String newPassword) async {
+    //print("NewPass: $newPassword");
     const url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
@@ -19,8 +32,8 @@ class UserProvider with ChangeNotifier {
         body: {
           'action': 'edit',
           'object': 'tbl_user',
-          'User_ID': currentUser.id,
-          'Residence_Type': currentUser.residenceType,
+          'User_ID': currentUser.id.toString(),
+          'Residence_Type': (currentUser.residenceType.index + 1).toString(),
           'Password': newPassword,
         },
         headers: {
@@ -37,8 +50,7 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<void> changeUserSettings(
-      bool residenceType, bool smsNotify, bool pushNotify) async {
+  Future<void> changeResidenceTypeSetting(int residenceType) async {
     const url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
@@ -46,10 +58,8 @@ class UserProvider with ChangeNotifier {
         body: {
           'action': 'edit',
           'object': 'tbl_user',
-          'User_ID': currentUser.id,
-          'Residence_Type': residenceType,
-          'SMS_Notify': smsNotify,
-          'PUSH_Notify': pushNotify
+          'User_ID': currentUser.id.toString(),
+          'Residence_Type': residenceType.toString(),
         },
         headers: {
           'X-Authorization': currentUser.token,
@@ -63,5 +73,64 @@ class UserProvider with ChangeNotifier {
     } catch (error) {
       throw error;
     }
+    currentUser.residenceType =
+        residenceType == 1 ? ResidenceType.kishvand : ResidenceType.passenger;
+    notifyListeners();
+  }
+
+  Future<void> changeSmsNotifySetting(bool smsNotify) async {
+    const url = 'http://hamibox.ir/main/api/index.php';
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'action': 'edit',
+          'object': 'tbl_user',
+          'User_ID': currentUser.id.toString(),
+          'Residence_Type': (currentUser.residenceType.index + 1).toString(),
+          'SMS_Notify': smsNotify ? '1' : '0',
+        },
+        headers: {
+          'X-Authorization': currentUser.token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      final responseData = json.decode(response.body);
+      if (!responseData['success']) {
+        throw HttpException(responseData['failureMessage']);
+      }
+    } catch (error) {
+      throw error;
+    }
+    currentUser.smsNotify = smsNotify;
+    notifyListeners();
+  }
+
+  Future<void> changePushNotifySetting(bool pushNotify) async {
+    const url = 'http://hamibox.ir/main/api/index.php';
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'action': 'edit',
+          'object': 'tbl_user',
+          'User_ID': currentUser.id.toString(),
+          'Residence_Type': (currentUser.residenceType.index + 1).toString(),
+          'PUSH_Notify': pushNotify ? '1' : '0',
+        },
+        headers: {
+          'X-Authorization': currentUser.token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      final responseData = json.decode(response.body);
+      if (!responseData['success']) {
+        throw HttpException(responseData['failureMessage']);
+      }
+    } catch (error) {
+      throw error;
+    }
+    currentUser.pushNotify = pushNotify;
+    notifyListeners();
   }
 }

@@ -14,6 +14,7 @@ import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/signup.dart';
 import 'package:lottery/screens/splash.dart';
 import 'package:lottery/screens/start.dart';
+import 'package:lottery/screens/user_password.dart';
 import 'package:lottery/screens/user_setting.dart';
 import 'package:lottery/screens/verification.dart';
 import 'package:provider/provider.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
             NewCreditCardScreen.routeName: (ctx) => NewCreditCardScreen(),
             NewsDetailScreen.routeName: (ctx) => NewsDetailScreen(),
             UserSettingsScreen.routeName: (ctx) => UserSettingsScreen(),
+            UserPasswordScreen.routeName: (ctx) => UserPasswordScreen(),
           },
         ),
       ),

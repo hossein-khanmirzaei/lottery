@@ -10,8 +10,8 @@ class User {
   String mobileNo;
   String userName;
   ResidenceType residenceType;
-  int smsNotify;
-  int pushNotify;
+  bool smsNotify;
+  bool pushNotify;
   String token;
   DateTime expiryDate;
   User({
@@ -23,7 +23,7 @@ class User {
     @required this.residenceType,
     @required this.token,
     @required this.expiryDate,
-    this.smsNotify = 1,
-    this.pushNotify = 1,
+    this.smsNotify = true,
+    this.pushNotify = true,
   });
 }

@@ -79,8 +79,6 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
               onPressed: () {
                 final form = _formKey.currentState;
                 form.save();
-                print(_cardTitle);
-                print(_cardNumber);
                 _addCard(_cardTitle, _cardNumber);
               },
             )
