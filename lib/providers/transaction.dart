@@ -11,10 +11,20 @@ class TransactionProvider with ChangeNotifier {
   final User currentUser;
   TransactionProvider(this.currentUser);
 
+  Transaction _currentTransaction;
+
+  Transaction get currentTransaction {
+    return _currentTransaction;
+  }
+
   List<Transaction> _transactions = [];
 
   List<Transaction> get transactions {
     return [..._transactions];
+  }
+
+  void setCurrentTransaction(int id) {
+    _currentTransaction = _transactions.firstWhere((t) => t.id == id);
   }
 
   Future<void> fetchTransactions() async {

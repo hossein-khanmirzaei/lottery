@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider with ChangeNotifier {
   final User currentUser;

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/news.dart';
+import 'package:lottery/providers/help.dart';
 
-class NewsDetailScreen extends StatefulWidget {
-  static const routeName = '/newsDetail';
+class HelpDetailScreen extends StatefulWidget {
+  static const routeName = '/helpDetail';
   @override
-  _NewsDetailScreenState createState() => _NewsDetailScreenState();
+  _HelpDetailScreenState createState() => _HelpDetailScreenState();
 }
 
-class _NewsDetailScreenState extends State<NewsDetailScreen> {
+class _HelpDetailScreenState extends State<HelpDetailScreen> {
   var _isLoading = false;
-  var _note;
+  var _content;
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -36,20 +36,21 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
     );
   }
 
-  Future<void> _getNote() async {
+  Future<void> _getContent() async {
     setState(() {
       _isLoading = true;
     });
     try {
-      await Provider.of<NewsProvider>(context, listen: false)
-          .fetchCurrentNewsDetail();
+      await Provider.of<HelpProvider>(context, listen: false).fetchCurrentHelpContent();
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       print(error);
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
-    _note = Provider.of<NewsProvider>(context, listen: false).currentNews.note;
+    _content = Provider.of<HelpProvider>(context, listen: false)
+        .currentHelpContent
+        .content;
     setState(() {
       _isLoading = false;
     });
@@ -57,7 +58,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
 
   @override
   void initState() {
-    _getNote();
+    _getContent();
     super.initState();
   }
 
@@ -73,7 +74,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             )
           : Container(
               child: Center(
-                child: Text(_note),
+                child: Text(_content),
               ),
             ),
     );

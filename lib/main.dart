@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lottery/providers/creditcard.dart';
+import 'package:lottery/providers/help.dart';
 import 'package:lottery/providers/news.dart';
 import 'package:lottery/providers/overview.dart';
 import 'package:lottery/providers/store.dart';
@@ -8,6 +9,8 @@ import 'package:lottery/providers/transaction.dart';
 import 'package:lottery/providers/user.dart';
 import 'package:lottery/screens/about.dart';
 import 'package:lottery/screens/creditcard.dart';
+import 'package:lottery/screens/help_detail.dart';
+import 'package:lottery/screens/help_list.dart';
 import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/screens/news_detail.dart';
@@ -16,6 +19,8 @@ import 'package:lottery/screens/rules.dart';
 import 'package:lottery/screens/signup.dart';
 import 'package:lottery/screens/splash.dart';
 import 'package:lottery/screens/start.dart';
+import 'package:lottery/screens/store_detail.dart';
+import 'package:lottery/screens/transaction_detail.dart';
 import 'package:lottery/screens/user_password.dart';
 import 'package:lottery/screens/user_setting.dart';
 import 'package:lottery/screens/verification.dart';
@@ -49,6 +54,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
           builder: (_, auth, __) => UserProvider(auth.currentUser),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, HelpProvider>(
+          builder: (_, auth, __) => HelpProvider(auth.currentUser),
         ),
       ],
       child: Consumer<AuthProvider>(
@@ -85,12 +93,17 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (ctx) => LoginScreen(),
             OverviewScreen.routeName: (ctx) => OverviewScreen(),
             CreditCardScreen.routeName: (ctx) => CreditCardScreen(),
+            TransactionDetailScreen.routeName: (ctx) =>
+                TransactionDetailScreen(),
+            StoreDetailScreen.routeName: (ctx) => StoreDetailScreen(),
             NewCreditCardScreen.routeName: (ctx) => NewCreditCardScreen(),
             NewsDetailScreen.routeName: (ctx) => NewsDetailScreen(),
             UserSettingsScreen.routeName: (ctx) => UserSettingsScreen(),
             UserPasswordScreen.routeName: (ctx) => UserPasswordScreen(),
             AboutScreen.routeName: (ctx) => AboutScreen(),
             RulesScreen.routeName: (ctx) => RulesScreen(),
+            HelpListScreen.routeName: (ctx) => HelpListScreen(),
+            HelpDetailScreen.routeName: (ctx) => HelpDetailScreen(),
           },
         ),
       ),

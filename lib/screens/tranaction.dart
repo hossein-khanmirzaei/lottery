@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/tranaction.dart';
+import 'package:lottery/screens/transaction_detail.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/transaction.dart';
 
@@ -24,7 +25,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         actions: <Widget>[
           FlatButton(
             textColor: Theme.of(context).accentColor,
-            color: Theme.of(context).primaryColor,            
+            color: Theme.of(context).primaryColor,
             child: Text('بستن'),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -91,10 +92,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       _transactions[index].date.toString(),
                 ),
                 trailing: IconButton(
-                    icon: Icon(Icons.search),
-                    color: Theme.of(context).errorColor,
-                    onPressed: null //() => deleteTx(_transactions[index].id),
-                    ),
+                  icon: Icon(Icons.search),
+                  color: Theme.of(context).errorColor,
+                  onPressed: () {
+                    Provider.of<TransactionProvider>(context, listen: false)
+                        .setCurrentTransaction(_transactions[index].id);
+                    Navigator.of(context)
+                        .pushNamed(TransactionDetailScreen.routeName);
+                  },
+                ),
               );
             },
             separatorBuilder: (context, index) {

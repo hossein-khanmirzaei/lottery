@@ -11,10 +11,20 @@ class StoreProvider with ChangeNotifier {
   final User currentUser;
   StoreProvider(this.currentUser);
 
+  Store _currentStore;
+
+  Store get currentStore {
+    return _currentStore;
+  }
+
   List<Store> _storeList = [];
 
   List<Store> get storeList {
     return [..._storeList];
+  }
+
+  void setCurrentStore(int id) {
+    _currentStore = _storeList.firstWhere((s) => s.id == id);
   }
 
   Future<void> fetchStores() async {
@@ -37,7 +47,8 @@ class StoreProvider with ChangeNotifier {
         throw HttpException(responseData['failureMessage']);
       }
       (responseData['tbl_store'] as List<dynamic>).forEach((s) {
-        loadedStores.add(Store(
+        loadedStores.add(
+          Store(
             id: int.parse(s['Store_ID']),
             status: s['Status'],
             logoUrl: s['Logo']['url'],
@@ -47,7 +58,10 @@ class StoreProvider with ChangeNotifier {
             unitNumber: s['Unit'],
             phoneNumber: s['Tel'],
             faxNumber: s['Fax'],
-            mobileNumber: s['Mobile']));
+            mobileNumber: s['Mobile'],
+            address: s['Address'],
+          ),
+        );
       });
       _storeList = loadedStores;
       notifyListeners();

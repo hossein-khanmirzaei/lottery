@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Store {
@@ -12,6 +11,7 @@ class Store {
   String phoneNumber;
   String faxNumber;
   String mobileNumber;
+  String address;
 
   Store({
     @required this.id,
@@ -24,5 +24,6 @@ class Store {
     @required this.phoneNumber,
     @required this.faxNumber,
     @required this.mobileNumber,
+    @required this.address,
   });
 }

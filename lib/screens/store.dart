@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/store.dart';
+import 'package:lottery/screens/store_detail.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/store.dart';
 
@@ -87,10 +88,15 @@ class _StoreScreenState extends State<StoreScreen> {
                   _stores[index].unitNumber,
                 ),
                 trailing: IconButton(
-                    icon: Icon(Icons.search),
-                    color: Theme.of(context).errorColor,
-                    onPressed: null //() => deleteTx(_transactions[index].id),
-                    ),
+                  icon: Icon(Icons.search),
+                  color: Theme.of(context).errorColor,
+                  onPressed: () {
+                    Provider.of<StoreProvider>(context, listen: false)
+                        .setCurrentStore(_stores[index].id);
+                    Navigator.of(context)
+                        .pushNamed(StoreDetailScreen.routeName);
+                  },
+                ),
               );
             },
             separatorBuilder: (context, index) {

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CreditCard {
+class Help {
   int id;
-  int status;
   String title;
-  String cardNumber;
-  CreditCard({
+  String content;
+  Help({
     @required this.id,
-    this.status = 1,
     @required this.title,
-    @required this.cardNumber,
+    this.content = "",
   });
 }
