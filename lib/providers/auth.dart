@@ -11,18 +11,6 @@ class AuthProvider with ChangeNotifier {
   User _currentUser;
   String _rules;
   String _aboutUs;
-  //  = User(
-  //   id: null,
-  //   fullName: null,
-  //   nationalId: null,
-  //   mobileNo: null,
-  //   userName: null,
-  //   residenceType: null,
-  //   smsNotify: null,
-  //   pushNotify: null,
-  //   token: null,
-  //   expiryDate: null,
-  // );
 
   Timer _authTimer;
 
@@ -37,15 +25,6 @@ class AuthProvider with ChangeNotifier {
   String get aboutUs {
     return _aboutUs;
   }
-  // String get token {
-  //   if (_currentUser != null &&
-  //       _currentUser.expiryDate != null &&
-  //       _currentUser.expiryDate.isAfter(DateTime.now()) &&
-  //       _currentUser.token != null) {
-  //     return _currentUser.token;
-  //   }
-  //   return null;
-  // }
 
   User get currentUser {
     if (_currentUser != null &&
@@ -128,9 +107,9 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
       _autoLogout();
       final prefs = await SharedPreferences.getInstance();
-      final userData = currentUser.toJson();
+      final userToken = responseData['JWT'];
       try {
-        prefs.setString('userData', jsonEncode(userData));
+        prefs.setString('userToken', userToken);
       } catch (error) {
         print(error);
       }
@@ -200,22 +179,20 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
-    User userData;
     final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('userData')) {
+    if (!prefs.containsKey('userToken')) {
       return false;
     }
-    try {
-      Map userDataMap = jsonDecode(prefs.getString('userData'));
-      userData = User.fromJson(userDataMap);
-      //print(currentUser);
-    } catch (error) {
-      print(error);
-    }
-    if (userData.expiryDate.isBefore(DateTime.now())) {
+
+    final userToken = prefs.getString('userToken');
+    final expiryDate = DateTime.fromMillisecondsSinceEpoch(
+      _parseJwt(userToken)['exp'] * 1000,
+    );
+
+    if (expiryDate.isBefore(DateTime.now())) {
       return false;
     }
-    await _getInitialData(userData.token);
+    await _getInitialData(userToken);
     notifyListeners();
     _autoLogout();
     return true;
