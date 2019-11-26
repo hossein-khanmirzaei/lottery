@@ -86,7 +86,6 @@ class HelpProvider with ChangeNotifier {
       }
       _helpList.firstWhere((h) => h.id == _currentHelpContent.id).content =
           responseData['tbl_help']['Content'];
-      print(responseData['tbl_help']['Content']);
       notifyListeners();
     } catch (error) {
       throw error;

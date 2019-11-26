@@ -3,6 +3,8 @@ import 'package:lottery/models/http_exception.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/help.dart';
 
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+
 class HelpDetailScreen extends StatefulWidget {
   static const routeName = '/helpDetail';
   @override
@@ -41,11 +43,11 @@ class _HelpDetailScreenState extends State<HelpDetailScreen> {
       _isLoading = true;
     });
     try {
-      await Provider.of<HelpProvider>(context, listen: false).fetchCurrentHelpContent();
+      await Provider.of<HelpProvider>(context, listen: false)
+          .fetchCurrentHelpContent();
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
-      print(error);
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     _content = Provider.of<HelpProvider>(context, listen: false)
@@ -73,8 +75,12 @@ class _HelpDetailScreenState extends State<HelpDetailScreen> {
               ),
             )
           : Container(
-              child: Center(
-                child: Text(_content),
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                child: HtmlWidget(
+                  _content,
+                ),
               ),
             ),
     );

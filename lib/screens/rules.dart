@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';
 
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+
 class RulesScreen extends StatefulWidget {
   static const routeName = '/rules';
   @override
@@ -37,8 +39,12 @@ class _RulesScreenScreenState extends State<RulesScreen> {
               child: CircularProgressIndicator(),
             )
           : Container(
-              child: Center(
-                child: Text(_rules),
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                child: HtmlWidget(
+                  _rules,
+                ),
               ),
             ),
     );
