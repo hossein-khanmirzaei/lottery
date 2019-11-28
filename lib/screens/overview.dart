@@ -50,7 +50,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     });
     try {
       await Provider.of<TransactionProvider>(context, listen: false)
-          .getTotalCredit('2649402032');
+          .getTotalCredit();
     } on HttpException catch (error) {
       //_showErrorDialog(error.toString());
     } catch (error) {
@@ -68,7 +68,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     });
     try {
       await Provider.of<TransactionProvider>(context, listen: false)
-          .getTotalPayment('2649402032');
+          .getTotalPayment();
     } on HttpException catch (error) {
       //_showErrorDialog(error.toString());
     } catch (error) {

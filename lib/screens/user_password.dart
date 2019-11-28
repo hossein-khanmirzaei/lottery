@@ -57,11 +57,11 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
       });
       //_showErrorDialog('کلمه عبور با موفقیت تغییر کرد.');
       Provider.of<AuthProvider>(context, listen: false).logout();
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          StartScreen.routeName, (Route<dynamic> route) => false);
+      Navigator.of(context).pushReplacementNamed(StartScreen.routeName);
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
+      print(error);
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
   }

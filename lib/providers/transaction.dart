@@ -121,14 +121,14 @@ class TransactionProvider with ChangeNotifier {
   //   }
   // }
 
-  Future<void> getTotalPayment(String username) async {
+  Future<void> getTotalPayment() async {
     final url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
         body: {
           'action': 'user_total_payment',
-          'user': username,
+          'user': currentUser.userName,
         },
         headers: {
           'X-Authorization': currentUser.token,
@@ -147,14 +147,14 @@ class TransactionProvider with ChangeNotifier {
     }
   }
 
-  Future<void> getTotalCredit(String username) async {
+  Future<void> getTotalCredit() async {
     final url = 'http://hamibox.ir/main/api/index.php';
     try {
       final response = await http.post(
         url,
         body: {
           'action': 'user_total_credit',
-          'user': username,
+          'user': currentUser.userName,
         },
         headers: {
           'X-Authorization': currentUser.token,
