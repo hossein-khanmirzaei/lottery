@@ -55,7 +55,6 @@ class CreditCardProvider with ChangeNotifier {
       _cardList = loadedCreditcards;
       notifyListeners();
     } catch (error) {
-      print(error);
       throw error;
     }
   }
@@ -89,7 +88,6 @@ class CreditCardProvider with ChangeNotifier {
       ));
       notifyListeners();
     } catch (error) {
-      print(error);
       throw error;
     }
   }

@@ -52,8 +52,14 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
         Navigator.of(context).pop();
       });
     } on HttpException catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
       _showErrorDialog(error.toString());
     } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
   }
@@ -74,14 +80,20 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
               decoration: InputDecoration(labelText: 'شماره کارت'),
               onSaved: (val) => setState(() => _cardNumber = val),
             ),
-            RaisedButton(
-              child: Text('ثبت'),
-              onPressed: () {
-                final form = _formKey.currentState;
-                form.save();
-                _addCard(_cardTitle, _cardNumber);
-              },
-            )
+            _isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
+                  )
+                : RaisedButton(
+                    child: Text('ثبت'),
+                    onPressed: () {
+                      final form = _formKey.currentState;
+                      form.save();
+                      _addCard(_cardTitle, _cardNumber);
+                    },
+                  )
           ],
         ),
       ),

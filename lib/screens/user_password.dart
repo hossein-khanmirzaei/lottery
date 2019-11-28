@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/user.dart';
+import 'package:lottery/screens/overview.dart';
+import 'package:lottery/screens/start.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';
 import 'package:lottery/providers/user.dart';
@@ -53,12 +55,15 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
       setState(() {
         _isLoading = false;
       });
+      //_showErrorDialog('کلمه عبور با موفقیت تغییر کرد.');
+      Provider.of<AuthProvider>(context, listen: false).logout();
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          StartScreen.routeName, (Route<dynamic> route) => false);
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
-    //Provider.of<AuthProvider>(context, listen: false).logout();
   }
 
   @override

@@ -35,7 +35,7 @@ class TransactionList extends StatelessWidget {
                       ),
                     ),
                     title: Text(
-                      transactions[index].mall.toString(),
+                      transactions[index].mallName,
                       style: Theme.of(context).textTheme.title,
                     ),
                     subtitle: Text(

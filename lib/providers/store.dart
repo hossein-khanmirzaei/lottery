@@ -27,6 +27,50 @@ class StoreProvider with ChangeNotifier {
     _currentStore = _storeList.firstWhere((s) => s.id == id);
   }
 
+  // Future<void> fetchStores() async {
+  //   final List<Store> loadedStores = [];
+  //   final url = 'http://hamibox.ir/main/api/index.php';
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       body: {
+  //         'action': 'list',
+  //         'object': 'tbl_store',
+  //       },
+  //       headers: {
+  //         'X-Authorization': currentUser.token,
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //       },
+  //     );
+  //     final responseData = json.decode(response.body);
+  //     if (!responseData['success']) {
+  //       throw HttpException(responseData['failureMessage']);
+  //     }
+  //     (responseData['tbl_store'] as List<dynamic>).forEach((s) {
+  //       loadedStores.add(
+  //         Store(
+  //           id: int.parse(s['Store_ID']),
+  //           status: s['Status'],
+  //           logoUrl: s['Logo']['url'],
+  //           name: s['Name'],
+  //           type: s['Type'],
+  //           subType: s['Sub_Type'],
+  //           unitNumber: s['Unit'],
+  //           phoneNumber: s['Tel'],
+  //           faxNumber: s['Fax'],
+  //           mobileNumber: s['Mobile'],
+  //           address: s['Address'],
+  //         ),
+  //       );
+  //     });
+  //     _storeList = loadedStores;
+  //     notifyListeners();
+  //   } catch (error) {
+  //     print(error);
+  //     throw error;
+  //   }
+  // }
+
   Future<void> fetchStores() async {
     final List<Store> loadedStores = [];
     final url = 'http://hamibox.ir/main/api/index.php';
@@ -34,8 +78,7 @@ class StoreProvider with ChangeNotifier {
       final response = await http.post(
         url,
         body: {
-          'action': 'list',
-          'object': 'tbl_store',
+          'action': 'store_list',
         },
         headers: {
           'X-Authorization': currentUser.token,
@@ -46,15 +89,15 @@ class StoreProvider with ChangeNotifier {
       if (!responseData['success']) {
         throw HttpException(responseData['failureMessage']);
       }
-      (responseData['tbl_store'] as List<dynamic>).forEach((s) {
+      (responseData['data'] as List<dynamic>).forEach((s) {
         loadedStores.add(
           Store(
             id: int.parse(s['Store_ID']),
             status: s['Status'],
-            logoUrl: s['Logo']['url'],
-            name: s['Name'],
-            type: s['Type'],
-            subType: s['Sub_Type'],
+            logoUrl: s['Logo'],
+            name: s['Store_Name'],
+            type: s['Store_Category'],
+            subType: s['Store_Sub_Category'],
             unitNumber: s['Unit'],
             phoneNumber: s['Tel'],
             faxNumber: s['Fax'],

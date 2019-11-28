@@ -35,13 +35,6 @@ class CreditCardList extends StatelessWidget {
                 itemCount: creditCards.length,
                 itemBuilder: (ctx, index) {
                   return ListTile(
-                    // leading: CircleAvatar(
-                    //   radius: 30,
-                    //   child: Padding(
-                    //     padding: EdgeInsets.all(6),
-                    //     child: null,
-                    //   ),
-                    // ),
                     leading: IconButton(
                       icon: Icon(Icons.edit),
                       color: Theme.of(context).errorColor,
@@ -56,60 +49,11 @@ class CreditCardList extends StatelessWidget {
                       style: Theme.of(context).textTheme.subhead,
                       textDirection: TextDirection.ltr,
                     ),
-                    // trailing: IconButton(
-                    //   icon: Icon(Icons.edit),
-                    //   color: Theme.of(context).errorColor,
-                    //   onPressed: () =>
-                    //       deleteCreditCard(creditCards[index].id),
-                    // ),
                   );
                 },
                 separatorBuilder: (context, index) {
                   return Divider();
                 },
-
-/*
-            : ListView.builder(
-                itemBuilder: (ctx, index) {
-                  return Card(
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 5,
-                    ),
-                    child: ListTile(
-                      // leading: CircleAvatar(
-                      //   radius: 30,
-                      //   child: Padding(
-                      //     padding: EdgeInsets.all(6),
-                      //     child: null,
-                      //   ),
-                      // ),
-                      leading: IconButton(
-                        icon: Icon(Icons.edit),
-                        color: Theme.of(context).errorColor,
-                        onPressed: () =>
-                            deleteCreditCard(creditCards[index].id),
-                      ),
-                      title: Text(
-                        creditCards[index].title,
-                        //style: Theme.of(context).textTheme.subhead,
-                      ),
-                      subtitle: Text(
-                        creditCards[index].cardNumber,
-                      ),
-                      // trailing: IconButton(
-                      //   icon: Icon(Icons.edit),
-                      //   color: Theme.of(context).errorColor,
-                      //   onPressed: () =>
-                      //       deleteCreditCard(creditCards[index].id),
-                      // ),
-                    ),
-                  );
-                },
-                itemCount: creditCards.length,
-              ),
-*/
               ),
       ),
     );

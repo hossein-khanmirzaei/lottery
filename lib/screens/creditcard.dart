@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/providers/creditcard.dart';
 import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/widgets/credit_card_list.dart';
 import 'package:provider/provider.dart';
+import 'package:lottery/providers/creditcard.dart';
 
 class CreditCardScreen extends StatefulWidget {
   static const routeName = '/cardList';
@@ -14,7 +14,7 @@ class CreditCardScreen extends StatefulWidget {
 
 class _CreditCardScreenState extends State<CreditCardScreen> {
   var _isLoading = false;
-  List<CreditCard> cards = [];
+  // List<CreditCard> _cards;
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -43,64 +43,49 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
     setState(() {
       _isLoading = true;
     });
-
     try {
       await Provider.of<CreditCardProvider>(context, listen: false)
           .getCardList();
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
-      print(error);
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      cards = Provider.of<CreditCardProvider>(context, listen: false).cardList;
+      // _cards = Provider.of<CreditCardProvider>(context, listen: false).cardList;
       _isLoading = false;
     });
   }
 
-  Future<void> _addCreditCard(String cardTitle, String cardNumber) async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      await Provider.of<CreditCardProvider>(context, listen: false)
-          .addCard(
-        cardTitle,
-        cardNumber,
-      )
-          .then((_) {
-        Navigator.of(context).pop();
-      });
-    } on HttpException catch (error) {
-      _showErrorDialog(error.toString());
-    } catch (error) {
-      _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
-    }
-    setState(() {
-      cards = Provider.of<CreditCardProvider>(context, listen: false).cardList;
-      _isLoading = false;
-    });
-  }
+  // Future<void> _addCreditCard(String cardTitle, String cardNumber) async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //   try {
+  //     await Provider.of<CreditCardProvider>(context, listen: false)
+  //         .addCard(
+  //       cardTitle,
+  //       cardNumber,
+  //     )
+  //         .then((_) {
+  //       Navigator.of(context).pop();
+  //     });
+  //   } on HttpException catch (error) {
+  //     _showErrorDialog(error.toString());
+  //   } catch (error) {
+  //     _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
+  //   }
+  //   setState(() {
+  //     cards = Provider.of<CreditCardProvider>(context).cardList;
+  //     _isLoading = false;
+  //   });
+  // }
 
   @override
   void initState() {
     _getCradList();
     super.initState();
   }
-
-  // void _startAddNewTransaction(BuildContext ctx) {
-  //   showModalBottomSheet(
-  //     context: ctx,
-  //     builder: (_) {
-  //       return GestureDetector(
-  //         onTap: () {},
-  //         child: NewCreditCard(_addCreditCard),
-  //         behavior: HitTestBehavior.opaque,
-  //       );
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +96,6 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
         child: const Icon(Icons.add),
         onPressed: () {
           Navigator.of(context).pushNamed(NewCreditCardScreen.routeName);
-          //_startAddNewTransaction(context);
         },
       ),
       body: _isLoading
@@ -120,7 +104,10 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
                 backgroundColor: Theme.of(context).primaryColor,
               ),
             )
-          : CreditCardList(cards, () {}),
+          : Consumer<CreditCardProvider>(
+              builder: (ctx, creditCard, _) =>
+                  CreditCardList(creditCard.cardList, () {}),
+            ),
     );
   }
 }

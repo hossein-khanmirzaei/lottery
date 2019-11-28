@@ -83,7 +83,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 //   ),
                 // ),
                 title: Text(
-                  _transactions[index].mall.toString(),
+                  _transactions[index].mallName,
                   style: Theme.of(context).textTheme.title,
                 ),
                 subtitle: Text(

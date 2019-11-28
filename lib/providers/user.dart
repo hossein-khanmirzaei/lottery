@@ -30,11 +30,10 @@ class UserProvider with ChangeNotifier {
       final response = await http.post(
         url,
         body: {
-          'action': 'edit',
-          'object': 'tbl_user',
-          'User_ID': currentUser.id.toString(),
-          'Residence_Type': (currentUser.residenceType.index + 1).toString(),
-          'Password': newPassword,
+          'action': 'user_changepwd',
+          'user': currentUser.id.toString(),
+          'opwd': currentPassword,
+          'npwd': newPassword,
         },
         headers: {
           'X-Authorization': currentUser.token,

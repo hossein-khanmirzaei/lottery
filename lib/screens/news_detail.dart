@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/news.dart';
@@ -72,8 +73,12 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
               ),
             )
           : Container(
-              child: Center(
-                child: Text(_note),
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                child: HtmlWidget(
+                  _note,
+                ),
               ),
             ),
     );
