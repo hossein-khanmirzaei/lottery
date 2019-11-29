@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottery/screens/about.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:lottery/screens/help_list.dart';
+import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/rules.dart';
 import 'package:lottery/screens/user_password.dart';
 import 'package:provider/provider.dart';
@@ -76,14 +77,16 @@ class AppDrawer extends StatelessWidget {
               title: Text('راهنما'),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(HelpListScreen.routeName);              },
+                Navigator.of(context).pushNamed(HelpListScreen.routeName);
+              },
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('خروج از حساب کاربری'),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    LoginScreen.routeName, (Route<dynamic> route) => false);
                 Provider.of<AuthProvider>(context, listen: false).logout();
               },
             ),
