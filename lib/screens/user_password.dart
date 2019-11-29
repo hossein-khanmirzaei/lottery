@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/user.dart';
+import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/start.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
   var _isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
-  void _showErrorDialog(String message) {
+  Future<void> _showErrorDialog(String message) async {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -55,9 +56,10 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
       setState(() {
         _isLoading = false;
       });
-      //_showErrorDialog('کلمه عبور با موفقیت تغییر کرد.');
+      //await _showErrorDialog('کلمه عبور با موفقیت تغییر کرد.');
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          LoginScreen.routeName, (Route<dynamic> route) => false);
       Provider.of<AuthProvider>(context, listen: false).logout();
-      Navigator.of(context).pushReplacementNamed(StartScreen.routeName);
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
@@ -75,14 +77,17 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
         body: Column(
           children: <Widget>[
             TextFormField(
+              obscureText: true,
               decoration: InputDecoration(labelText: 'کلمه عبور فعلی'),
               onSaved: (val) => setState(() => _currentpassword = val),
             ),
             TextFormField(
+              obscureText: true,
               decoration: InputDecoration(labelText: 'کلمه عبور جدید'),
               onSaved: (val) => setState(() => _newPassword = val),
             ),
             TextFormField(
+              obscureText: true,
               decoration: InputDecoration(labelText: 'تکرار کلمه عبور جدید'),
               onSaved: (val) => setState(() => _newPasswordRepeat = val),
             ),
@@ -91,7 +96,10 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
               onPressed: () {
                 final form = _formKey.currentState;
                 form.save();
-                _updateUserPassword(_currentpassword, _newPassword);
+                if (_newPassword != _newPasswordRepeat)
+                  _showErrorDialog('پسورد جدید مطابقت ندارد!');
+                else
+                  _updateUserPassword(_currentpassword, _newPassword);
               },
             )
           ],

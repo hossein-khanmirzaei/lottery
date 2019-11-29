@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/creditcard.dart';
+import 'package:lottery/screens/edit_creditcard.dart';
+import 'package:provider/provider.dart';
+import 'package:lottery/providers/creditcard.dart';
 
 class CreditCardList extends StatelessWidget {
   final List<CreditCard> creditCards;
-  final Function deleteCreditCard;
+  //final Function deleteCreditCard;
 
-  CreditCardList(this.creditCards, this.deleteCreditCard);
+  CreditCardList(this.creditCards);
 
   String _butifyCreditCardNumber(String cardNumber) {
     List<String> cardNumberList = cardNumber.split('').toList();
@@ -36,15 +39,19 @@ class CreditCardList extends StatelessWidget {
                 itemBuilder: (ctx, index) {
                   return ListTile(
                     leading: IconButton(
-                      icon: Icon(Icons.edit),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () => deleteCreditCard(creditCards[index].id),
-                    ),
+                        icon: Icon(Icons.edit),
+                        color: Theme.of(context).errorColor,
+                        onPressed: () {
+                          Provider.of<CreditCardProvider>(context)
+                              .setCurrentCard(creditCards[index].id);
+                          Navigator.of(context)
+                              .pushNamed(EditCreditCardScreen.routeName);
+                        }),
                     title: Text(
                       creditCards[index].title,
                       style: Theme.of(context).textTheme.headline,
                     ),
-                    subtitle: Text(                      
+                    subtitle: Text(
                       _butifyCreditCardNumber(creditCards[index].cardNumber),
                       style: Theme.of(context).textTheme.subhead,
                       textDirection: TextDirection.ltr,

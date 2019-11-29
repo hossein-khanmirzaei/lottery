@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottery/screens/overview.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lottery/providers/auth.dart';
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await Provider.of<AuthProvider>(context, listen: false)
           .login(_username, _password);
-      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
     } catch (error) {
       _showErrorDialog(error.toString());
       print(error);

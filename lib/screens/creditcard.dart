@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/widgets/credit_card_list.dart';
@@ -106,7 +105,7 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
             )
           : Consumer<CreditCardProvider>(
               builder: (ctx, creditCard, _) =>
-                  CreditCardList(creditCard.cardList, () {}),
+                  CreditCardList(creditCard.cardList),
             ),
     );
   }

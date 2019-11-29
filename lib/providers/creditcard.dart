@@ -21,7 +21,7 @@ class CreditCardProvider with ChangeNotifier {
     return [..._cardList];
   }
 
-  void setCurrentNews(int id) {
+  void setCurrentCard(int id) {
     _currentCard = _cardList.firstWhere((c) => c.id == id);
   }
 
@@ -100,7 +100,7 @@ class CreditCardProvider with ChangeNotifier {
         body: {
           'action': 'edit',
           'object': 'tbl_user_card',
-          'Card_ID': _currentCard.id,
+          'Card_ID': _currentCard.id.toString(),
           'Status': '1',
           'Card_Title': cardTitle,
         },

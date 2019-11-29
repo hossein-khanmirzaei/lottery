@@ -9,6 +9,7 @@ import 'package:lottery/providers/transaction.dart';
 import 'package:lottery/providers/user.dart';
 import 'package:lottery/screens/about.dart';
 import 'package:lottery/screens/creditcard.dart';
+import 'package:lottery/screens/edit_creditcard.dart';
 import 'package:lottery/screens/help_detail.dart';
 import 'package:lottery/screens/help_list.dart';
 import 'package:lottery/screens/login.dart';
@@ -93,6 +94,7 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (ctx) => LoginScreen(),
             OverviewScreen.routeName: (ctx) => OverviewScreen(),
             CreditCardScreen.routeName: (ctx) => CreditCardScreen(),
+            EditCreditCardScreen.routeName: (ctx) => EditCreditCardScreen(),
             TransactionDetailScreen.routeName: (ctx) =>
                 TransactionDetailScreen(),
             StoreDetailScreen.routeName: (ctx) => StoreDetailScreen(),
