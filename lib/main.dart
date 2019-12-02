@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lottery/providers/creditcard.dart';
 import 'package:lottery/providers/help.dart';
 import 'package:lottery/providers/news.dart';
-import 'package:lottery/providers/overview.dart';
 import 'package:lottery/providers/store.dart';
 import 'package:lottery/providers/transaction.dart';
 import 'package:lottery/providers/user.dart';
@@ -30,7 +29,7 @@ import 'package:lottery/providers/auth.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {  
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

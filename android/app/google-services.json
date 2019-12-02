@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "375244220699",
+    "firebase_url": "https://lottery-23377.firebaseio.com",
+    "project_id": "lottery-23377",
+    "storage_bucket": "lottery-23377.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375244220699:android:263090119c641fa5f70bbe",
+        "android_client_info": {
+          "package_name": "com.example.lottery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375244220699-s701rsek3nh6g8j2peh2va3hmea8i42g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_wb-WM7quhCDxVnKu6erY90QSsis4YJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375244220699-s701rsek3nh6g8j2peh2va3hmea8i42g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

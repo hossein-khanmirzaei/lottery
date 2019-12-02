@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/screens/creditcard.dart';
@@ -20,6 +21,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
   String _totalCredit = '---';
   String _totalPayment = '---';
   var _isLoading = false;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -97,6 +99,22 @@ class _OverviewScreenState extends State<OverviewScreen> {
   void initState() {
     _getTotalCredit();
     _getTotalPayment();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        _showErrorDialog(message['notification']['body']);
+        print("OnMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        //_showErrorDialog(message['notification']['body']);
+        print("OnLanch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        //_showErrorDialog(message['notification']['body']);
+        print("OnMResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
     super.initState();
   }
 

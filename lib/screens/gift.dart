@@ -1,4 +1,4 @@
-import 'package:flutter/Material.dart';
+import 'package:flutter/material.dart';
 
 class GiftScreen extends StatefulWidget {
   @override
