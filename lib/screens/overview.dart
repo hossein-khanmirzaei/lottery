@@ -23,11 +23,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
   var _isLoading = false;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  void _showErrorDialog(String message) {
+  void _showErrorDialog(String message, [String title = 'پیام جدید']) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('خطا!'),
+        title: Text(title),
         content: Text(
           message,
           textAlign: TextAlign.justify,
