@@ -72,205 +72,212 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('ورود'),
-      ),
       body: Form(
         key: _form,
         //autovalidate: true,
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: MediaQuery.of(context).size.width / 10,
-                      ),
-                      child: TextFormField(
-                        onSaved: (value) {
-                          _username = value;
-                        },
-                        onFieldSubmitted: (_) {
-                          FocusScope.of(context)
-                              .requestFocus(_passwordFocusNode);
-                        },
-                        validator: (value) {
-                          if (value.isEmpty || value == null) {
-                            return "لطفا نام کاربری را وارد کنید!";
-                          }
-                          return null;
-                        },
-                        autofocus: true,
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        textInputAction: TextInputAction.next,
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                        decoration: InputDecoration(
-                            hintStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black26,
-                            ),
-                            hintText: 'نام کاربری',
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                                width: 2,
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                                width: 3,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              child: IconTheme(
-                                data: IconThemeData(
-                                  color: Theme.of(context).primaryColor,
-                                  size: 32,
-                                ),
-                                child: Icon(Icons.person),
-                              ),
-                              padding: EdgeInsets.only(left: 0, right: 25),
-                            )),
-                      ),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width / 3,
+                // margin: EdgeInsets.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 20,
+                //     vertical: 10),
+                child: Image.asset('assets/images/logo.png'),
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: MediaQuery.of(context).size.width / 10,
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: MediaQuery.of(context).size.width / 10,
+                    child: TextFormField(
+                      onSaved: (value) {
+                        _username = value;
+                      },
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_passwordFocusNode);
+                      },
+                      validator: (value) {
+                        if (value.isEmpty || value == null) {
+                          return "لطفا نام کاربری را وارد کنید!";
+                        }
+                        return null;
+                      },
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      textInputAction: TextInputAction.next,
+                      style: TextStyle(
+                        fontSize: 18,
                       ),
-                      child: TextFormField(
-                        onSaved: (value) {
-                          _password = value;
-                        },
-                        onFieldSubmitted: (_) {
-                          _submitForm();
-                        },
-                        validator: (value) {
-                          if (value.isEmpty || value == null) {
-                            return "لطفا کلمه عبور را وارد کنید!";
-                          }
-                          return null;
-                        },
-                        obscureText: true,
-                        autofocus: true,
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.done,
-                        focusNode: _passwordFocusNode,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                        decoration: InputDecoration(
-                            hintStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black26,
-                            ),
-                            hintText: 'کلمه عبور',
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                                width: 2,
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                                width: 3,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              child: IconTheme(
-                                data: IconThemeData(
-                                  color: Theme.of(context).primaryColor,
-                                  size: 32,
-                                ),
-                                child: Icon(Icons.lock),
-                              ),
-                              padding: EdgeInsets.only(left: 0, right: 25),
-                            )),
-                      ),
-                    ),
-                    _isLoading
-                        ? Container(
-                            padding: EdgeInsets.symmetric(vertical: 17),
-                            child: CircularProgressIndicator(),
-                          )
-                        : Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width / 10,
-                                vertical: 10),
-                            child: RaisedButton(
-                              onPressed: _submitForm,
-                              child: Text(
-                                "ورود",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
+                      decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.black26,
+                          ),
+                          hintText: 'نام کاربری',
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
-                              textColor: Theme.of(context).accentColor,
-                              padding: EdgeInsets.symmetric(
-                                vertical: 15,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                  color: Theme.of(context).accentColor,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
+                              width: 2,
                             ),
                           ),
-                    // InkWell(
-                    //   onTap: _submitForm,
-                    //   child: Container(
-                    //     //width: 100.0,
-                    //     height: 50.0,
-                    //     margin: EdgeInsets.symmetric(
-                    //         horizontal: 25, vertical: 10),
-                    //     decoration: BoxDecoration(
-                    //       color: Theme.of(context)
-                    //           .primaryColor, // Colors.blueAccent,
-                    //       border: Border.all(
-                    //         color: Theme.of(context)
-                    //             .accentColor, //Colors.white54,
-                    //         width: 2.0,
-                    //       ),
-                    //       borderRadius: BorderRadius.circular(30),
-                    //     ),
-                    //     child: Center(
-                    //       child: Text(
-                    //         'ورود',
-                    //         style: TextStyle(
-                    //           fontSize: 18.0,
-                    //           color: Theme.of(context)
-                    //               .accentColor, //Colors.white,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                )
-              ],
-            ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 3,
+                            ),
+                          ),
+                          prefixIcon: Padding(
+                            child: IconTheme(
+                              data: IconThemeData(
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
+                              child: Icon(Icons.person),
+                            ),
+                            padding: EdgeInsets.only(left: 0, right: 25),
+                          )),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: MediaQuery.of(context).size.width / 10,
+                    ),
+                    child: TextFormField(
+                      onSaved: (value) {
+                        _password = value;
+                      },
+                      onFieldSubmitted: (_) {
+                        _submitForm();
+                      },
+                      validator: (value) {
+                        if (value.isEmpty || value == null) {
+                          return "لطفا کلمه عبور را وارد کنید!";
+                        }
+                        return null;
+                      },
+                      obscureText: true,
+                      autofocus: true,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      focusNode: _passwordFocusNode,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.black26,
+                          ),
+                          hintText: 'کلمه عبور',
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 3,
+                            ),
+                          ),
+                          prefixIcon: Padding(
+                            child: IconTheme(
+                              data: IconThemeData(
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
+                              child: Icon(Icons.lock),
+                            ),
+                            padding: EdgeInsets.only(left: 0, right: 25),
+                          )),
+                    ),
+                  ),
+                  _isLoading
+                      ? Container(
+                          padding: EdgeInsets.symmetric(vertical: 17),
+                          child: CircularProgressIndicator(),
+                        )
+                      : Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width / 10,
+                              vertical: 10),
+                          child: RaisedButton(
+                            onPressed: _submitForm,
+                            child: Text(
+                              "ورود",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            color: Theme.of(context).primaryColor,
+                            textColor: Theme.of(context).accentColor,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 15,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Theme.of(context).accentColor,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                        ),
+                  // InkWell(
+                  //   onTap: _submitForm,
+                  //   child: Container(
+                  //     //width: 100.0,
+                  //     height: 50.0,
+                  //     margin: EdgeInsets.symmetric(
+                  //         horizontal: 25, vertical: 10),
+                  //     decoration: BoxDecoration(
+                  //       color: Theme.of(context)
+                  //           .primaryColor, // Colors.blueAccent,
+                  //       border: Border.all(
+                  //         color: Theme.of(context)
+                  //             .accentColor, //Colors.white54,
+                  //         width: 2.0,
+                  //       ),
+                  //       borderRadius: BorderRadius.circular(30),
+                  //     ),
+                  //     child: Center(
+                  //       child: Text(
+                  //         'ورود',
+                  //         style: TextStyle(
+                  //           fontSize: 18.0,
+                  //           color: Theme.of(context)
+                  //               .accentColor, //Colors.white,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              )
+            ],
           ),
         ),
       ),

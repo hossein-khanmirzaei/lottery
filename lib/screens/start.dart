@@ -13,69 +13,84 @@ class StartScreen extends StatelessWidget {
     //AuthMode _authMode = AuthMode.Login;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 10,
-                  vertical: 10),
-              child: RaisedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(LoginScreen.routeName),
-                child: Text(
-                  "ورود",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width / 3,
+                // margin: EdgeInsets.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 20,
+                //     vertical: 10),
+                child: Image.asset('assets/images/logo.png'),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 10,
+                    vertical: 10),
+                child: RaisedButton(
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(LoginScreen.routeName),
+                  child: Text(
+                    "ورود",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                    ),
                   ),
-                ),
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).accentColor,
-                padding: EdgeInsets.symmetric(
-                  vertical: 15,
-                ),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Theme.of(context).accentColor,
-                    width: 2,
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).accentColor,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
                   ),
-                  borderRadius: BorderRadius.circular(30),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Theme.of(context).accentColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 10,
-                  vertical: 10),
-              child: RaisedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(SignupScreen.routeName),
-                child: Text(
-                  "ثبت نام",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 10,
+                    vertical: 10),
+                child: RaisedButton(
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(SignupScreen.routeName),
+                  child: Text(
+                    "ثبت نام",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                    ),
                   ),
-                ),
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).accentColor,
-                padding: EdgeInsets.symmetric(
-                  vertical: 15,
-                ),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Theme.of(context).accentColor,
-                    width: 2,
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).accentColor,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
                   ),
-                  borderRadius: BorderRadius.circular(30),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Theme.of(context).accentColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
