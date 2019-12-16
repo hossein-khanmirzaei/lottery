@@ -18,7 +18,6 @@ import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/rules.dart';
 import 'package:lottery/screens/signup.dart';
 import 'package:lottery/screens/splash.dart';
-import 'package:lottery/screens/start.dart';
 import 'package:lottery/screens/store_detail.dart';
 import 'package:lottery/screens/transaction_detail.dart';
 import 'package:lottery/screens/user_password.dart';
@@ -29,7 +28,7 @@ import 'package:lottery/providers/auth.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {  
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -41,22 +40,23 @@ class MyApp extends StatelessWidget {
         //   builder: (_, auth, __) => OverviewProvider(auth.currentUser),
         // ),
         ChangeNotifierProxyProvider<AuthProvider, TransactionProvider>(
-          builder: (_, auth, __) => TransactionProvider(auth.currentUser),
+          //create: (ctx) => TransactionProvider(),
+          update: (_, auth, __) => TransactionProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, NewsProvider>(
-          builder: (_, auth, __) => NewsProvider(auth.currentUser),
+          update: (_, auth, __) => NewsProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, CreditCardProvider>(
-          builder: (_, auth, __) => CreditCardProvider(auth.currentUser),
+          update: (_, auth, __) => CreditCardProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, StoreProvider>(
-          builder: (_, auth, __) => StoreProvider(auth.currentUser),
+          update: (_, auth, __) => StoreProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
-          builder: (_, auth, __) => UserProvider(auth.currentUser),
+          update: (_, auth, __) => UserProvider(auth.currentUser),
         ),
         ChangeNotifierProxyProvider<AuthProvider, HelpProvider>(
-          builder: (_, auth, __) => HelpProvider(auth.currentUser),
+          update: (_, auth, __) => HelpProvider(auth.currentUser),
         ),
       ],
       child: Consumer<AuthProvider>(
