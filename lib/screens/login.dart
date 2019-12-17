@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/signup.dart';
+import 'package:lottery/widgets/arc.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lottery/providers/auth.dart';
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Form(
         key: _form,
-        //autovalidate: true,
+        autovalidate: true,
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -93,147 +94,163 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: MediaQuery.of(context).size.width / 3,
                       child: Image.asset('assets/images/logo.png'),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width / 10),
-                      decoration: BoxDecoration(
-                          color: Color(0x945C62).withOpacity(.25)),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal:
-                                  MediaQuery.of(context).size.width / 10,
-                            ),
-                            child: TextFormField(
-                              onSaved: (value) {
-                                _username = value;
-                              },
-                              onFieldSubmitted: (_) {
-                                FocusScope.of(context)
-                                    .requestFocus(_passwordFocusNode);
-                              },
-                              validator: (value) {
-                                if (value.isEmpty || value == null) {
-                                  return "لطفا نام کاربری را وارد کنید!";
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.number,
-                              textInputAction: TextInputAction.next,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                                hintText: 'نام کاربری',
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
-                            ),
+                    Stack(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: MyArc(
+                            diameter: 90,
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal:
-                                  MediaQuery.of(context).size.width / 10,
-                            ),
-                            child: TextFormField(
-                              onSaved: (value) {
-                                _password = value;
-                              },
-                              onFieldSubmitted: (_) {
-                                _submitForm();
-                              },
-                              validator: (value) {
-                                if (value.isEmpty || value == null) {
-                                  return "لطفا کلمه عبور را وارد کنید!";
-                                }
-                                return null;
-                              },
-                              obscureText: true,
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.done,
-                              focusNode: _passwordFocusNode,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                                hintText: 'کلمه عبور',
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
-                            ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width / 10,
+                            right: MediaQuery.of(context).size.width / 10,
+                            top: 45,
                           ),
-                          _isLoading
-                              ? Container(
-                                  padding: EdgeInsets.symmetric(vertical: 17),
-                                  child: CircularProgressIndicator(),
-                                )
-                              : Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width /
-                                              20,
-                                      vertical: 20),
-                                  child: RaisedButton(
-                                    onPressed: _submitForm,
-                                    child: Text(
-                                      "ورود",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.normal,
+                          decoration: BoxDecoration(
+                            color: Color(0x945C62).withOpacity(.4),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal:
+                                      MediaQuery.of(context).size.width / 10,
+                                ),
+                                child: TextFormField(
+                                  onSaved: (value) {
+                                    _username = value;
+                                  },
+                                  onFieldSubmitted: (_) {
+                                    FocusScope.of(context)
+                                        .requestFocus(_passwordFocusNode);
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty || value == null) {
+                                      return "لطفا نام کاربری را وارد کنید!";
+                                    }
+                                    return null;
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                  decoration: InputDecoration(
+                                    hintStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                    hintText: 'نام کاربری',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 0,
                                       ),
                                     ),
-                                    color: Color(0x395A77).withOpacity(.5),
-                                    textColor: Colors.white,
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 10,
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 2,
+                                      ),
                                     ),
-                                    // shape: RoundedRectangleBorder(
-                                    //   side: BorderSide(
-                                    //     color: Theme.of(context).accentColor,
-                                    //     width: 2,
-                                    //   ),
-                                    //   borderRadius: BorderRadius.circular(30),
-                                    // ),
                                   ),
                                 ),
-                        ],
-                      ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal:
+                                      MediaQuery.of(context).size.width / 10,
+                                ),
+                                child: TextFormField(
+                                  onSaved: (value) {
+                                    _password = value;
+                                  },
+                                  onFieldSubmitted: (_) {
+                                    _submitForm();
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty || value == null) {
+                                      return "لطفا کلمه عبور را وارد کنید!";
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: true,
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.done,
+                                  focusNode: _passwordFocusNode,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                  decoration: InputDecoration(
+                                    hintStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                    hintText: 'کلمه عبور',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 0,
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              _isLoading
+                                  ? Container(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 17),
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              20,
+                                          vertical: 20),
+                                      child: RaisedButton(
+                                        onPressed: _submitForm,
+                                        child: Text(
+                                          "ورود",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        color: Color(0x395A77).withOpacity(.5),
+                                        textColor: Colors.white,
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 10,
+                                        ),
+                                        // shape: RoundedRectangleBorder(
+                                        //   side: BorderSide(
+                                        //     color: Theme.of(context).accentColor,
+                                        //     width: 2,
+                                        //   ),
+                                        //   borderRadius: BorderRadius.circular(30),
+                                        // ),
+                                      ),
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -257,7 +274,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           //fontWeight: FontWeight.normal,
                         ),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(
+                        width: 20,
+                      ),
                       InkWell(
                         child: Text(
                           'ایجاد حساب کاربری',
