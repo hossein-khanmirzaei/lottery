@@ -19,7 +19,7 @@ class MyArc extends StatelessWidget {
 class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Color(0x945C62).withOpacity(.4);
+    Paint paint = Paint()..color = Color(0x945C62).withOpacity(.5);
     canvas.drawArc(
       Rect.fromCenter(
         center: Offset(size.height / 2, size.width / 2),
