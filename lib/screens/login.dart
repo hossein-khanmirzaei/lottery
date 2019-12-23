@@ -118,11 +118,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Column(
                                 children: <Widget>[
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 25,
-                                      horizontal:
-                                          MediaQuery.of(context).size.width /
-                                              10,
+                                    margin: EdgeInsets.only(
+                                      top: 25,
+                                      bottom: 10,
+                                      left: MediaQuery.of(context).size.width /
+                                          10,
+                                      right: MediaQuery.of(context).size.width /
+                                          10,
                                     ),
                                     child: TextFormField(
                                       onSaved: (value) {
@@ -252,16 +254,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Align(
-                                alignment: Alignment.topCenter,
-                                child: Container(
-                                  margin: EdgeInsets.only(top: 6),
-                                  child: CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor:
-                                          Color(0x945C62).withOpacity(.75),
-                                      child: Image.asset(
-                                          'assets/images/user-icon.png')),
-                                )),
+                              alignment: Alignment.topCenter,
+                              child: Container(
+                                margin: EdgeInsets.only(top: 6),
+                                child: CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor:
+                                        Color(0x945C62).withOpacity(.75),
+                                    child: Image.asset(
+                                        'assets/images/user-icon.png')),
+                              ),
+                            ),
                           ],
                         ),
                       ],

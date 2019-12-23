@@ -127,9 +127,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: Column(
                                   children: <Widget>[
                                     Container(
-                                      margin: EdgeInsets.symmetric(
-                                        vertical: 10,
-                                        horizontal:
+                                      margin: EdgeInsets.only(
+                                        top: 25,
+                                        bottom: 10,
+                                        left:
+                                            MediaQuery.of(context).size.width /
+                                                10,
+                                        right:
                                             MediaQuery.of(context).size.width /
                                                 10,
                                       ),
@@ -148,48 +152,31 @@ class _SignupScreenState extends State<SignupScreen> {
                                           return null;
                                         },
                                         keyboardType: TextInputType.text,
-                                        textAlign: TextAlign.center,
                                         textInputAction: TextInputAction.next,
                                         style: TextStyle(
                                           fontSize: 18,
+                                          color: Colors.white,
                                         ),
                                         decoration: InputDecoration(
-                                            hintStyle: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Colors.black26,
+                                          hintStyle: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                          ),
+                                          hintText: 'نام و نام خانوادگی',
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 0,
                                             ),
-                                            hintText: 'نام و نام خانوادگی',
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                width: 2,
-                                              ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 2,
                                             ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                width: 3,
-                                              ),
-                                            ),
-                                            prefixIcon: Padding(
-                                              child: IconTheme(
-                                                data: IconThemeData(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  size: 32,
-                                                ),
-                                                child: Icon(Icons.person),
-                                              ),
-                                              padding: EdgeInsets.only(
-                                                  left: 0, right: 25),
-                                            )),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -214,49 +201,32 @@ class _SignupScreenState extends State<SignupScreen> {
                                           return null;
                                         },
                                         keyboardType: TextInputType.number,
-                                        textAlign: TextAlign.center,
                                         focusNode: _nationalCodeFocusNode,
                                         textInputAction: TextInputAction.next,
                                         style: TextStyle(
                                           fontSize: 18,
+                                          color: Colors.white,
                                         ),
                                         decoration: InputDecoration(
-                                            hintStyle: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Colors.black26,
+                                          hintStyle: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                          ),
+                                          hintText: 'کد ملی',
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 0,
                                             ),
-                                            hintText: 'کد ملی',
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                width: 2,
-                                              ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 2,
                                             ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                width: 3,
-                                              ),
-                                            ),
-                                            prefixIcon: Padding(
-                                              child: IconTheme(
-                                                data: IconThemeData(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  size: 32,
-                                                ),
-                                                child: Icon(Icons.info),
-                                              ),
-                                              padding: EdgeInsets.only(
-                                                  left: 0, right: 25),
-                                            )),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -277,49 +247,32 @@ class _SignupScreenState extends State<SignupScreen> {
                                           return null;
                                         },
                                         keyboardType: TextInputType.number,
-                                        textAlign: TextAlign.center,
                                         //textInputAction: TextInputAction.none,
                                         focusNode: _mobileNumberFocusNode,
                                         style: TextStyle(
                                           fontSize: 18,
+                                          color: Colors.white,
                                         ),
                                         decoration: InputDecoration(
-                                            hintStyle: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Colors.black26,
+                                          hintStyle: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                          ),
+                                          hintText: 'شماره موبایل',
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 0,
                                             ),
-                                            hintText: 'شماره موبایل',
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                width: 2,
-                                              ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 2,
                                             ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                width: 3,
-                                              ),
-                                            ),
-                                            prefixIcon: Padding(
-                                              child: IconTheme(
-                                                data: IconThemeData(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  size: 32,
-                                                ),
-                                                child: Icon(Icons.phone),
-                                              ),
-                                              padding: EdgeInsets.only(
-                                                  left: 0, right: 25),
-                                            )),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Row(
@@ -329,8 +282,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         Row(
                                           children: <Widget>[
                                             Radio(
-                                              activeColor: Theme.of(context)
-                                                  .primaryColor,
+                                              //activeColor: Colors.white,
                                               value: ResidenceType.kishvand,
                                               groupValue: _residenceType,
                                               onChanged: (ResidenceType value) {
@@ -343,6 +295,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                               'کیشوند',
                                               style: TextStyle(
                                                 fontSize: 18,
+                                                color: Colors.white,
                                               ),
                                             ),
                                           ],
@@ -350,8 +303,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         Row(
                                           children: <Widget>[
                                             Radio(
-                                              activeColor: Theme.of(context)
-                                                  .primaryColor,
+                                              //activeColor: Colors.white,
                                               value: ResidenceType.passenger,
                                               groupValue: _residenceType,
                                               onChanged: (ResidenceType value) {
@@ -364,6 +316,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                               'مسافر',
                                               style: TextStyle(
                                                 fontSize: 18,
+                                                color: Colors.white,
                                               ),
                                             ),
                                           ],
@@ -385,8 +338,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                                     MediaQuery.of(context)
                                                             .size
                                                             .width /
-                                                        10,
-                                                vertical: 10),
+                                                        20,
+                                                vertical: 20),
                                             child: RaisedButton(
                                               onPressed: _submitForm,
                                               child: Text(
@@ -396,27 +349,29 @@ class _SignupScreenState extends State<SignupScreen> {
                                                   fontWeight: FontWeight.normal,
                                                 ),
                                               ),
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              textColor:
-                                                  Theme.of(context).accentColor,
+                                              color: Color(0x395A77)
+                                                  .withOpacity(.5),
+                                              textColor: Colors.white,
                                               padding: EdgeInsets.symmetric(
-                                                vertical: 15,
-                                              ),
-                                              shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .accentColor,
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
+                                                vertical: 10,
                                               ),
                                             ),
                                           ),
                                   ],
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 6),
+                                  child: CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor:
+                                          Color(0x945C62).withOpacity(.75),
+                                      child: Image.asset(
+                                          'assets/images/user-icon.png')),
+                                ),
+                              ),
                             ],
                           ),
                         ],

@@ -71,9 +71,9 @@ class MyApp extends StatelessWidget {
           locale: Locale("fa", "IR"),
           title: 'MyShop',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
-            accentColor: Colors.white,
-            canvasColor: Colors.lightBlue[50],
+            // appBarTheme: AppBarTheme(
+            //   color: Colors.transparent,
+            // ),
             fontFamily: 'IRANSans',
           ),
           home: auth.isAuth
