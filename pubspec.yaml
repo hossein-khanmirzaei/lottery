@@ -51,6 +51,11 @@ flutter:
   assets:
     - assets/images/background.png
     - assets/images/logo.png
+    - assets/images/home-icon.png
+    - assets/images/transaction-icon.png
+    - assets/images/store-icon.png
+    - assets/images/gift-icon.png
+    - assets/images/notifications-icon.png    
     - assets/images/user-icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

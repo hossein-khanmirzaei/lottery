@@ -231,25 +231,63 @@ class _OverviewScreenState extends State<OverviewScreen> {
           drawer: AppDrawer(),
           body: _children[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
             currentIndex: _currentIndex,
             onTap: onTabTapped,
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('خانه'),
+                icon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  //width: MediaQuery.of(context).size.width / 3,
+                  child: Image.asset('assets/images/home-icon.png'),
+                ),
+                title: Text(
+                  'خانه',
+                  style: TextStyle(
+                    color: Colors.black, //Color(0x00417A),
+                  ),
+                ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.list),
-                title: Text('تراکنش ها'),
+                icon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  //width: MediaQuery.of(context).size.width / 3,
+                  child: Image.asset('assets/images/transaction-icon.png'),
+                ),
+                title: Text(
+                  'تراکنش ها',
+                  style: TextStyle(
+                    color: Colors.black, //Color(0x00417A),
+                  ),
+                ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.store_mall_directory),
-                title: Text('فروشگاه ها'),
+                icon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  //width: MediaQuery.of(context).size.width / 3,
+                  child: Image.asset('assets/images/store-icon.png'),
+                ),
+                title: Text(
+                  'فروشگاه ها',
+                  style: TextStyle(
+                    color: Colors.black, //Color(0x00417A),
+                  ),
+                ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.redeem),
-                title: Text('نتایج قرعه کشی'),
+                icon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  //width: MediaQuery.of(context).size.width / 3,
+                  child: Image.asset('assets/images/gift-icon.png'),
+                ),
+                title: Text(
+                  'نتایج قرعه کشی',
+                  style: TextStyle(
+                    color: Colors.black, //Color(0x00417A),
+                  ),
+                ),
               )
             ],
           ),

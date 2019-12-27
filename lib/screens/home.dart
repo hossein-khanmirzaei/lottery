@@ -62,7 +62,56 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
+    return Container(
+      color: Colors.white.withOpacity(0.5),
+      child: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+            )
+          : ListView.separated(
+              itemCount: _news.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  // leading: CircleAvatar(
+                  //   radius: 30,
+                  //   child: Padding(
+                  //     padding: EdgeInsets.all(6),
+                  //     child: FittedBox(
+                  //       child: Text('\$${_news[index].originalAmount}'),
+                  //     ),
+                  //   ),
+                  // ),
+                  title: Text(
+                    _news[index].title,
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  subtitle: Text(
+                    _news[index].time + ' ' + _news[index].date,
+                  ),
+                  // onTap: () {
+                  //   Provider.of<NewsProvider>(context, listen: false)
+                  //       .setCurrentNews(_news[index].id);
+                  //   Navigator.of(context).pushNamed(NewsDetailScreen.routeName);
+                  // },
+                  trailing: IconButton(
+                      icon: Icon(Icons.search),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () {
+                        Provider.of<NewsProvider>(context, listen: false)
+                            .setCurrentNews(_news[index].id);
+                        Navigator.of(context)
+                            .pushNamed(NewsDetailScreen.routeName);
+                      }),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+            ),
+    );
+    _isLoading
         ? Center(
             child: CircularProgressIndicator(
               backgroundColor: Theme.of(context).primaryColor,
