@@ -143,86 +143,160 @@ class _OverviewScreenState extends State<OverviewScreen> {
             ],
             bottom: (_currentIndex == 0)
                 ? PreferredSize(
-                    preferredSize: Size.fromHeight(150),
+                    preferredSize: Size.fromHeight(125),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        ButtonTheme(
-                          minWidth: 120.0,
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width / 4),
                           child: RaisedButton(
-                            child: Text(
-                              "مدیریت کارت",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                            child: Row(
+                              //mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Image.asset('assets/images/wallet-icon.png'),
+                                //SizedBox(width: 25),
+                                Expanded(
+                                  child: Text(
+                                    "مدیریت کارت",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            color: Colors.green,
+                            color: Colors.white,
                             onPressed: () {
                               Navigator.of(context)
                                   .pushNamed(CreditCardScreen.routeName);
                             },
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                           ),
                         ),
-                        SizedBox(height: 15.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              'مجموع امتیاز',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24.0,
-                              ),
-                            ),
-                            Text(
-                              'مجموع خرید',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 25.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            _totalCredit != null
-                                ? Text(
-                                    _totalCredit,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  )
-                                : Icon(
-                                    Icons.block,
-                                    color: Colors.white54,
+                        Container(
+                          //margin: EdgeInsets.only(bottom: 25),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                //flex: 1,
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 25),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          left: 12.5,
+                                          right: 20,
+                                          bottom: 15,
+                                          top: 25,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                                width: 0.5,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Text(
+                                            'مجموع امتیاز',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          _totalCredit != null
+                                              ? Text(
+                                                  _totalCredit,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              : Icon(
+                                                  Icons.block,
+                                                  color: Colors.white54,
+                                                ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                            _totalPayment != null
-                                ? Text(
-                                    _totalPayment,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  )
-                                : Icon(
-                                    Icons.block,
-                                    color: Colors.white54,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                color: Colors.white,
+                                height: 50,
+                                width: 0.5,
+                              ),
+                              Expanded(
+                                //flex: 1,
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 25),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          left: 20,
+                                          right: 12.5,
+                                          bottom: 15,
+                                          top: 25,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                                width: 0.5,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Text(
+                                            'مجموع خرید',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          _totalPayment != null
+                                              ? Text(
+                                                  _totalPayment,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              : Icon(
+                                                  Icons.block,
+                                                  color: Colors.white54,
+                                                ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                          ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 15.0),
                       ],
                     ),
                   )
