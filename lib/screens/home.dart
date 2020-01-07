@@ -99,67 +99,70 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Theme.of(context).primaryColor,
                         ),
                       )
-                    : ListView.builder(
+                    : Container(
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        itemCount: _news.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.grey,
+                        child: ListView.builder(
+                          itemCount: _news.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width / 12,
-                                right: MediaQuery.of(context).size.width / 12,
-                                top: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        _news[index].title,
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Align(
-                                        alignment: Alignment.bottomLeft,
+                              margin: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width / 12,
+                                  right: MediaQuery.of(context).size.width / 12,
+                                  top: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          _news[index].time +
-                                              ' ' +
-                                              _news[index].date,
-                                          style: TextStyle(fontSize: 12),
+                                          _news[index].title,
+                                          style: TextStyle(fontSize: 18),
                                         ),
                                       ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Text(
+                                            _news[index].time +
+                                                ' ' +
+                                                _news[index].date,
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        //color: Colors.amber,
+                                        ),
+                                    child: IconButton(
+                                      icon: Icon(Icons.search),
+                                      color: Theme.of(context).errorColor,
+                                      onPressed: () {
+                                        Provider.of<NewsProvider>(context,
+                                                listen: false)
+                                            .setCurrentNews(_news[index].id);
+                                        Navigator.of(context).pushNamed(
+                                            NewsDetailScreen.routeName);
+                                      },
                                     ),
-                                  ],
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    //color: Colors.amber,
                                   ),
-                                  child: IconButton(
-                                    icon: Icon(Icons.search),
-                                    color: Theme.of(context).errorColor,
-                                    onPressed: () {
-                                      Provider.of<NewsProvider>(context,
-                                              listen: false)
-                                          .setCurrentNews(_news[index].id);
-                                      Navigator.of(context).pushNamed(
-                                          NewsDetailScreen.routeName);
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
               ],
             ),

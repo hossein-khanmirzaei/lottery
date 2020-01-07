@@ -13,84 +13,93 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            AppBar(
-              leading: Icon(Icons.settings),
-              title: Text('تنظیمات'),
-              automaticallyImplyLeading: false,
-            ),
-            ListTile(
-              leading: Icon(Icons.credit_card),
-              title: Text('مدیریت کارت'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(CreditCardScreen.routeName);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('تغییر کلمه عبور'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(UserPasswordScreen.routeName);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.edit),
-              title: Text('تنظیمات کاربری'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(UserSettingsScreen.routeName);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.update),
-              title: Text('بروز رسانی'),
-              onTap: () {},
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.edit),
-              title: Text('قوانین و مقررات'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(RulesScreen.routeName);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.info_outline),
-              title: Text('درباره ما'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(AboutScreen.routeName);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.help_outline),
-              title: Text('راهنما'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(HelpListScreen.routeName);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('خروج از حساب کاربری'),
-              onTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    LoginScreen.routeName, (Route<dynamic> route) => false);
-                Provider.of<AuthProvider>(context, listen: false).logout();
-              },
-            ),
-          ],
+      child: Container(
+        color: Color.fromRGBO(236, 236, 236, 1),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              // AppBar(
+              //   leading: Icon(Icons.settings),
+              //   title: Text('تنظیمات'),
+              //   automaticallyImplyLeading: false,
+              // ),
+              Container(                
+                padding: EdgeInsets.only(top: 30),
+                width: MediaQuery.of(context).size.width / 3,
+                child: Image.asset('assets/images/logo-menu.png'),                
+              ),
+              Divider(),
+              ListTile(
+                leading: Image.asset('assets/images/card-icon-menu.png'),
+                title: Text('مدیریت کارت'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed(CreditCardScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(                
+                leading: Image.asset('assets/images/web-icon-menu.png'),
+                title: Text('تغییر کلمه عبور'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed(UserPasswordScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Image.asset('assets/images/settings-icon-menu.png'),
+                title: Text('تنظیمات کاربری'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed(UserSettingsScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Image.asset('assets/images/notification-icon-menu.png'),
+                title: Text('بروز رسانی'),
+                onTap: () {},
+              ),
+              Divider(),
+              ListTile(
+                leading: Image.asset('assets/images/book-icon-menu.png'),
+                title: Text('قوانین و مقررات'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed(RulesScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Image.asset('assets/images/card-icon-menu.png'),
+                title: Text('درباره ما'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed(AboutScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Image.asset('assets/images/help-icon-menu.png'),
+                title: Text('راهنما'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed(HelpListScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Image.asset('assets/images/bomb-icon-menu.png'),
+                title: Text('خروج از حساب کاربری'),
+                onTap: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      LoginScreen.routeName, (Route<dynamic> route) => false);
+                  Provider.of<AuthProvider>(context, listen: false).logout();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

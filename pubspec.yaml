@@ -59,6 +59,15 @@ flutter:
     - assets/images/user-icon.png
     - assets/images/wallet-icon.png
     - assets/images/news-icon.png
+    - assets/images/card-icon-menu.png
+    - assets/images/web-icon-menu.png
+    - assets/images/settings-icon-menu.png
+    - assets/images/notification-icon-menu.png    
+    - assets/images/book-icon-menu.png
+    - assets/images/news-icon-menu.png
+    - assets/images/help-icon-menu.png
+    - assets/images/bomb-icon-menu.png
+    - assets/images/logo-menu.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

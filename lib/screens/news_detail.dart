@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:lottery/models/http_exception.dart';
+import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/news.dart';
 
@@ -64,23 +65,84 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Theme.of(context).primaryColor,
-              ),
-            )
-          : Container(
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(10),
-              child: SingleChildScrollView(
-                child: HtmlWidget(
-                  _note,
-                ),
-              ),
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
             ),
+          ),
+        ),
+        Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
+            body: _isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
+                  )
+                : Container(
+                    color: Colors.white.withOpacity(0.5),
+                    child: Column(
+                      children: <Widget>[
+                        Flex(
+                          direction: Axis.horizontal,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 25, left: 10, top: 10),
+                                  child: Image.asset(
+                                      'assets/images/news-icon.png'),
+                                ),
+                                Text(
+                                  'اخبار',
+                                  style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Expanded(
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: <Widget>[
+                              MyRec(width: MediaQuery.of(context).size.width),
+                              _isLoading
+                                  ? Center(
+                                      child: CircularProgressIndicator(
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  : Container(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+            // Container(
+            //     margin: EdgeInsets.all(10),
+            //     padding: EdgeInsets.all(10),
+            //     child: SingleChildScrollView(
+            //       child: HtmlWidget(
+            //         _note,
+            //       ),
+            //     ),
+            //   ),
+            ),
+      ],
     );
   }
 }
