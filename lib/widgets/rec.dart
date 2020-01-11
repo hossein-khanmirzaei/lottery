@@ -17,6 +17,7 @@ class MyRec extends StatelessWidget {
 class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    const pi = 3.14;
     var paint = Paint();
     paint.color = Colors.white;
     paint.style = PaintingStyle.fill;
@@ -24,8 +25,12 @@ class MyPainter extends CustomPainter {
     var path = Path();
 
     path.moveTo(size.width * 0.80, 0);
-    path.quadraticBezierTo(
-        size.width * .875, size.height * 0.085, size.width * 0.95, 0);
+    // path.quadraticBezierTo(
+    //     size.width * .875, size.height * 0.085, size.width * 0.95, 0);
+    path.cubicTo(
+        size.width * 0.825, 30, size.width * 0.925, 30, size.width * 0.95, 0);
+    // path.arcTo(Rect.fromLTRB(size.width * 0.80, -25, size.width * 0.95, 25),
+    //     0 * (pi / 180.0), 180 * (pi / 180.0), false);
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
