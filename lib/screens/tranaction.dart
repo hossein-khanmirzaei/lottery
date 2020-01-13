@@ -108,102 +108,84 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         child: ListView.builder(
                           itemCount: _transactions.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
+                            return GestureDetector(
+                              onTap: () {
+                                Provider.of<TransactionProvider>(context,
+                                        listen: false)
+                                    .setCurrentTransaction(
+                                        _transactions[index].id);
+                                Navigator.of(context).pushNamed(
+                                    TransactionDetailScreen.routeName);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              margin: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width / 12,
-                                  right: MediaQuery.of(context).size.width / 12,
-                                  top: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          _transactions[index].mallName,
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Text(
-                                            _transactions[index]
-                                                    .time
-                                                    .toString() +
-                                                ' ' +
-                                                _transactions[index]
-                                                    .date
-                                                    .toString(),
-                                            style: TextStyle(fontSize: 12),
+                                margin: EdgeInsets.only(
+                                    left:
+                                        MediaQuery.of(context).size.width / 12,
+                                    right:
+                                        MediaQuery.of(context).size.width / 12,
+                                    top: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Text(
+                                                _transactions[index].mallName,
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                _transactions[index]
+                                                        .time
+                                                        .toString() +
+                                                    ' ' +
+                                                    _transactions[index]
+                                                        .date
+                                                        .toString(),
+                                                style: TextStyle(fontSize: 12),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        //color: Colors.amber,
-                                        ),
-                                    child: IconButton(
-                                      icon: Icon(Icons.search),
-                                      color: Theme.of(context).errorColor,
-                                      onPressed: () {
-                                        Provider.of<TransactionProvider>(
-                                                context,
-                                                listen: false)
-                                            .setCurrentTransaction(
-                                                _transactions[index].id);
-                                        Navigator.of(context).pushNamed(
-                                            TransactionDetailScreen.routeName);
-                                      },
                                     ),
-                                  ),
-                                ],
+                                    // child: IconButton(
+                                    //   icon: Icon(Icons.search),
+                                    //   color: Theme.of(context).errorColor,
+                                    //   onPressed: () {
+                                    //     Provider.of<TransactionProvider>(
+                                    //             context,
+                                    //             listen: false)
+                                    //         .setCurrentTransaction(
+                                    //             _transactions[index].id);
+                                    //     Navigator.of(context).pushNamed(
+                                    //         TransactionDetailScreen
+                                    //             .routeName);
+                                    //   },
+                                    // ),
+                                  ],
+                                ),
                               ),
                             );
                           },
                         ),
-                        // ListView.separated(
-                        //   itemCount: _transactions.length,
-                        //   itemBuilder: (context, index) {
-                        //     return ListTile(
-                        //       title: Text(
-                        //         _transactions[index].mallName,
-                        //         style: Theme.of(context).textTheme.title,
-                        //       ),
-                        //       subtitle: Text(
-                        //         _transactions[index].time.toString() +
-                        //             ' ' +
-                        //             _transactions[index].date.toString(),
-                        //       ),
-                        //       trailing: IconButton(
-                        //         icon: Icon(Icons.search),
-                        //         color: Theme.of(context).errorColor,
-                        //         onPressed: () {
-                        //           Provider.of<TransactionProvider>(context,
-                        //                   listen: false)
-                        //               .setCurrentTransaction(
-                        //                   _transactions[index].id);
-                        //           Navigator.of(context).pushNamed(
-                        //               TransactionDetailScreen.routeName);
-                        //         },
-                        //       ),
-                        //     );
-                        //   },
-                        //   separatorBuilder: (context, index) {
-                        //     return Divider();
-                        //   },
-                        // ),
                       ),
               ],
             ),
@@ -211,43 +193,5 @@ class _TransactionScreenState extends State<TransactionScreen> {
         ],
       ),
     );
-
-    // _isLoading
-    //     ? Center(child: CircularProgressIndicator())
-    //     : TransactionList(_transactions, null);
-
-    // Container(
-    //   margin: EdgeInsets.only(top: 10),
-    //   child: Column(
-    //     children: <Widget>[
-    //       ListTile(
-    //         leading: CircleAvatar(
-    //           radius: 30,
-    //           child: Padding(
-    //             padding: EdgeInsets.all(6),
-    //             child: FittedBox(
-    //               child: Text('\$${_transactions[index].originalAmount}'),
-    //             ),
-    //           ),
-    //         ),
-    //         title: Text(
-    //           _transactions[index].mall.toString(),
-    //           style: Theme.of(context).textTheme.title,
-    //         ),
-    //         subtitle: Text(
-    //           _transactions[index].time.toString(),
-    //         ),
-    //         trailing: IconButton(
-    //           icon: Icon(Icons.delete),
-    //           color: Theme.of(context).errorColor,
-    //           onPressed: null,
-    //         ),
-    //       ),
-    //       Divider(
-    //         thickness: 1,
-    //       )
-    //     ],
-    //   ),
-    // );
   }
 }

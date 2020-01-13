@@ -18,15 +18,10 @@ class AppDrawer extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              // AppBar(
-              //   leading: Icon(Icons.settings),
-              //   title: Text('تنظیمات'),
-              //   automaticallyImplyLeading: false,
-              // ),
-              Container(                
+              Container(
                 padding: EdgeInsets.only(top: 30),
                 width: MediaQuery.of(context).size.width / 3,
-                child: Image.asset('assets/images/logo-menu.png'),                
+                child: Image.asset('assets/images/logo-menu.png'),
               ),
               Divider(),
               ListTile(
@@ -38,7 +33,7 @@ class AppDrawer extends StatelessWidget {
                 },
               ),
               Divider(),
-              ListTile(                
+              ListTile(
                 leading: Image.asset('assets/images/web-icon-menu.png'),
                 title: Text('تغییر کلمه عبور'),
                 onTap: () {
@@ -57,7 +52,8 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/notification-icon-menu.png'),
+                leading:
+                    Image.asset('assets/images/notification-icon-menu.png'),
                 title: Text('بروز رسانی'),
                 onTap: () {},
               ),
@@ -72,7 +68,7 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/card-icon-menu.png'),
+                leading: Image.asset('assets/images/news-icon-menu.png'),
                 title: Text('درباره ما'),
                 onTap: () {
                   Navigator.of(context).pop();

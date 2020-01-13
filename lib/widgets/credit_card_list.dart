@@ -37,58 +37,71 @@ class CreditCardList extends StatelessWidget {
             : ListView.builder(
                 itemCount: creditCards.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
+                  return GestureDetector(
+                    onTap: () {
+                      Provider.of<CreditCardProvider>(context)
+                          .setCurrentCard(creditCards[index].id);
+                      Navigator.of(context)
+                          .pushNamed(EditCreditCardScreen.routeName);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 12,
-                        right: MediaQuery.of(context).size.width / 12,
-                        top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                creditCards[index].title,
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  _butifyCreditCardNumber(
-                                      creditCards[index].cardNumber),
-                                  style: TextStyle(fontSize: 18),
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 12,
+                          right: MediaQuery.of(context).size.width / 12,
+                          top: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text(
+                                      creditCards[index].title,
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                      _butifyCreditCardNumber(
+                                          creditCards[index].cardNumber),
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              //color: Colors.amber,
-                              ),
-                          child: IconButton(
-                            icon: Icon(Icons.edit),
-                            color: Theme.of(context).errorColor,
-                            onPressed: () {
-                              Provider.of<CreditCardProvider>(context)
-                                  .setCurrentCard(creditCards[index].id);
-                              Navigator.of(context)
-                                  .pushNamed(EditCreditCardScreen.routeName);
-                            },
                           ),
-                        ),
-                      ],
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //       //color: Colors.amber,
+                          //       ),
+                          //   child: IconButton(
+                          //     icon: Icon(Icons.edit),
+                          //     color: Theme.of(context).errorColor,
+                          //     onPressed: () {
+                          //       Provider.of<CreditCardProvider>(context)
+                          //           .setCurrentCard(creditCards[index].id);
+                          //       Navigator.of(context)
+                          //           .pushNamed(EditCreditCardScreen.routeName);
+                          //     },
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
                   );
                 },

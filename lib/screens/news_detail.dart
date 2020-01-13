@@ -78,84 +78,82 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
           ),
         ),
         Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 0,
             backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-            ),
-            body: Container(
-              color: Colors.white.withOpacity(0.5),
-              child: Column(
-                children: <Widget>[
-                  Flex(
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                right: 25, left: 10, top: 10),
-                            child: Image.asset('assets/images/news-icon.png'),
-                          ),
-                          Text(
-                            'اخبار',
-                            style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  Expanded(
-                    child: Stack(
-                      fit: StackFit.expand,
+          ),
+          body: Container(
+            color: Colors.white.withOpacity(0.5),
+            child: Column(
+              children: <Widget>[
+                Flex(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Row(
                       children: <Widget>[
-                        MyRec(width: MediaQuery.of(context).size.width),
-                        _isLoading
-                            ? Center(
-                                child: CircularProgressIndicator(
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              right: 25, left: 10, top: 10),
+                          child: Image.asset('assets/images/news-icon.png'),
+                        ),
+                        Text(
+                          'اخبار',
+                          style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      MyRec(width: MediaQuery.of(context).size.width),
+                      _isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                backgroundColor: Theme.of(context).primaryColor,
+                              ),
+                            )
+                          : Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 45, horizontal: 25),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.all(
+                                  const Radius.circular(16.0),
                                 ),
-                              )
-                            : Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 45, horizontal: 25),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.all(
-                                    const Radius.circular(16.0),
-                                  ),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        _currentNews.title,
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                          color:
-                                              Color.fromRGBO(179, 55, 209, 1),
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: Divider(
+                              ),
+                              child: Column(
+                                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      _currentNews.title,
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
                                         color: Color.fromRGBO(179, 55, 209, 1),
-                                        thickness: 2,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(10),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: Divider(
+                                      color: Color.fromRGBO(179, 55, 209, 1),
+                                      thickness: 2,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: SingleChildScrollView(
                                         child: Text(
                                           _currentNews.note,
                                           textAlign: TextAlign.start,
@@ -163,8 +161,11 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.all(10),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Align(
+                                      alignment: Alignment.bottomLeft,
                                       child: Text(
                                         _currentNews.time +
                                             ' | ' +
@@ -173,25 +174,17 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                                         style: TextStyle(fontSize: 14),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                      ],
-                    ),
+                            ),
+                    ],
                   ),
-                ],
-              ),
-            )
-            // Container(
-            //     margin: EdgeInsets.all(10),
-            //     padding: EdgeInsets.all(10),
-            //     child: SingleChildScrollView(
-            //       child: HtmlWidget(
-            //         _note,
-            //       ),
-            //     ),
-            //   ),
+                ),
+              ],
             ),
+          ),
+        ),
       ],
     );
   }

@@ -104,61 +104,61 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.builder(
                           itemCount: _news.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
+                            return GestureDetector(
+                              onTap: () {
+                                Provider.of<NewsProvider>(context,
+                                        listen: false)
+                                    .setCurrentNews(_news[index].id);
+                                Navigator.of(context)
+                                    .pushNamed(NewsDetailScreen.routeName);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              margin: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width / 12,
-                                  right: MediaQuery.of(context).size.width / 12,
-                                  top: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          _news[index].title,
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Text(
-                                            _news[index].time +
-                                                ' ' +
-                                                _news[index].date,
-                                            style: TextStyle(fontSize: 12),
+                                margin: EdgeInsets.only(
+                                    left:
+                                        MediaQuery.of(context).size.width / 12,
+                                    right:
+                                        MediaQuery.of(context).size.width / 12,
+                                    top: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Text(
+                                                _news[index].title,
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                _news[index].time +
+                                                    ' ' +
+                                                    _news[index].date,
+                                                style: TextStyle(fontSize: 12),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        //color: Colors.amber,
-                                        ),
-                                    child: IconButton(
-                                      icon: Icon(Icons.search),
-                                      color: Theme.of(context).errorColor,
-                                      onPressed: () {
-                                        Provider.of<NewsProvider>(context,
-                                                listen: false)
-                                            .setCurrentNews(_news[index].id);
-                                        Navigator.of(context).pushNamed(
-                                            NewsDetailScreen.routeName);
-                                      },
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -166,53 +166,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
               ],
             ),
-
-            // child: _isLoading
-            //     ? Center(
-            //         child: CircularProgressIndicator(
-            //           backgroundColor: Theme.of(context).primaryColor,
-            //         ),
-            //       )
-            //     : ListView.separated(
-            //         itemCount: _news.length,
-            //         itemBuilder: (context, index) {
-            //           return ListTile(
-            //             // leading: CircleAvatar(
-            //             //   radius: 30,
-            //             //   child: Padding(
-            //             //     padding: EdgeInsets.all(6),
-            //             //     child: FittedBox(
-            //             //       child: Text('\$${_news[index].originalAmount}'),
-            //             //     ),
-            //             //   ),
-            //             // ),
-            //             title: Text(
-            //               _news[index].title,
-            //               style: Theme.of(context).textTheme.title,
-            //             ),
-            //             subtitle: Text(
-            //               _news[index].time + ' ' + _news[index].date,
-            //             ),
-            //             // onTap: () {
-            //             //   Provider.of<NewsProvider>(context, listen: false)
-            //             //       .setCurrentNews(_news[index].id);
-            //             //   Navigator.of(context).pushNamed(NewsDetailScreen.routeName);
-            //             // },
-            //             trailing: IconButton(
-            //                 icon: Icon(Icons.search),
-            //                 color: Theme.of(context).errorColor,
-            //                 onPressed: () {
-            //                   Provider.of<NewsProvider>(context, listen: false)
-            //                       .setCurrentNews(_news[index].id);
-            //                   Navigator.of(context)
-            //                       .pushNamed(NewsDetailScreen.routeName);
-            //                 }),
-            //           );
-            //         },
-            //         separatorBuilder: (context, index) {
-            //           return Divider();
-            //         },
-            //       ),
           ),
         ],
       ),

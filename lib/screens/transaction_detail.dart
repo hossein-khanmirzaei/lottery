@@ -69,7 +69,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                           ),
                         ),
                         Text(
-                          'تراکنش',
+                          'جزئیات تراکنش',
                           style: TextStyle(
                               color: Colors.deepPurple,
                               fontSize: 18,
@@ -106,7 +106,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                                     padding: EdgeInsets.all(10),
                                     child: Text(
                                       _currentTransaction.mallName,
-                                      textAlign: TextAlign.right,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Color.fromRGBO(179, 55, 209, 1),
                                         fontWeight: FontWeight.w600,
@@ -127,26 +127,92 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                                       child: Column(
                                         children: <Widget>[
                                           //Text(_currentTransaction.id.toString()),
-                                          Text(_currentTransaction
-                                              .originalAmount
-                                              .toString()),
-                                          Text(_currentTransaction.pan1),
-                                          Text(_currentTransaction.buyerName),
-                                          Text(_currentTransaction.sellerName),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text('مبلغ'),
+                                              Text(_currentTransaction
+                                                  .originalAmount
+                                                  .toString()),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 10),
+                                            child: Divider(
+                                              color: Colors.grey.shade300,
+                                              thickness: 2,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text('شماره کارت'),
+                                              Text(_currentTransaction.pan1),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 10),
+                                            child: Divider(
+                                              color: Colors.grey.shade300,
+                                              thickness: 2,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text('خریدار'),
+                                              Text(_currentTransaction
+                                                  .buyerName),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 10),
+                                            child: Divider(
+                                              color: Colors.grey.shade300,
+                                              thickness: 2,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text('فروشنده'),
+                                              Text(_currentTransaction
+                                                  .sellerName),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 10),
+                                            child: Divider(
+                                              color: Colors.grey.shade300,
+                                              thickness: 2,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text('زمان تراکنش'),
+                                              Text(
+                                                _currentTransaction.time +
+                                                    ' | ' +
+                                                    _currentTransaction.date,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(fontSize: 14),
+                                              ),
+                                            ],
+                                          ),
                                           //Text(_currentTransaction.mallName),
                                           //Text(_currentTransaction.confirm.toString()),
                                         ],
                                       ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text(
-                                      _currentTransaction.time +
-                                          ' | ' +
-                                          _currentTransaction.date,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(fontSize: 14),
                                     ),
                                   ),
                                 ],
