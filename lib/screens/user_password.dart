@@ -4,6 +4,7 @@ import 'package:lottery/models/user.dart';
 import 'package:lottery/screens/login.dart';
 import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/start.dart';
+import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';
 import 'package:lottery/providers/user.dart';
@@ -72,38 +73,104 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          children: <Widget>[
-            TextFormField(
-              obscureText: true,
-              decoration: InputDecoration(labelText: 'کلمه عبور فعلی'),
-              onSaved: (val) => setState(() => _currentpassword = val),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-            TextFormField(
-              obscureText: true,
-              decoration: InputDecoration(labelText: 'کلمه عبور جدید'),
-              onSaved: (val) => setState(() => _newPassword = val),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
             ),
-            TextFormField(
-              obscureText: true,
-              decoration: InputDecoration(labelText: 'تکرار کلمه عبور جدید'),
-              onSaved: (val) => setState(() => _newPasswordRepeat = val),
+            body: Container(
+              color: Colors.white.withOpacity(0.5),
+              child: Column(
+                children: <Widget>[
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 30, left: 10, top: 10),
+                              child: Image.asset(
+                                'assets/images/web-icon-menu.png',
+                                height: 40,
+                              )),
+                          Text(
+                            'تغییر کلمه عبور',
+                            style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Expanded(
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        MyRec(width: MediaQuery.of(context).size.width),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    labelText: 'کلمه عبور فعلی'),
+                                onSaved: (val) =>
+                                    setState(() => _currentpassword = val),
+                              ),
+                              TextFormField(
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    labelText: 'کلمه عبور جدید'),
+                                onSaved: (val) =>
+                                    setState(() => _newPassword = val),
+                              ),
+                              TextFormField(
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    labelText: 'تکرار کلمه عبور جدید'),
+                                onSaved: (val) =>
+                                    setState(() => _newPasswordRepeat = val),
+                              ),
+                              RaisedButton(
+                                child: Text('ثبت'),
+                                onPressed: () {
+                                  final form = _formKey.currentState;
+                                  form.save();
+                                  if (_newPassword != _newPasswordRepeat)
+                                    _showErrorDialog(
+                                        'پسورد جدید مطابقت ندارد!');
+                                  else
+                                    _updateUserPassword(
+                                        _currentpassword, _newPassword);
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            RaisedButton(
-              child: Text('ثبت'),
-              onPressed: () {
-                final form = _formKey.currentState;
-                form.save();
-                if (_newPassword != _newPasswordRepeat)
-                  _showErrorDialog('پسورد جدید مطابقت ندارد!');
-                else
-                  _updateUserPassword(_currentpassword, _newPassword);
-              },
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

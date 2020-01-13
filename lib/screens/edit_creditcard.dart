@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/widgets/credit_card_list.dart';
+import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/creditcard.dart';
 
@@ -86,32 +87,91 @@ class _EditCreditCardScreen extends State<EditCreditCardScreen> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          children: <Widget>[
-            TextFormField(
-              initialValue: _currentCreditCard.title,
-              decoration: InputDecoration(labelText: 'عنوان کارت'),
-              onSaved: (val) => setState(() => _newCardTitle = val),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-            Text(_currentCreditCard.cardNumber),
-            _isLoading
-                ? Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
-                  )
-                : RaisedButton(
-                    child: Text('ثبت'),
-                    onPressed: () {
-                      final form = _formKey.currentState;
-                      form.save();
-                      _editCreditCard(_newCardTitle);
-                    },
-                  )
-          ],
-        ),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
+            body: Container(
+              color: Colors.white.withOpacity(0.5),
+              child: Column(
+                children: <Widget>[
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 25, left: 10, top: 10),
+                              child: Image.asset(
+                                'assets/images/card-icon-menu.png',
+                                height: 40,
+                              )),
+                          Text(
+                            'جزئیات کارت',
+                            style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Expanded(
+                      child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      MyRec(width: MediaQuery.of(context).size.width),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              initialValue: _currentCreditCard.title,
+                              decoration:
+                                  InputDecoration(labelText: 'عنوان کارت'),
+                              onSaved: (val) =>
+                                  setState(() => _newCardTitle = val),
+                            ),
+                            Text(_currentCreditCard.cardNumber),
+                            _isLoading
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                    ),
+                                  )
+                                : RaisedButton(
+                                    child: Text('ثبت'),
+                                    onPressed: () {
+                                      final form = _formKey.currentState;
+                                      form.save();
+                                      _editCreditCard(_newCardTitle);
+                                    },
+                                  )
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

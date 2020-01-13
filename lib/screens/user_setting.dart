@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/user.dart';
 import 'package:lottery/screens/user_password.dart';
+import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/user.dart';
 
@@ -131,75 +132,136 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Radio(
-                      activeColor: Theme.of(context).primaryColor,
-                      value: ResidenceType.kishvand,
-                      groupValue: _residenceType,
-                      onChanged: _updateResidenceTypeSetting),
-                  Text(
-                    'کیشوند',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Radio(
-                      activeColor: Theme.of(context).primaryColor,
-                      value: ResidenceType.passenger,
-                      groupValue: _residenceType,
-                      onChanged: _updateResidenceTypeSetting),
-                  Text(
-                    'مسافر',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Center(
-            child: Transform.scale(
-              scale: 1.5,
-              child: Switch(
-                onChanged: _updateSmsNotifySetting,
-                value: _smsNotify,
-                activeColor: Theme.of(context).primaryColor,
-                inactiveThumbColor: Colors.blueGrey,
-              ),
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
             ),
           ),
-          Center(
-            child: Transform.scale(
-              scale: 1.5,
-              child: Switch(
-                onChanged: _updatePushNotifySetting,
-                value: _pushNotify,
-                activeColor: Theme.of(context).primaryColor,
-                inactiveThumbColor: Colors.blueGrey,
-              ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+          ),
+          body: Container(
+            color: Colors.white.withOpacity(0.5),
+            child: Column(
+              children: <Widget>[
+                Flex(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                right: 30, left: 10, top: 10),
+                            child: Image.asset(
+                              'assets/images/settings-icon-menu.png',
+                              height: 40,
+                            )),
+                        Text(
+                          'تنظیمات کاربری',
+                          style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      MyRec(width: MediaQuery.of(context).size.width),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Radio(
+                                        activeColor:
+                                            Theme.of(context).primaryColor,
+                                        value: ResidenceType.kishvand,
+                                        groupValue: _residenceType,
+                                        onChanged: _updateResidenceTypeSetting),
+                                    Text(
+                                      'کیشوند',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Radio(
+                                        activeColor:
+                                            Theme.of(context).primaryColor,
+                                        value: ResidenceType.passenger,
+                                        groupValue: _residenceType,
+                                        onChanged: _updateResidenceTypeSetting),
+                                    Text(
+                                      'مسافر',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Center(
+                              child: Transform.scale(
+                                scale: 1.5,
+                                child: Switch(
+                                  onChanged: _updateSmsNotifySetting,
+                                  value: _smsNotify,
+                                  activeColor: Theme.of(context).primaryColor,
+                                  inactiveThumbColor: Colors.blueGrey,
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: Transform.scale(
+                                scale: 1.5,
+                                child: Switch(
+                                  onChanged: _updatePushNotifySetting,
+                                  value: _pushNotify,
+                                  activeColor: Theme.of(context).primaryColor,
+                                  inactiveThumbColor: Colors.blueGrey,
+                                ),
+                              ),
+                            ),
+                            RaisedButton(
+                              child: Text('تغییر کلمه عبور'),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(UserPasswordScreen.routeName);
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          RaisedButton(
-            child: Text('تغییر کلمه عبور'),
-            onPressed: () {
-              Navigator.of(context).pushNamed(UserPasswordScreen.routeName);
-            },
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
