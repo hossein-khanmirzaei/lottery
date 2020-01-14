@@ -123,44 +123,164 @@ class _UserPasswordScreenState extends State<UserPasswordScreen> {
                         MyRec(width: MediaQuery.of(context).size.width),
                         Container(
                           padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          child: Column(
-                            children: <Widget>[
-                              TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    labelText: 'کلمه عبور فعلی'),
-                                onSaved: (val) =>
-                                    setState(() => _currentpassword = val),
-                              ),
-                              TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    labelText: 'کلمه عبور جدید'),
-                                onSaved: (val) =>
-                                    setState(() => _newPassword = val),
-                              ),
-                              TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    labelText: 'تکرار کلمه عبور جدید'),
-                                onSaved: (val) =>
-                                    setState(() => _newPasswordRepeat = val),
-                              ),
-                              RaisedButton(
-                                child: Text('ثبت'),
-                                onPressed: () {
-                                  final form = _formKey.currentState;
-                                  form.save();
-                                  if (_newPassword != _newPasswordRepeat)
-                                    _showErrorDialog(
-                                        'پسورد جدید مطابقت ندارد!');
-                                  else
-                                    _updateUserPassword(
-                                        _currentpassword, _newPassword);
-                                },
-                              )
-                            ],
+                              vertical: 40, horizontal: 20),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'کلمه عبور فعلی',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                TextFormField(
+                                  //autofocus: true,
+                                  obscureText: true,
+                                  //autocorrect: true,
+                                  decoration: InputDecoration(
+                                    //hintText: 'Type Text Here...',
+                                    //hintStyle: TextStyle(color: Colors.grey),
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 2),
+                                    ),
+                                  ),
+                                  onSaved: (val) =>
+                                      setState(() => _currentpassword = val),
+                                ),
+                                SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'کلمه عبور جدید',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                TextFormField(
+                                  obscureText: true,
+                                  //autocorrect: true,
+                                  decoration: InputDecoration(
+                                    //hintText: 'Type Text Here...',
+                                    //hintStyle: TextStyle(color: Colors.grey),
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 2),
+                                    ),
+                                  ),
+                                  onSaved: (val) =>
+                                      setState(() => _newPassword = val),
+                                ),
+                                SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'تکرار کلمه عبور جدید',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                TextFormField(
+                                  obscureText: true,
+                                  //autocorrect: true,
+                                  decoration: InputDecoration(
+                                    //hintText: 'Type Text Here...',
+                                    //hintStyle: TextStyle(color: Colors.grey),
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 2),
+                                    ),
+                                  ),
+                                  onSaved: (val) =>
+                                      setState(() => _newPasswordRepeat = val),
+                                ),
+                                SizedBox(height: 20),
+                                // TextFormField(
+                                //   obscureText: true,
+                                //   decoration: InputDecoration(
+                                //       labelText: 'کلمه عبور فعلی'),
+                                //   onSaved: (val) =>
+                                //       setState(() => _currentpassword = val),
+                                // ),
+                                // TextFormField(
+                                //   obscureText: true,
+                                //   decoration: InputDecoration(
+                                //       labelText: 'کلمه عبور جدید'),
+                                //   onSaved: (val) =>
+                                //       setState(() => _newPassword = val),
+                                // ),
+                                // TextFormField(
+                                //   obscureText: true,
+                                //   decoration: InputDecoration(
+                                //       labelText: 'تکرار کلمه عبور جدید'),
+                                //   onSaved: (val) =>
+                                //       setState(() => _newPasswordRepeat = val),
+                                // ),
+                                RaisedButton(
+                                  padding: EdgeInsets.all(10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  color: Color.fromRGBO(227, 131, 215, 1),
+                                  child: Text(
+                                    'ثبت',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    final form = _formKey.currentState;
+                                    form.save();
+                                    if (_newPassword != _newPasswordRepeat)
+                                      _showErrorDialog(
+                                          'پسورد جدید مطابقت ندارد!');
+                                    else
+                                      _updateUserPassword(
+                                          _currentpassword, _newPassword);
+                                  },
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ],

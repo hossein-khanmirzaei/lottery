@@ -135,34 +135,124 @@ class _EditCreditCardScreen extends State<EditCreditCardScreen> {
                     fit: StackFit.expand,
                     children: <Widget>[
                       MyRec(width: MediaQuery.of(context).size.width),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              initialValue: _currentCreditCard.title,
-                              decoration:
-                                  InputDecoration(labelText: 'عنوان کارت'),
-                              onSaved: (val) =>
-                                  setState(() => _newCardTitle = val),
-                            ),
-                            Text(_currentCreditCard.cardNumber),
-                            _isLoading
-                                ? Center(
-                                    child: CircularProgressIndicator(
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
-                                    ),
-                                  )
-                                : RaisedButton(
-                                    child: Text('ثبت'),
-                                    onPressed: () {
-                                      final form = _formKey.currentState;
-                                      form.save();
-                                      _editCreditCard(_newCardTitle);
-                                    },
-                                  )
-                          ],
+                      SingleChildScrollView(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 40, horizontal: 20),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'عنوان کارت',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                              TextFormField(
+                                //autofocus: true,
+                                initialValue: _currentCreditCard.title,
+                                //autocorrect: true,
+                                decoration: InputDecoration(
+                                  //hintText: 'Type Text Here...',
+                                  //hintStyle: TextStyle(color: Colors.grey),
+                                  filled: true,
+                                  fillColor: Colors.white70,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.grey, width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.grey, width: 2),
+                                  ),
+                                ),
+                                onSaved: (val) =>
+                                    setState(() => _newCardTitle = val),
+                              ),
+                              SizedBox(height: 20),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'شماره کارت',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                              TextFormField(
+                                enabled: false,
+                                textDirection: TextDirection.ltr,
+                                textAlign: TextAlign.center,
+                                keyboardType: TextInputType.number,
+                                //autocorrect: true,
+                                decoration: InputDecoration(
+                                  hintText: _currentCreditCard.cardNumber,
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 18),
+                                  filled: true,
+                                  fillColor: Colors.white70,
+                                  disabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.grey, width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.grey, width: 2),
+                                  ),
+                                ),
+                                // onSaved: (val) =>
+                                //     setState(() => _cardNumber = val),
+                              ),
+                              // TextFormField(
+                              //   initialValue: _currentCreditCard.title,
+                              //   decoration:
+                              //       InputDecoration(labelText: 'عنوان کارت'),
+                              //   onSaved: (val) =>
+                              //       setState(() => _newCardTitle = val),
+                              // ),
+                              //Text(_currentCreditCard.cardNumber),
+                              SizedBox(height: 30),
+                              _isLoading
+                                  ? Center(
+                                      child: CircularProgressIndicator(
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  : RaisedButton(
+                                      padding: EdgeInsets.all(10),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      color: Color.fromRGBO(227, 131, 215, 1),
+                                      child: Text(
+                                        'ثبت',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        final form = _formKey.currentState;
+                                        form.save();
+                                        _editCreditCard(_newCardTitle);
+                                      },
+                                    )
+                            ],
+                          ),
                         ),
                       ),
                     ],

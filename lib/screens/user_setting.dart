@@ -182,76 +182,133 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                       MyRec(width: MediaQuery.of(context).size.width),
                       Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Radio(
-                                        activeColor:
-                                            Theme.of(context).primaryColor,
-                                        value: ResidenceType.kishvand,
-                                        groupValue: _residenceType,
-                                        onChanged: _updateResidenceTypeSetting),
-                                    Text(
-                                      'کیشوند',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Radio(
-                                        activeColor:
-                                            Theme.of(context).primaryColor,
-                                        value: ResidenceType.passenger,
-                                        groupValue: _residenceType,
-                                        onChanged: _updateResidenceTypeSetting),
-                                    Text(
-                                      'مسافر',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Center(
-                              child: Transform.scale(
-                                scale: 1.5,
-                                child: Switch(
-                                  onChanged: _updateSmsNotifySetting,
-                                  value: _smsNotify,
-                                  activeColor: Theme.of(context).primaryColor,
-                                  inactiveThumbColor: Colors.blueGrey,
+                            EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'وضعیت کاربر',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Center(
-                              child: Transform.scale(
-                                scale: 1.5,
-                                child: Switch(
-                                  onChanged: _updatePushNotifySetting,
-                                  value: _pushNotify,
-                                  activeColor: Theme.of(context).primaryColor,
-                                  inactiveThumbColor: Colors.blueGrey,
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Radio(
+                                          activeColor:
+                                              Theme.of(context).primaryColor,
+                                          value: ResidenceType.kishvand,
+                                          groupValue: _residenceType,
+                                          onChanged:
+                                              _updateResidenceTypeSetting),
+                                      Text(
+                                        'کیشوند',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Radio(
+                                          activeColor:
+                                              Theme.of(context).primaryColor,
+                                          value: ResidenceType.passenger,
+                                          groupValue: _residenceType,
+                                          onChanged:
+                                              _updateResidenceTypeSetting),
+                                      Text(
+                                        'مسافر',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'دریافت پیامک',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
                                 ),
                               ),
-                            ),
-                            RaisedButton(
-                              child: Text('تغییر کلمه عبور'),
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(UserPasswordScreen.routeName);
-                              },
-                            )
-                          ],
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                child: Transform.scale(
+                                  scale: 1.5,
+                                  child: Switch(
+                                    onChanged: _updateSmsNotifySetting,
+                                    value: _smsNotify,
+                                    activeColor: Theme.of(context).primaryColor,
+                                    inactiveThumbColor: Colors.blueGrey,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'دریافت نوتیفیکیشن',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                child: Transform.scale(
+                                  scale: 1.5,
+                                  child: Switch(
+                                    onChanged: _updatePushNotifySetting,
+                                    value: _pushNotify,
+                                    activeColor: Theme.of(context).primaryColor,
+                                    inactiveThumbColor: Colors.blueGrey,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              RaisedButton(
+                                padding: EdgeInsets.all(10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                color: Color.fromRGBO(227, 131, 215, 1),
+                                child: Text(
+                                  'ذخیره',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(UserPasswordScreen.routeName);
+                                },
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],

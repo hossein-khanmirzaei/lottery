@@ -95,12 +95,13 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                       Row(
                         children: <Widget>[
                           Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 25, left: 10, top: 10),
-                              child: Image.asset(
-                                'assets/images/card-icon-menu.png',
-                                height: 40,
-                              )),
+                            padding: const EdgeInsets.only(
+                                right: 25, left: 10, top: 10),
+                            child: Image.asset(
+                              'assets/images/card-icon-menu.png',
+                              height: 40,
+                            ),
+                          ),
                           Text(
                             'کارت جدید',
                             style: TextStyle(
@@ -117,39 +118,125 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                       fit: StackFit.expand,
                       children: <Widget>[
                         MyRec(width: MediaQuery.of(context).size.width),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          child: Column(
-                            children: <Widget>[
-                              TextFormField(
-                                decoration:
-                                    InputDecoration(labelText: 'عنوان کارت'),
-                                onSaved: (val) =>
-                                    setState(() => _cardTitle = val),
-                              ),
-                              TextFormField(
-                                decoration:
-                                    InputDecoration(labelText: 'شماره کارت'),
-                                onSaved: (val) =>
-                                    setState(() => _cardNumber = val),
-                              ),
-                              _isLoading
-                                  ? Center(
-                                      child: CircularProgressIndicator(
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                      ),
-                                    )
-                                  : RaisedButton(
-                                      child: Text('ثبت'),
-                                      onPressed: () {
-                                        final form = _formKey.currentState;
-                                        form.save();
-                                        _addCard(_cardTitle, _cardNumber);
-                                      },
-                                    )
-                            ],
+                        SingleChildScrollView(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 40, horizontal: 20),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'عنوان کارت',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                TextFormField(
+                                  //autofocus: true,
+                                  decoration: InputDecoration(
+                                    //hintText: 'Type Text Here...',
+                                    //hintStyle: TextStyle(color: Colors.grey),
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 2),
+                                    ),
+                                  ),
+                                  onSaved: (val) =>
+                                      setState(() => _cardTitle = val),
+                                ),
+                                SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'شماره کارت',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                TextFormField(
+                                  textDirection: TextDirection.ltr,
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  //autocorrect: true,
+                                  decoration: InputDecoration(
+                                    //hintText: 'Type Text Here...',
+                                    //hintStyle: TextStyle(color: Colors.grey),
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 2),
+                                    ),
+                                  ),
+                                  onSaved: (val) =>
+                                      setState(() => _cardNumber = val),
+                                ),
+                                // TextFormField(
+                                //   decoration:
+                                //       InputDecoration(labelText: 'عنوان کارت'),
+                                //   onSaved: (val) =>
+                                //       setState(() => _cardTitle = val),
+                                // ),
+                                // TextFormField(
+                                //   decoration:
+                                //       InputDecoration(labelText: 'شماره کارت'),
+                                //   onSaved: (val) =>
+                                //       setState(() => _cardNumber = val),
+                                // ),
+                                SizedBox(height: 30),
+                                _isLoading
+                                    ? Center(
+                                        child: CircularProgressIndicator(
+                                          backgroundColor:
+                                              Theme.of(context).primaryColor,
+                                        ),
+                                      )
+                                    : RaisedButton(
+                                        padding: EdgeInsets.all(10),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        color: Color.fromRGBO(227, 131, 215, 1),
+                                        child: Text(
+                                          'ثبت',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          final form = _formKey.currentState;
+                                          form.save();
+                                          _addCard(_cardTitle, _cardNumber);
+                                        },
+                                      )
+                              ],
+                            ),
                           ),
                         ),
                       ],
