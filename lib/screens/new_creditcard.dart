@@ -77,7 +77,14 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
     );
   }
 
-  Future<void> _addCard(String cardTitle, String cardNumber) async {
+  Future<void> _addCard(String cardTitle) async {
+    var cardNumber = _firstController.text +
+        _secondController.text +
+        _thirdController.text +
+        _fourthController.text;
+
+    if (!_isCodeReady || int.tryParse(cardNumber) == null) return;
+
     setState(() {
       _isLoading = true;
     });
@@ -428,7 +435,7 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                                         onPressed: () {
                                           final form = _formKey.currentState;
                                           form.save();
-                                          _addCard(_cardTitle, _cardNumber);
+                                          _addCard(_cardTitle);
                                         },
                                       )
                               ],
