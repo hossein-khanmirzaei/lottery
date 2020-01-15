@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +13,46 @@ class NewCreditCardScreen extends StatefulWidget {
 
 class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
   var _isLoading = false;
+  var _isCodeReady = false;
+
   final _formKey = GlobalKey<FormState>();
   String _cardTitle = '';
   String _cardNumber = '';
+
+  final FocusNode _firstNumberFocusNode = FocusNode();
+  final FocusNode _secondNumberFocusNode = FocusNode();
+  final FocusNode _thirdNumberFocusNode = FocusNode();
+  final FocusNode _fourthNumberFocusNode = FocusNode();
+
+  final TextEditingController _firstController = TextEditingController();
+  final TextEditingController _secondController = TextEditingController();
+  final TextEditingController _thirdController = TextEditingController();
+  final TextEditingController _fourthController = TextEditingController();
+
+  @override
+  void dispose() {
+    _firstNumberFocusNode.dispose();
+    _secondNumberFocusNode.dispose();
+    _thirdNumberFocusNode.dispose();
+    _fourthNumberFocusNode.dispose();
+    _firstController.dispose();
+    _secondController.dispose();
+    _thirdController.dispose();
+    _fourthController.dispose();
+    super.dispose();
+  }
+
+  void _checkCode() {
+    var code = _firstController.text +
+        _secondController.text +
+        _thirdController.text +
+        _fourthController.text;
+
+    setState(() {
+      _isCodeReady =
+          int.tryParse(code) == null || code.length < 16 ? false : true;
+    });
+  }
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -168,44 +206,202 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                                     ),
                                   ),
                                 ),
-                                TextFormField(
+                                Row(
                                   textDirection: TextDirection.ltr,
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  //autocorrect: true,
-                                  decoration: InputDecoration(
-                                    //hintText: 'Type Text Here...',
-                                    //hintStyle: TextStyle(color: Colors.grey),
-                                    filled: true,
-                                    fillColor: Colors.white70,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(12.0)),
-                                      borderSide: BorderSide(
-                                          color: Colors.grey, width: 1),
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Flexible(
+                                      child: TextField(
+                                        //autofocus: true,
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center,
+                                        maxLengthEnforced: true,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly,
+                                          LengthLimitingTextInputFormatter(5),
+                                        ],
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white70,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 2),
+                                          ),
+                                        ),
+                                        controller: _firstController,
+                                        focusNode: _firstNumberFocusNode,
+                                        onChanged: (value) {
+                                          if (value.length >= 4) {
+                                            var tmp = value.substring(0, 4);
+                                            //.split('')
+                                            //.elementAt(value.length - 1);
+                                            _firstController.text = tmp;
+                                            FocusScope.of(context).requestFocus(
+                                                _secondNumberFocusNode);
+                                          }
+                                          //_checkCode();
+                                        },
+                                      ),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0)),
-                                      borderSide: BorderSide(
-                                          color: Colors.grey, width: 2),
+                                    Text(
+                                      ' - ',
+                                      style: TextStyle(fontSize: 24),
                                     ),
-                                  ),
-                                  onSaved: (val) =>
-                                      setState(() => _cardNumber = val),
+                                    Flexible(
+                                      child: TextField(
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center,
+                                        maxLengthEnforced: true,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly,
+                                          LengthLimitingTextInputFormatter(5),
+                                        ],
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white70,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 2),
+                                          ),
+                                        ),
+                                        controller: _secondController,
+                                        focusNode: _secondNumberFocusNode,
+                                        onChanged: (value) {
+                                          if (value.isEmpty) {
+                                            FocusScope.of(context).requestFocus(
+                                                _firstNumberFocusNode);
+                                          } else if (value.length >= 4) {
+                                            var tmp = value.substring(0, 4);
+                                            //.split('')
+                                            //.elementAt(value.length - 1);
+                                            _secondController.text = tmp;
+                                            FocusScope.of(context).requestFocus(
+                                                _thirdNumberFocusNode);
+                                          }
+                                          //_checkCode();
+                                        },
+                                      ),
+                                    ),
+                                    Text(
+                                      ' - ',
+                                      style: TextStyle(fontSize: 24),
+                                    ),
+                                    Flexible(
+                                      child: TextField(
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center,
+                                        maxLengthEnforced: true,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly,
+                                          LengthLimitingTextInputFormatter(5),
+                                        ],
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white70,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 2),
+                                          ),
+                                        ),
+                                        controller: _thirdController,
+                                        focusNode: _thirdNumberFocusNode,
+                                        onChanged: (value) {
+                                          if (value.isEmpty) {
+                                            FocusScope.of(context).requestFocus(
+                                                _secondNumberFocusNode);
+                                          } else if (value.length >= 4) {
+                                            var tmp = value.substring(0, 4);
+                                            //.split('')
+                                            //.elementAt(value.length - 1);
+                                            _thirdController.text = tmp;
+                                            FocusScope.of(context).requestFocus(
+                                                _fourthNumberFocusNode);
+                                          }
+                                          //_checkCode();
+                                        },
+                                      ),
+                                    ),
+                                    Text(
+                                      ' - ',
+                                      style: TextStyle(fontSize: 24),
+                                    ),
+                                    Flexible(
+                                      child: TextField(
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center,
+                                        maxLengthEnforced: true,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly,
+                                          LengthLimitingTextInputFormatter(5),
+                                        ],
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white70,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 2),
+                                          ),
+                                        ),
+                                        controller: _fourthController,
+                                        focusNode: _fourthNumberFocusNode,
+                                        onChanged: (value) {
+                                          if (value.isEmpty) {
+                                            FocusScope.of(context).requestFocus(
+                                                _thirdNumberFocusNode);
+                                          } else if (value.length >= 4) {
+                                            var tmp = value.substring(0, 4);
+                                            //.split('')
+                                            //.elementAt(value.length - 1);
+                                            _fourthController.text = tmp;
+                                            FocusScope.of(context).unfocus();
+                                          }
+                                          //_checkCode();
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                // TextFormField(
-                                //   decoration:
-                                //       InputDecoration(labelText: 'عنوان کارت'),
-                                //   onSaved: (val) =>
-                                //       setState(() => _cardTitle = val),
-                                // ),
-                                // TextFormField(
-                                //   decoration:
-                                //       InputDecoration(labelText: 'شماره کارت'),
-                                //   onSaved: (val) =>
-                                //       setState(() => _cardNumber = val),
-                                // ),
                                 SizedBox(height: 30),
                                 _isLoading
                                     ? Center(

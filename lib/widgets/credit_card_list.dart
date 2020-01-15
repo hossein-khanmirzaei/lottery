@@ -13,7 +13,9 @@ class CreditCardList extends StatelessWidget {
   String _butifyCreditCardNumber(String cardNumber) {
     List<String> cardNumberList = cardNumber.split('').toList();
     cardNumberList.insert(4, ' - ');
+    cardNumberList.replaceRange(5, 9, ['*', '*', '*', '*']);
     cardNumberList.insert(9, ' - ');
+    cardNumberList.replaceRange(10, 12, ['*', '* ']);
     cardNumberList.insert(14, ' - ');
     return cardNumberList.fold('', (prev, element) => prev + element);
   }
@@ -78,7 +80,10 @@ class CreditCardList extends StatelessWidget {
                                     child: Text(
                                       _butifyCreditCardNumber(
                                           creditCards[index].cardNumber),
-                                      style: TextStyle(fontSize: 18),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                      textDirection: TextDirection.ltr,
                                     ),
                                   ),
                                 ),

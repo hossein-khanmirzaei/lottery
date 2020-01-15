@@ -239,53 +239,63 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'دریافت پیامک',
-                                    style: TextStyle(fontSize: 18),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        'دریافت پیامک',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Center(
-                                child: Transform.scale(
-                                  scale: 1.5,
-                                  child: Switch(
-                                    onChanged: _updateSmsNotifySetting,
-                                    value: _smsNotify,
-                                    activeColor: Theme.of(context).primaryColor,
-                                    inactiveThumbColor: Colors.blueGrey,
+                                  Center(
+                                    child: Transform.scale(
+                                      scale: 1.5,
+                                      child: Switch(
+                                        onChanged: _updateSmsNotifySetting,
+                                        value: _smsNotify,
+                                        activeColor:
+                                            Theme.of(context).primaryColor,
+                                        inactiveThumbColor: Colors.blueGrey,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'دریافت نوتیفیکیشن',
-                                    style: TextStyle(fontSize: 18),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        'دریافت نوتیفیکیشن',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Center(
-                                child: Transform.scale(
-                                  scale: 1.5,
-                                  child: Switch(
-                                    onChanged: _updatePushNotifySetting,
-                                    value: _pushNotify,
-                                    activeColor: Theme.of(context).primaryColor,
-                                    inactiveThumbColor: Colors.blueGrey,
+                                  Center(
+                                    child: Transform.scale(
+                                      scale: 1.5,
+                                      child: Switch(
+                                        onChanged: _updatePushNotifySetting,
+                                        value: _pushNotify,
+                                        activeColor:
+                                            Theme.of(context).primaryColor,
+                                        inactiveThumbColor: Colors.blueGrey,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                               SizedBox(height: 20),
                               RaisedButton(

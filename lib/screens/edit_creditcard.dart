@@ -19,6 +19,16 @@ class _EditCreditCardScreen extends State<EditCreditCardScreen> {
   String _newCardTitle;
   CreditCard _currentCreditCard;
 
+  String _butifyCreditCardNumber(String cardNumber) {
+    List<String> cardNumberList = cardNumber.split('').toList();
+    cardNumberList.insert(4, ' - ');
+    cardNumberList.replaceRange(5, 9, ['*', '*', '*', '*']);
+    cardNumberList.insert(9, ' - ');
+    cardNumberList.replaceRange(10, 12, ['*', '* ']);
+    cardNumberList.insert(14, ' - ');
+    return cardNumberList.fold('', (prev, element) => prev + element);
+  }
+
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -192,11 +202,13 @@ class _EditCreditCardScreen extends State<EditCreditCardScreen> {
                                 textDirection: TextDirection.ltr,
                                 textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
+                                initialValue: _butifyCreditCardNumber(
+                                    _currentCreditCard.cardNumber),
                                 //autocorrect: true,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
                                 decoration: InputDecoration(
-                                  hintText: _currentCreditCard.cardNumber,
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18),
                                   filled: true,
                                   fillColor: Colors.white70,
                                   disabledBorder: OutlineInputBorder(
