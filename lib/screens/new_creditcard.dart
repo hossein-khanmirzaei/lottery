@@ -83,7 +83,7 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
         _thirdController.text +
         _fourthController.text;
 
-    if (!_isCodeReady || int.tryParse(cardNumber) == null) return;
+    if (int.tryParse(cardNumber) == null) return;
 
     setState(() {
       _isLoading = true;
