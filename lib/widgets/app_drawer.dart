@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/screens/about.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:lottery/screens/help_list.dart';
@@ -25,7 +26,11 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/card-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.creditCard,
+                  color: Colors.purple,
+                ),
+                // leading: Image.asset('assets/images/card-icon-menu.png'),
                 title: Text('مدیریت کارت'),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -34,7 +39,11 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/web-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.lock,
+                  color: Colors.purple,
+                ),
+                //leading: Image.asset('assets/images/web-icon-menu.png'),
                 title: Text('تغییر کلمه عبور'),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -43,7 +52,11 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/settings-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.addressCard,
+                  color: Colors.purple,
+                ),
+                // leading: Image.asset('assets/images/settings-icon-menu.png'),
                 title: Text('تنظیمات کاربری'),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -52,14 +65,23 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading:
-                    Image.asset('assets/images/notification-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.download,
+                  color: Colors.purple,
+                ),
+                // leading: Image.asset('assets/images/notification-icon-menu.png'),
                 title: Text('بروز رسانی'),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/book-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.handshake,
+                  color: Colors.purple,
+                ),
+                // leading: Image.asset('assets/images/book-icon-menu.png'),
                 title: Text('قوانین و مقررات'),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -68,7 +90,11 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/news-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.userTag,
+                  color: Colors.purple,
+                ),
+                // leading: Image.asset('assets/images/news-icon-menu.png'),
                 title: Text('درباره ما'),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -77,7 +103,11 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/help-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.mapMarked,
+                  color: Colors.purple,
+                ),
+                // leading: Image.asset('assets/images/help-icon-menu.png'),
                 title: Text('راهنما'),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -86,7 +116,11 @@ class AppDrawer extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                leading: Image.asset('assets/images/bomb-icon-menu.png'),
+                leading: Icon(
+                  FontAwesomeIcons.signOutAlt,
+                  color: Colors.purple,
+                ),
+                // leading: Image.asset('assets/images/bomb-icon-menu.png'),
                 title: Text('خروج از حساب کاربری'),
                 onTap: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(

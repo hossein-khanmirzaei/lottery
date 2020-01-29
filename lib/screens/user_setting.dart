@@ -297,26 +297,26 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 20),
-                              RaisedButton(
-                                padding: EdgeInsets.all(10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                color: Color.fromRGBO(227, 131, 215, 1),
-                                child: Text(
-                                  'ذخیره',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed(UserPasswordScreen.routeName);
-                                },
-                              )
+                              // SizedBox(height: 20),
+                              // RaisedButton(
+                              //   padding: EdgeInsets.all(10),
+                              //   shape: RoundedRectangleBorder(
+                              //     borderRadius: BorderRadius.circular(8),
+                              //   ),
+                              //   color: Color.fromRGBO(227, 131, 215, 1),
+                              //   child: Text(
+                              //     'ذخیره',
+                              //     style: TextStyle(
+                              //       color: Colors.white,
+                              //       fontWeight: FontWeight.bold,
+                              //       fontSize: 18,
+                              //     ),
+                              //   ),
+                              //   onPressed: () {
+                              //     Navigator.of(context)
+                              //         .pushNamed(UserPasswordScreen.routeName);
+                              //   },
+                              // )
                             ],
                           ),
                         ),

@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/screens/creditcard.dart';
 import 'package:lottery/screens/gift.dart';
@@ -315,7 +316,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 icon: Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
                   //width: MediaQuery.of(context).size.width / 3,
-                  child: Image.asset('assets/images/home-icon.png'),
+                  child: Icon(
+                    FontAwesomeIcons.home,
+                    //color: Colors.blueGrey,
+                  ),
+                  //child: Image.asset('assets/images/home-icon.png'),
                 ),
                 title: Text(
                   'خانه',
@@ -328,7 +333,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 icon: Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
                   //width: MediaQuery.of(context).size.width / 3,
-                  child: Image.asset('assets/images/transaction-icon.png'),
+                  child: Icon(
+                    FontAwesomeIcons.chartLine,
+                    //color: Colors.blueGrey,
+                  ),
+                  //child: Image.asset('assets/images/transaction-icon.png'),
                 ),
                 title: Text(
                   'تراکنش ها',
@@ -341,7 +350,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 icon: Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
                   //width: MediaQuery.of(context).size.width / 3,
-                  child: Image.asset('assets/images/store-icon.png'),
+                  child: Icon(
+                    FontAwesomeIcons.store,
+                    //color: Colors.blueGrey,
+                  ),
+                  //child: Image.asset('assets/images/store-icon.png'),
                 ),
                 title: Text(
                   'فروشگاه ها',
@@ -354,7 +367,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 icon: Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
                   //width: MediaQuery.of(context).size.width / 3,
-                  child: Image.asset('assets/images/gift-icon.png'),
+                  child: Icon(
+                    FontAwesomeIcons.trophy,
+                    //color: Colors.blueGrey,
+                  ),
+                  //child: Image.asset('assets/images/gift-icon.png'),
                 ),
                 title: Text(
                   'نتایج قرعه کشی',

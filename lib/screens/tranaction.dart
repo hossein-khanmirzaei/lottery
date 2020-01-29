@@ -105,87 +105,109 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       )
                     : Container(
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        child: ListView.builder(
-                          itemCount: _transactions.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Provider.of<TransactionProvider>(context,
-                                        listen: false)
-                                    .setCurrentTransaction(
-                                        _transactions[index].id);
-                                Navigator.of(context).pushNamed(
-                                    TransactionDetailScreen.routeName);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
+                        child: _transactions.isEmpty
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'تراکنشی یافت نشد!',
+                                    style: Theme.of(context).textTheme.title,
                                   ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                margin: EdgeInsets.only(
-                                    left:
-                                        MediaQuery.of(context).size.width / 12,
-                                    right:
-                                        MediaQuery.of(context).size.width / 12,
-                                    top: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Column(
+                                ],
+                              )
+                            : ListView.builder(
+                                itemCount: _transactions.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Provider.of<TransactionProvider>(context,
+                                              listen: false)
+                                          .setCurrentTransaction(
+                                              _transactions[index].id);
+                                      Navigator.of(context).pushNamed(
+                                          TransactionDetailScreen.routeName);
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.grey,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      margin: EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              12,
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              12,
+                                          top: 20),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: Text(
-                                                _transactions[index].mallName,
-                                                style: TextStyle(fontSize: 18),
-                                              ),
+                                          Expanded(
+                                            child: Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: Text(
+                                                      _transactions[index]
+                                                          .mallName,
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: Text(
+                                                      _transactions[index]
+                                                              .time
+                                                              .toString() +
+                                                          ' ' +
+                                                          _transactions[index]
+                                                              .date
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Text(
-                                                _transactions[index]
-                                                        .time
-                                                        .toString() +
-                                                    ' ' +
-                                                    _transactions[index]
-                                                        .date
-                                                        .toString(),
-                                                style: TextStyle(fontSize: 12),
-                                              ),
-                                            ),
-                                          ),
+                                          // child: IconButton(
+                                          //   icon: Icon(Icons.search),
+                                          //   color: Theme.of(context).errorColor,
+                                          //   onPressed: () {
+                                          //     Provider.of<TransactionProvider>(
+                                          //             context,
+                                          //             listen: false)
+                                          //         .setCurrentTransaction(
+                                          //             _transactions[index].id);
+                                          //     Navigator.of(context).pushNamed(
+                                          //         TransactionDetailScreen
+                                          //             .routeName);
+                                          //   },
+                                          // ),
                                         ],
                                       ),
                                     ),
-                                    // child: IconButton(
-                                    //   icon: Icon(Icons.search),
-                                    //   color: Theme.of(context).errorColor,
-                                    //   onPressed: () {
-                                    //     Provider.of<TransactionProvider>(
-                                    //             context,
-                                    //             listen: false)
-                                    //         .setCurrentTransaction(
-                                    //             _transactions[index].id);
-                                    //     Navigator.of(context).pushNamed(
-                                    //         TransactionDetailScreen
-                                    //             .routeName);
-                                    //   },
-                                    // ),
-                                  ],
-                                ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       ),
               ],
             ),

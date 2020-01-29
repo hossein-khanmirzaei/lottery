@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/models/user.dart';
 import 'package:lottery/screens/login.dart';
-import 'package:lottery/screens/overview.dart';
-import 'package:lottery/screens/start.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/auth.dart';

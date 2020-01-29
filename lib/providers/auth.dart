@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
   User _currentUser;
+  User _newUser;
   String _rules;
   String _aboutUs;
 
@@ -43,7 +45,7 @@ class AuthProvider with ChangeNotifier {
         url,
         body: {
           'action': 'verify_mobile',
-          'user': _currentUser.nationalId,
+          'user': _newUser.nationalId,
           'verify_code': verificationCode,
         },
       );
@@ -51,7 +53,9 @@ class AuthProvider with ChangeNotifier {
       if (responseData == false) {
         throw HttpException("کد ارسالی نادرست است!");
       }
-      login(_currentUser.nationalId, _currentUser.mobileNo);
+      //_currentUser = _newUser;
+      //_newUser = null;
+      await login(_newUser.nationalId, _newUser.mobileNo);
     } catch (error) {
       throw error;
     }
@@ -76,10 +80,26 @@ class AuthProvider with ChangeNotifier {
       if (responseData['success'] == false) {
         throw HttpException(responseData['failureMessage']);
       }
-      _currentUser.id = responseData['tbl_user']['User_ID'];
-      _currentUser.nationalId = responseData['tbl_user']['National_ID'];
-      _currentUser.mobileNo = responseData['tbl_user']['Mobile_No'];
-      _currentUser.residenceType = responseData['tbl_user']['Residence_Type'];
+      print(responseData['tbl_user']['User_ID']);
+      _newUser = User(
+        id: responseData['tbl_user']['User_ID'],
+        fullName: responseData['tbl_user']['Full_Name'],
+        nationalId: responseData['tbl_user']['National_ID'],
+        mobileNo: responseData['tbl_user']['Mobile_No'],
+        userName: responseData['tbl_user']['National_ID'],
+        residenceType: responseData['tbl_user']['Residence_Type'] == '1'
+            ? ResidenceType.kishvand
+            : ResidenceType.passenger,
+        // smsNotify: responseData['tbl_user']['SMS_Notify'] == '1' ? true : false,
+        // pushNotify:
+        //     responseData['tbl_user']['PUSH_Notify'] == '1' ? true : false,
+        token: null,
+        expiryDate: null,
+      );
+      //_currentUser.id = responseData['tbl_user']['User_ID'];
+      //_currentUser.nationalId = responseData['tbl_user']['National_ID'];
+      //_currentUser.mobileNo = responseData['tbl_user']['Mobile_No'];
+      //_currentUser.residenceType = responseData['tbl_user']['Residence_Type'];
     } catch (error) {
       throw error;
     }
@@ -88,6 +108,7 @@ class AuthProvider with ChangeNotifier {
   Future<void> login(String userName, String password) async {
     const url = 'http://hamibox.ir/main/api/index.php';
     try {
+      await checkConnectivity();
       final response = await http.post(
         url,
         body: {
@@ -108,11 +129,13 @@ class AuthProvider with ChangeNotifier {
       _autoLogout();
       final prefs = await SharedPreferences.getInstance();
       final userToken = responseData['JWT'];
-      try {
-        prefs.setString('userToken', userToken);
-      } catch (error) {
-        print(error);
-      }
+      // try {
+      prefs.setString('userToken', userToken);
+      // } catch (error) {
+      //   print(error);
+      // }
+    } on SocketException catch (_) {
+      throw HttpException('خطا در ارتباط با سرور!');
     } catch (error) {
       throw (error);
     }
@@ -125,6 +148,7 @@ class AuthProvider with ChangeNotifier {
     );
     final userId = int.parse(_parseJwt(authToken)['security']['userid']);
     try {
+      await checkConnectivity();
       var response = await http.post(
         url,
         body: {
@@ -173,12 +197,21 @@ class AuthProvider with ChangeNotifier {
       }
       _rules = responseData['tbl_content']['Role'];
       _aboutUs = responseData['tbl_content']['About'];
+    } on SocketException catch (_) {
+      throw HttpException('خطا در ارتباط با سرور!');
     } catch (error) {
       throw error;
     }
   }
 
   Future<bool> tryAutoLogin() async {
+    try {
+      await checkConnectivity();
+    } on SocketException catch (_) {
+      throw HttpException('خطا در ارتباط با سرور!');
+    } catch (error) {
+      throw (error);
+    }
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userToken')) {
       return false;
@@ -217,6 +250,17 @@ class AuthProvider with ChangeNotifier {
     final timeToExpiry =
         _currentUser.expiryDate.difference(DateTime.now()).inSeconds;
     _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
+  }
+
+  Future checkConnectivity() async {
+    try {
+      final result = await InternetAddress.lookup('hamibox.ir');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        //print('connected');
+      }
+    } on SocketException catch (error) {
+      throw error;
+    }
   }
 
   Map<String, dynamic> _parseJwt(String token) {

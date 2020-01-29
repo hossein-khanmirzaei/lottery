@@ -42,6 +42,9 @@ class UserProvider with ChangeNotifier {
       );
       final responseData = json.decode(response.body);
       if (!responseData['success']) {
+        print(currentUser.id.toString());
+        print(currentPassword);
+        print(newPassword);
         throw HttpException(responseData['failureMessage']);
       }
     } catch (error) {

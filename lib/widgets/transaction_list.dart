@@ -12,8 +12,15 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 450,
       child: transactions.isEmpty
-          ? Center(
-              child: Text('تاکنون تراکنشی ثبت نشده است!'),
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'تاکنون تراکنشی ثبت نشده است!',
+                  style: Theme.of(context).textTheme.title,
+                ),
+              ],
             )
           : ListView.builder(
               itemBuilder: (ctx, index) {

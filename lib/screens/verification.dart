@@ -80,7 +80,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
     try {
       await Provider.of<AuthProvider>(context, listen: false)
           .sendVerificationCode(code);
-
       Navigator.of(context).pushNamedAndRemoveUntil(
           OverviewScreen.routeName, (Route<dynamic> route) => false);
     } catch (error) {
@@ -119,255 +118,266 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Text(
-                "کد فعال سازی",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  textDirection: TextDirection.ltr,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+        child: _isLoading
+            ? Container(
+                padding: EdgeInsets.symmetric(vertical: 17),
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: 30,
-                      child: TextField(
-                        autofocus: true,
-                        style: TextStyle(fontSize: 24),
-                        textAlign: TextAlign.center,
-                        maxLengthEnforced: true,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2),
+                    Text(
+                      "کد فعال سازی",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        textDirection: TextDirection.ltr,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 30,
+                            child: TextField(
+                              autofocus: true,
+                              style: TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                              maxLengthEnforced: true,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _firstController,
+                              focusNode: _firstNumberFocusNode,
+                              onChanged: (value) {
+                                if (value.length > 0) {
+                                  var tmp = value
+                                      .split('')
+                                      .elementAt(value.length - 1);
+                                  _firstController.text = tmp;
+                                  FocusScope.of(context)
+                                      .requestFocus(_secondNumberFocusNode);
+                                }
+                                _checkCode();
+                              },
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 30,
+                            child: TextField(
+                              style: TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                              maxLengthEnforced: true,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _secondController,
+                              focusNode: _secondNumberFocusNode,
+                              onChanged: (value) {
+                                if (value.isEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(_firstNumberFocusNode);
+                                } else {
+                                  var tmp = value
+                                      .split('')
+                                      .elementAt(value.length - 1);
+                                  _secondController.text = tmp;
+                                  FocusScope.of(context)
+                                      .requestFocus(_thirdNumberFocusNode);
+                                }
+                                _checkCode();
+                              },
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 30,
+                            child: TextField(
+                              style: TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                              maxLengthEnforced: true,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _thirdController,
+                              focusNode: _thirdNumberFocusNode,
+                              onChanged: (value) {
+                                if (value.isEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(_secondNumberFocusNode);
+                                } else {
+                                  var tmp = value
+                                      .split('')
+                                      .elementAt(value.length - 1);
+                                  _thirdController.text = tmp;
+                                  FocusScope.of(context)
+                                      .requestFocus(_fourthNumberFocusNode);
+                                }
+                                _checkCode();
+                              },
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 30,
+                            child: TextField(
+                              style: TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                              maxLengthEnforced: true,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _fourthController,
+                              focusNode: _fourthNumberFocusNode,
+                              onChanged: (value) {
+                                if (value.isEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(_thirdNumberFocusNode);
+                                } else {
+                                  var tmp = value
+                                      .split('')
+                                      .elementAt(value.length - 1);
+                                  _fourthController.text = tmp;
+                                  FocusScope.of(context)
+                                      .requestFocus(_fifthNumberFocusNode);
+                                }
+                                _checkCode();
+                              },
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 30,
+                            child: TextField(
+                              style: TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                              maxLengthEnforced: true,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _fifthController,
+                              focusNode: _fifthNumberFocusNode,
+                              onChanged: (value) {
+                                if (value.isEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(_fourthNumberFocusNode);
+                                } else {
+                                  var tmp = value
+                                      .split('')
+                                      .elementAt(value.length - 1);
+                                  _fifthController.text = tmp;
+                                  FocusScope.of(context)
+                                      .requestFocus(_sixthNumberFocusNode);
+                                }
+                                _checkCode();
+                              },
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 30,
+                            child: TextField(
+                              style: TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                              maxLengthEnforced: true,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _sixthController,
+                              focusNode: _sixthNumberFocusNode,
+                              onChanged: (value) {
+                                if (value.isEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(_fifthNumberFocusNode);
+                                } else {
+                                  var tmp = value
+                                      .split('')
+                                      .elementAt(value.length - 1);
+                                  _sixthController.text = tmp;
+                                  FocusScope.of(context).unfocus();
+                                }
+                                _checkCode();
+                              },
+                              //onSubmitted: (String value) {},
+                            ),
+                          ),
                         ],
-                        controller: _firstController,
-                        focusNode: _firstNumberFocusNode,
-                        onChanged: (value) {
-                          if (value.length > 0) {
-                            var tmp =
-                                value.split('').elementAt(value.length - 1);
-                            _firstController.text = tmp;
-                            FocusScope.of(context)
-                                .requestFocus(_secondNumberFocusNode);
-                          }
-                          _checkCode();
-                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 10,
+                          vertical: 10),
+                      child: RaisedButton(
+                        onPressed: _isCodeReady ? _submitCode : null,
+                        child: Text(
+                          "تایید",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        color: Theme.of(context).primaryColor,
+                        textColor: Theme.of(context).accentColor,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Theme.of(context).accentColor,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: 30,
-                      child: TextField(
-                        style: TextStyle(fontSize: 24),
-                        textAlign: TextAlign.center,
-                        maxLengthEnforced: true,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2),
-                        ],
-                        controller: _secondController,
-                        focusNode: _secondNumberFocusNode,
-                        onChanged: (value) {
-                          if (value.isEmpty) {
-                            FocusScope.of(context)
-                                .requestFocus(_firstNumberFocusNode);
-                          } else {
-                            var tmp =
-                                value.split('').elementAt(value.length - 1);
-                            _secondController.text = tmp;
-                            FocusScope.of(context)
-                                .requestFocus(_thirdNumberFocusNode);
-                          }
-                          _checkCode();
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: 30,
-                      child: TextField(
-                        style: TextStyle(fontSize: 24),
-                        textAlign: TextAlign.center,
-                        maxLengthEnforced: true,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2),
-                        ],
-                        controller: _thirdController,
-                        focusNode: _thirdNumberFocusNode,
-                        onChanged: (value) {
-                          if (value.isEmpty) {
-                            FocusScope.of(context)
-                                .requestFocus(_secondNumberFocusNode);
-                          } else {
-                            var tmp =
-                                value.split('').elementAt(value.length - 1);
-                            _thirdController.text = tmp;
-                            FocusScope.of(context)
-                                .requestFocus(_fourthNumberFocusNode);
-                          }
-                          _checkCode();
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: 30,
-                      child: TextField(
-                        style: TextStyle(fontSize: 24),
-                        textAlign: TextAlign.center,
-                        maxLengthEnforced: true,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2),
-                        ],
-                        controller: _fourthController,
-                        focusNode: _fourthNumberFocusNode,
-                        onChanged: (value) {
-                          if (value.isEmpty) {
-                            FocusScope.of(context)
-                                .requestFocus(_thirdNumberFocusNode);
-                          } else {
-                            var tmp =
-                                value.split('').elementAt(value.length - 1);
-                            _fourthController.text = tmp;
-                            FocusScope.of(context)
-                                .requestFocus(_fifthNumberFocusNode);
-                          }
-                          _checkCode();
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: 30,
-                      child: TextField(
-                        style: TextStyle(fontSize: 24),
-                        textAlign: TextAlign.center,
-                        maxLengthEnforced: true,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2),
-                        ],
-                        controller: _fifthController,
-                        focusNode: _fifthNumberFocusNode,
-                        onChanged: (value) {
-                          if (value.isEmpty) {
-                            FocusScope.of(context)
-                                .requestFocus(_fourthNumberFocusNode);
-                          } else {
-                            var tmp =
-                                value.split('').elementAt(value.length - 1);
-                            _fifthController.text = tmp;
-                            FocusScope.of(context)
-                                .requestFocus(_sixthNumberFocusNode);
-                          }
-                          _checkCode();
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: 30,
-                      child: TextField(
-                        style: TextStyle(fontSize: 24),
-                        textAlign: TextAlign.center,
-                        maxLengthEnforced: true,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.done,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2),
-                        ],
-                        controller: _sixthController,
-                        focusNode: _sixthNumberFocusNode,
-                        onChanged: (value) {
-                          if (value.isEmpty) {
-                            FocusScope.of(context)
-                                .requestFocus(_fifthNumberFocusNode);
-                          } else {
-                            var tmp =
-                                value.split('').elementAt(value.length - 1);
-                            _sixthController.text = tmp;
-                            FocusScope.of(context).unfocus();
-                          }
-                          _checkCode();
-                        },
-                        //onSubmitted: (String value) {},
+                      width: MediaQuery.of(context).size.width / 2,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 10,
+                          vertical: 10),
+                      child: OutlineButton(
+                        onPressed: null,
+                        child: Text(
+                          "درخواست مجدد کد",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.normal),
+                        ),
+                        textColor: Theme.of(context).primaryColor,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).primaryColor, width: 2),
+                        shape: StadiumBorder(),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 2,
-                margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 10,
-                    vertical: 10),
-                child: RaisedButton(
-                  onPressed: _isCodeReady ? _submitCode : null,
-                  child: Text(
-                    "تایید",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  color: Theme.of(context).primaryColor,
-                  textColor: Theme.of(context).accentColor,
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Theme.of(context).accentColor,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 2,
-                margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 10,
-                    vertical: 10),
-                child: OutlineButton(
-                  onPressed: null,
-                  child: Text(
-                    "درخواست مجدد کد",
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-                  ),
-                  textColor: Theme.of(context).primaryColor,
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor, width: 2),
-                  shape: StadiumBorder(),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

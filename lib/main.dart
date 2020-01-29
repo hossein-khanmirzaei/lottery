@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lottery/providers/creditcard.dart';
 import 'package:lottery/providers/help.dart';
@@ -31,6 +32,9 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
@@ -79,7 +83,7 @@ class MyApp extends StatelessWidget {
           home: auth.isAuth
               ? OverviewScreen()
               : FutureBuilder(
-                  future: auth.tryAutoLogin(),
+                  future: auth.tryAutoLogin(),                  
                   builder: (ctx, authResultSnapshot) =>
                       authResultSnapshot.connectionState ==
                               ConnectionState.waiting
