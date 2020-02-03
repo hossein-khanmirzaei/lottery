@@ -322,6 +322,15 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   ),
                   //child: Image.asset('assets/images/home-icon.png'),
                 ),
+                activeIcon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  //width: MediaQuery.of(context).size.width / 3,
+                  child: Icon(
+                    FontAwesomeIcons.home,
+                    color: Colors.purple,
+                  ),
+                  //child: Image.asset('assets/images/home-icon.png'),
+                ),
                 title: Text(
                   'خانه',
                   style: TextStyle(
@@ -338,6 +347,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     //color: Colors.blueGrey,
                   ),
                   //child: Image.asset('assets/images/transaction-icon.png'),
+                ),
+                activeIcon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  child: Icon(
+                    FontAwesomeIcons.chartLine,
+                    color: Colors.purple,
+                  ),
                 ),
                 title: Text(
                   'تراکنش ها',
@@ -356,6 +372,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   ),
                   //child: Image.asset('assets/images/store-icon.png'),
                 ),
+                activeIcon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  child: Icon(
+                    FontAwesomeIcons.store,
+                    color: Colors.purple,
+                  ),
+                ),
                 title: Text(
                   'فروشگاه ها',
                   style: TextStyle(
@@ -372,6 +395,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     //color: Colors.blueGrey,
                   ),
                   //child: Image.asset('assets/images/gift-icon.png'),
+                ),
+                activeIcon: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  child: Icon(
+                    FontAwesomeIcons.trophy,
+                    color: Colors.purple,
+                  ),
                 ),
                 title: Text(
                   'نتایج قرعه کشی',
