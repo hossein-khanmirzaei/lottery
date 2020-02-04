@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/tranaction.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
@@ -62,17 +63,18 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(
-                              right: 25, left: 10, top: 10),
-                          child: Image.asset(
-                            'assets/images/transaction-icon.png',
-                            height: 40,
+                              right: 35, left: 20, top: 10, bottom: 10),
+                          child: Icon(
+                            FontAwesomeIcons.chartLine,
+                            color: Colors.deepPurple,
+                            size: 36,
                           ),
                         ),
                         Text(
                           'جزئیات تراکنش',
                           style: TextStyle(
                               color: Colors.deepPurple,
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
@@ -141,17 +142,18 @@ class _NewCreditCardScreenState extends State<NewCreditCardScreen> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                                right: 25, left: 10, top: 10),
-                            child: Image.asset(
-                              'assets/images/card-icon-menu.png',
-                              height: 40,
+                                right: 30, left: 20, top: 10, bottom: 10),
+                            child: Icon(
+                              FontAwesomeIcons.creditCard,
+                              color: Colors.deepPurple,
+                              size: 36,
                             ),
                           ),
                           Text(
                             'کارت جدید',
                             style: TextStyle(
                                 color: Colors.deepPurple,
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],

@@ -156,7 +156,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
                             child: Row(
                               //mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Image.asset('assets/images/wallet-icon.png'),
+                                Icon(
+                                  FontAwesomeIcons.creditCard,
+                                  color: Colors.purple,
+                                ),
                                 //SizedBox(width: 25),
                                 Expanded(
                                   child: Text(

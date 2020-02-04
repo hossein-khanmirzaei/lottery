@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/news.dart';
 import 'package:lottery/screens/news_detail.dart';
@@ -73,15 +74,19 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: <Widget>[
                   Padding(
-                    padding:
-                        const EdgeInsets.only(right: 25, left: 10, top: 10),
-                    child: Image.asset('assets/images/news-icon.png'),
+                    padding: const EdgeInsets.only(
+                        right: 30, left: 20, top: 10, bottom: 10),
+                    child: Icon(
+                      FontAwesomeIcons.newspaper,
+                      color: Colors.deepPurple,
+                      size: 36,
+                    ),
                   ),
                   Text(
                     'اخبار',
                     style: TextStyle(
                         color: Colors.deepPurple,
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                 ],

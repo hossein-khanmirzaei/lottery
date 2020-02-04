@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/store.dart';
 import 'package:lottery/screens/store_detail.dart';
@@ -72,18 +73,19 @@ class _StoreScreenState extends State<StoreScreen> {
               Row(
                 children: <Widget>[
                   Padding(
-                    padding:
-                        const EdgeInsets.only(right: 25, left: 10, top: 10),
-                    child: Image.asset(
-                      'assets/images/store-icon.png',
-                      height: 40,
+                    padding: const EdgeInsets.only(
+                        right: 30, left: 20, top: 10, bottom: 10),
+                    child: Icon(
+                      FontAwesomeIcons.store,
+                      color: Colors.deepPurple,
+                      size: 36,
                     ),
                   ),
                   Text(
                     'فروشگاه',
                     style: TextStyle(
                         color: Colors.deepPurple,
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -138,7 +140,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Align(
                                               alignment: Alignment.bottomRight,
-                                               child: Text(
+                                              child: Text(
                                                 _stores[index].name,
                                                 style: TextStyle(fontSize: 18),
                                               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/creditcard.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/widgets/credit_card_list.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/creditcard.dart';
@@ -123,17 +123,19 @@ class _EditCreditCardScreen extends State<EditCreditCardScreen> {
                       Row(
                         children: <Widget>[
                           Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 25, left: 10, top: 10),
-                              child: Image.asset(
-                                'assets/images/card-icon-menu.png',
-                                height: 40,
-                              )),
+                            padding: const EdgeInsets.only(
+                                right: 30, left: 20, top: 10, bottom: 10),
+                            child: Icon(
+                              FontAwesomeIcons.creditCard,
+                              color: Colors.deepPurple,
+                              size: 36,
+                            ),
+                          ),
                           Text(
                             'جزئیات کارت',
                             style: TextStyle(
                                 color: Colors.deepPurple,
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],

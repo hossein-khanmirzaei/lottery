@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/user.dart';
-import 'package:lottery/screens/user_password.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/user.dart';
@@ -158,17 +158,19 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                     Row(
                       children: <Widget>[
                         Padding(
-                            padding: const EdgeInsets.only(
-                                right: 30, left: 10, top: 10),
-                            child: Image.asset(
-                              'assets/images/settings-icon-menu.png',
-                              height: 40,
-                            )),
+                          padding: const EdgeInsets.only(
+                              right: 30, left: 20, top: 10, bottom: 10),
+                          child: Icon(
+                            FontAwesomeIcons.addressCard,
+                            color: Colors.deepPurple,
+                            size: 36,
+                          ),
+                        ),
                         Text(
                           'تنظیمات کاربری',
                           style: TextStyle(
                               color: Colors.deepPurple,
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                       ],

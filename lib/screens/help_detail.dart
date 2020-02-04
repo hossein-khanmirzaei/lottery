@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/help.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/widgets/rec.dart';
@@ -92,17 +93,18 @@ class _HelpDetailScreenState extends State<HelpDetailScreen> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(
-                              right: 35, left: 10, top: 10),
-                          child: Image.asset(
-                            'assets/images/book-icon-menu.png',
-                            height: 40,
+                              right: 30, left: 20, top: 10, bottom: 10),
+                          child: Icon(
+                            FontAwesomeIcons.mapMarked,
+                            color: Colors.deepPurple,
+                            size: 36,
                           ),
                         ),
                         Text(
                           'راهنما',
                           style: TextStyle(
                               color: Colors.deepPurple,
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
