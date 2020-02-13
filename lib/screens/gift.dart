@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottery/widgets/countdown_timer.dart';
 import 'package:lottery/widgets/rec.dart';
 
 class GiftScreen extends StatefulWidget {
@@ -53,6 +54,7 @@ class _GiftScreenState extends State<GiftScreen> {
                       )
                     : Container(
                         padding: EdgeInsets.symmetric(vertical: 20),
+                        child: MyCountdownTimer(),
                         // child: ListView.builder(
                         //   itemCount: _stores.length,
                         //   itemBuilder: (context, index) {
