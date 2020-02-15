@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lottery/providers/creditcard.dart';
 import 'package:lottery/providers/help.dart';
+import 'package:lottery/providers/lottery.dart';
 import 'package:lottery/providers/news.dart';
 import 'package:lottery/providers/store.dart';
 import 'package:lottery/providers/transaction.dart';
@@ -61,6 +62,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<AuthProvider, HelpProvider>(
           update: (_, auth, __) => HelpProvider(auth.currentUser),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, LotteryProvider>(
+          update: (_, auth, __) => LotteryProvider(auth.currentUser),
         ),
       ],
       child: Consumer<AuthProvider>(

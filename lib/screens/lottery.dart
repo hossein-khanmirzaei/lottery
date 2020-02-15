@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
-import 'package:lottery/models/store.dart';
-import 'package:lottery/screens/store_detail.dart';
+import 'package:lottery/models/lottery.dart';
+import 'package:lottery/screens/lottery_detail%20copy.dart';
+import 'package:lottery/widgets/countdown_timer.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/store.dart';
+import 'package:lottery/providers/lottery.dart';
 
-class StoreScreen extends StatefulWidget {
+class LotteryScreen extends StatefulWidget {
   @override
-  _StoreScreenState createState() => _StoreScreenState();
+  _LotteryScreenState createState() => _LotteryScreenState();
 }
 
-class _StoreScreenState extends State<StoreScreen> {
-  List<Store> _stores = [];
+class _LotteryScreenState extends State<LotteryScreen> {
+  List<Lottery> _lotteries = [];
   var _isLoading = false;
-  
+
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -44,14 +45,16 @@ class _StoreScreenState extends State<StoreScreen> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StoreProvider>(context, listen: false).fetchStores();
+      await Provider.of<LotteryProvider>(context, listen: false)
+          .fetchLotteries();
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog('خطایی رخ داده است. لطفاً بعداً تلاش کنید.');
     }
     setState(() {
-      _stores = Provider.of<StoreProvider>(context, listen: false).storeList;
+      _lotteries =
+          Provider.of<LotteryProvider>(context, listen: false).lotteryList;
       _isLoading = false;
     });
   }
@@ -75,15 +78,15 @@ class _StoreScreenState extends State<StoreScreen> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(
-                        right: 30, left: 20, top: 10, bottom: 10),
+                        right: 32, left: 20, top: 10, bottom: 10),
                     child: Icon(
-                      FontAwesomeIcons.store,
+                      FontAwesomeIcons.trophy,
                       color: Colors.deepPurple,
                       size: 36,
                     ),
                   ),
                   Text(
-                    'فروشگاه',
+                    'قرعه کشی',
                     style: TextStyle(
                         color: Colors.deepPurple,
                         fontSize: 20,
@@ -107,15 +110,15 @@ class _StoreScreenState extends State<StoreScreen> {
                     : Container(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         child: ListView.builder(
-                          itemCount: _stores.length,
+                          itemCount: _lotteries.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                Provider.of<StoreProvider>(context,
+                                Provider.of<LotteryProvider>(context,
                                         listen: false)
-                                    .setCurrentStore(_stores[index].id);
+                                    .setCurrentLottery(_lotteries[index].id);
                                 Navigator.of(context)
-                                    .pushNamed(StoreDetailScreen.routeName);
+                                    .pushNamed(LotteryDetailScreen.routeName);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -140,40 +143,13 @@ class _StoreScreenState extends State<StoreScreen> {
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: Text(
-                                                _stores[index].name,
-                                                style: TextStyle(fontSize: 18),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Text(
-                                                'شماره واحد ' +
-                                                    _stores[index]
-                                                        .unitNumber
-                                                        .toString(),
-                                                style: TextStyle(fontSize: 12),
-                                              ),
+                                              alignment: Alignment.center,
+                                              child: MyCountdownTimer(
+                                                  _lotteries[index].gEndDate),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      // child: IconButton(
-                                      //   icon: Icon(Icons.search),
-                                      //   color: Theme.of(context).errorColor,
-                                      //   onPressed: () {
-                                      //     Provider.of<StoreProvider>(context,
-                                      //             listen: false)
-                                      //         .setCurrentStore(
-                                      //             _stores[index].id);
-                                      //     Navigator.of(context).pushNamed(
-                                      //         StoreDetailScreen.routeName);
-                                      //   },
-                                      // ),
                                     ),
                                   ],
                                 ),
@@ -181,34 +157,6 @@ class _StoreScreenState extends State<StoreScreen> {
                             );
                           },
                         ),
-                        // ListView.separated(
-                        //     itemCount: _stores.length,
-                        //     itemBuilder: (context, index) {
-                        //       return ListTile(
-                        //         title: Text(
-                        //           _stores[index].name.toString(),
-                        //           style: Theme.of(context).textTheme.title,
-                        //         ),
-                        //         subtitle: Text(
-                        //           _stores[index].unitNumber,
-                        //         ),
-                        //         trailing: IconButton(
-                        //           icon: Icon(Icons.search),
-                        //           color: Theme.of(context).errorColor,
-                        //           onPressed: () {
-                        //             Provider.of<StoreProvider>(context,
-                        //                     listen: false)
-                        //                 .setCurrentStore(_stores[index].id);
-                        //             Navigator.of(context)
-                        //                 .pushNamed(StoreDetailScreen.routeName);
-                        //           },
-                        //         ),
-                        //       );
-                        //     },
-                        //     separatorBuilder: (context, index) {
-                        //       return Divider();
-                        //     },
-                        //   ),
                       ),
               ],
             ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/screens/creditcard.dart';
-import 'package:lottery/screens/gift.dart';
+import 'package:lottery/screens/lottery.dart';
 import 'package:lottery/screens/home.dart';
 import 'package:lottery/screens/store.dart';
 import 'package:lottery/screens/tranaction.dart';
@@ -87,7 +87,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     HomeScreen(),
     TransactionScreen(),
     StoreScreen(),
-    GiftScreen(),
+    LotteryScreen(),
   ];
 
   void onTabTapped(int index) {

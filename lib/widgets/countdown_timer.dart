@@ -1,25 +1,27 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:quiver/async.dart';
 
 class MyCountdownTimer extends StatefulWidget {
+  final DateTime endDate;
+  MyCountdownTimer(this.endDate);
+
   @override
   _MyCountdownTimerState createState() => _MyCountdownTimerState();
 }
 
 class _MyCountdownTimerState extends State<MyCountdownTimer> {
-  int _start = 10000;
-  int _current = 10000;
-  //StreamSubscription sub;
+  int _start;
+  int _current;
+  StreamSubscription<CountdownTimer> sub;
 
   void startTimer() {
-    CountdownTimer countDownTimer = new CountdownTimer(
-      new Duration(seconds: _start),
-      new Duration(seconds: 1),
+    CountdownTimer countDownTimer = CountdownTimer(
+      Duration(seconds: _start),
+      Duration(seconds: 1),
     );
 
-    var sub = countDownTimer.listen(null);
+    sub = countDownTimer.listen(null);
     sub.onData((duration) {
       setState(() {
         _current = _start - duration.elapsed.inSeconds;
@@ -27,14 +29,21 @@ class _MyCountdownTimerState extends State<MyCountdownTimer> {
     });
 
     sub.onDone(() {
-      print("Done");
       sub.cancel();
     });
   }
 
   @override
-  void dispose() { 
-    //sub.cancel();   
+  void initState() {
+    _start = widget.endDate.difference(DateTime.now()).inSeconds;
+    _current = _start;
+    startTimer();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (_current < _start && _current > 0) sub.cancel();
     super.dispose();
   }
 
@@ -42,12 +51,6 @@ class _MyCountdownTimerState extends State<MyCountdownTimer> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        RaisedButton(
-          onPressed: () {
-            startTimer();
-          },
-          child: Text("start"),
-        ),
         Text(
           Duration(seconds: _current)
               .toString()
