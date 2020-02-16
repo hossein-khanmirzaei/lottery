@@ -49,7 +49,7 @@ class LotteryProvider with ChangeNotifier {
         loadedLotteries.add(
           Lottery(
             id: int.parse(l['Lottery_ID']),
-            status: l['Status'],
+            status: int.parse(l['Status']),
             title: l['Title'],
             startDate: l['Start_Date'],
             endDate: l['End_Date'],

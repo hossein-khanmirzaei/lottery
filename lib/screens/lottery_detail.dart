@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottery/models/store.dart';
+import 'package:lottery/models/lottery.dart';
+import 'package:lottery/widgets/countdown_timer.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/store.dart';
+import 'package:lottery/providers/lottery.dart';
 
 class LotteryDetailScreen extends StatefulWidget {
   static const routeName = '/lotteryDetail';
@@ -13,14 +14,14 @@ class LotteryDetailScreen extends StatefulWidget {
 
 class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
   var _isLoading = false;
-  Store _currentStore;
+  Lottery _currentLottery;
 
-  void _getcurrentStoreDetail() {
+  void _getcurrentLotteryDetail() {
     setState(() {
       _isLoading = true;
     });
-    _currentStore =
-        Provider.of<StoreProvider>(context, listen: false).currentStore;
+    _currentLottery =
+        Provider.of<LotteryProvider>(context, listen: false).currentLottery;
     setState(() {
       _isLoading = false;
     });
@@ -28,7 +29,7 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
 
   @override
   void initState() {
-    _getcurrentStoreDetail();
+    _getcurrentLotteryDetail();
     super.initState();
   }
 
@@ -63,13 +64,13 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                           padding: const EdgeInsets.only(
                               right: 30, left: 20, top: 10, bottom: 10),
                           child: Icon(
-                            FontAwesomeIcons.store,
+                            FontAwesomeIcons.trophy,
                             color: Colors.deepPurple,
                             size: 36,
                           ),
                         ),
                         Text(
-                          'جزئیات فروشگاه',
+                          'جزئیات قرعه کشی',
                           style: TextStyle(
                               color: Colors.deepPurple,
                               fontSize: 20,
@@ -105,7 +106,7 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                   Padding(
                                     padding: EdgeInsets.all(10),
                                     child: Text(
-                                      _currentStore.name,
+                                      _currentLottery.title,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Color.fromRGBO(179, 55, 209, 1),
@@ -130,9 +131,8 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
-                                              Text('نوع فروشگاه'),
-                                              Text(_currentStore.type
-                                                  .toString()),
+                                              Text('تاریخ شروع'),
+                                              Text(_currentLottery.startDate),
                                             ],
                                           ),
                                           Padding(
@@ -147,8 +147,8 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
-                                              Text('دسته بندی'),
-                                              Text(_currentStore.subType),
+                                              Text('تاریخ خاتمه'),
+                                              Text(_currentLottery.endDate),
                                             ],
                                           ),
                                           Padding(
@@ -163,8 +163,8 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
-                                              Text('شماره واحد'),
-                                              Text(_currentStore.unitNumber),
+                                              Text('ساعت شروع'),
+                                              Text(_currentLottery.startTime),
                                             ],
                                           ),
                                           Padding(
@@ -179,8 +179,8 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
-                                              Text('شماره تماس'),
-                                              Text(_currentStore.phoneNumber),
+                                              Text('ساعت خاتمه'),
+                                              Text(_currentLottery.endTime),
                                             ],
                                           ),
                                           Padding(
@@ -193,13 +193,25 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('شماره فکس'),
-                                              Text(
-                                                _currentStore.faxNumber,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(fontSize: 14),
+                                              MyCountdownTimer(
+                                                _currentLottery.gEndDate.add(
+                                                  Duration(
+                                                    hours: int.parse(
+                                                      _currentLottery.endTime
+                                                          .substring(0, 2),
+                                                    ),
+                                                    minutes: int.parse(
+                                                      _currentLottery.endTime
+                                                          .substring(3, 5),
+                                                    ),
+                                                    seconds: int.parse(
+                                                      _currentLottery.endTime
+                                                          .substring(6, 8),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -210,21 +222,59 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                               color: Colors.grey.shade300,
                                               thickness: 2,
                                             ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text('آدرس'),
-                                              Text(
-                                                _currentStore.address,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(fontSize: 14),
-                                              ),
-                                            ],
                                           ),
                                         ],
                                       ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        _currentLottery.status == 2
+                                            ? RaisedButton(
+                                                padding: EdgeInsets.all(10),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                //color: Colors.blueGrey,
+                                                child: Text(
+                                                  'در انتظار اعلام نتایج',
+                                                  style: TextStyle(
+                                                    //color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                                //onPressed: () {},
+                                              )
+                                            : RaisedButton(
+                                                padding: EdgeInsets.all(10),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                color: Color.fromRGBO(
+                                                    227, 131, 215, 1),
+                                                child: Text(
+                                                  'اسامی برندگان',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  // Navigator.of(context)
+                                                  //     .pushNamed(
+                                                  //         LotteryDetailScreen
+                                                  //             .routeName);
+                                                },
+                                              ),
+                                      ],
                                     ),
                                   ),
                                 ],

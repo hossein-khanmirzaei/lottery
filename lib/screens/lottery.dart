@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/lottery.dart';
-import 'package:lottery/screens/lottery_detail%20copy.dart';
+import 'package:lottery/screens/lottery_detail.dart';
 import 'package:lottery/widgets/countdown_timer.dart';
 import 'package:lottery/widgets/rec.dart';
 import 'package:provider/provider.dart';
@@ -144,8 +144,37 @@ class _LotteryScreenState extends State<LotteryScreen> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Align(
                                               alignment: Alignment.center,
+                                              child: Text(
+                                                _lotteries[index].title,
+                                                style: TextStyle(fontSize: 20),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Align(
+                                              alignment: Alignment.center,
                                               child: MyCountdownTimer(
-                                                  _lotteries[index].gEndDate),
+                                                _lotteries[index].gEndDate.add(
+                                                      Duration(
+                                                        hours: int.parse(
+                                                          _lotteries[index]
+                                                              .endTime
+                                                              .substring(0, 2),
+                                                        ),
+                                                        minutes: int.parse(
+                                                          _lotteries[index]
+                                                              .endTime
+                                                              .substring(3, 5),
+                                                        ),
+                                                        seconds: int.parse(
+                                                          _lotteries[index]
+                                                              .endTime
+                                                              .substring(6, 8),
+                                                        ),
+                                                      ),
+                                                    ),
+                                              ),
                                             ),
                                           ),
                                         ],

@@ -14,6 +14,7 @@ import 'package:lottery/screens/edit_creditcard.dart';
 import 'package:lottery/screens/help_detail.dart';
 import 'package:lottery/screens/help_list.dart';
 import 'package:lottery/screens/login.dart';
+import 'package:lottery/screens/lottery_detail.dart';
 import 'package:lottery/screens/new_creditcard.dart';
 import 'package:lottery/screens/news_detail.dart';
 import 'package:lottery/screens/overview.dart';
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
           home: auth.isAuth
               ? OverviewScreen()
               : FutureBuilder(
-                  future: auth.tryAutoLogin(),                  
+                  future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshot) =>
                       authResultSnapshot.connectionState ==
                               ConnectionState.waiting
@@ -105,6 +106,7 @@ class MyApp extends StatelessWidget {
             TransactionDetailScreen.routeName: (ctx) =>
                 TransactionDetailScreen(),
             StoreDetailScreen.routeName: (ctx) => StoreDetailScreen(),
+            LotteryDetailScreen.routeName: (ctx) => LotteryDetailScreen(),
             NewCreditCardScreen.routeName: (ctx) => NewCreditCardScreen(),
             NewsDetailScreen.routeName: (ctx) => NewsDetailScreen(),
             UserSettingsScreen.routeName: (ctx) => UserSettingsScreen(),

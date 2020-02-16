@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Lottery {
   int id;
-  String status;
+  int status;
   String title;
   String startDate;
   String endDate;
