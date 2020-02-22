@@ -3,8 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/lottery.dart';
 import 'package:lottery/widgets/countdown_timer.dart';
 import 'package:lottery/widgets/rec.dart';
+import 'package:ota_update/ota_update.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/lottery.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class LotteryDetailScreen extends StatefulWidget {
   static const routeName = '/lotteryDetail';
@@ -14,6 +16,8 @@ class LotteryDetailScreen extends StatefulWidget {
 
 class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
   var _isLoading = false;
+  OtaEvent _currentEvent;
+  bool _check = false;
   Lottery _currentLottery;
 
   void _getcurrentLotteryDetail() {
@@ -25,6 +29,79 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  // _launchURL() async {
+  //   const url = 'http://hamibox.ir/main/app/download.html';
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('خطا!'),
+        content: Text(
+          message,
+          textAlign: TextAlign.justify,
+        ),
+        actions: <Widget>[
+          FlatButton(
+            textColor: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
+            child: Text('بستن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  void _showCircularProgressIndicator(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('خطا!'),
+        content: CircularProgressIndicator(
+          value: double.parse(_currentEvent.value),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            textColor: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
+            child: Text('بستن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Future<void> tryOtaUpdate() async {
+    try {
+      //LINK CONTAINS APK OF FLUTTER HELLO WORLD FROM FLUTTER SDK EXAMPLES
+      OtaUpdate()
+          .execute('https://silvana-tnk.com/app.apk',
+              destinationFilename: 'app.apk')
+          .listen(
+        (OtaEvent event) {
+          setState(() => _currentEvent = event);
+          if (_currentEvent.value != null && _check) {
+            _showCircularProgressIndicator('');
+            _check = true;
+          }
+        },
+      );
+    } catch (e) {
+      _showErrorDialog('خطا در به-روز رسانی!');
+    }
   }
 
   @override
@@ -267,11 +344,10 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                                     fontSize: 18,
                                                   ),
                                                 ),
-                                                onPressed: () {
-                                                  // Navigator.of(context)
-                                                  //     .pushNamed(
-                                                  //         LotteryDetailScreen
-                                                  //             .routeName);
+                                                //onPressed: _launchURL,
+                                                onPressed: () async {
+                                                  await tryOtaUpdate();
+                                                  //_showCircularProgressIndicator('');
                                                 },
                                               ),
                                       ],
