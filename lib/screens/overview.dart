@@ -8,7 +8,9 @@ import 'package:lottery/screens/home.dart';
 import 'package:lottery/screens/store.dart';
 import 'package:lottery/screens/tranaction.dart';
 import 'package:lottery/widgets/app_drawer.dart';
+import 'package:lottery/widgets/update_progress.dart';
 import 'package:provider/provider.dart';
+import 'package:lottery/providers/Auth.dart';
 import 'package:lottery/providers/transaction.dart';
 
 class OverviewScreen extends StatefulWidget {
@@ -45,6 +47,28 @@ class _OverviewScreenState extends State<OverviewScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _checkForAppUpdate() async {
+    setState(() {
+      _isLoading = true;
+    });
+    if (Provider.of<AuthProvider>(context).isUpdateRequired()) {
+      //void _showCircularProgressIndicator() {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('در حال دانلود...'),
+          content: MyUpdateProgress(),
+          actions: <Widget>[],
+        ),
+      );
+      //}
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Future<void> _getTotalCredit() async {
@@ -98,6 +122,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   void initState() {
+    _checkForAppUpdate();
     _getTotalCredit();
     _getTotalPayment();
     _firebaseMessaging.configure(

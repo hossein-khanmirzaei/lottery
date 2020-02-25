@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottery/models/http_exception.dart';
 import 'package:lottery/models/user.dart';
+import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -13,6 +14,8 @@ class AuthProvider with ChangeNotifier {
   User _newUser;
   String _rules;
   String _aboutUs;
+  String _androidVersion;
+  String _iosVersion;
 
   Timer _authTimer;
 
@@ -197,11 +200,48 @@ class AuthProvider with ChangeNotifier {
       }
       _rules = responseData['tbl_content']['Role'];
       _aboutUs = responseData['tbl_content']['About'];
+
+      response = await http.post(
+        url,
+        body: {
+          'action': 'app_info',
+        },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+      responseData = json.decode(response.body);
+      if (responseData['success'] == false) {
+        throw HttpException(responseData['failureMessage']);
+      }
+      //print(responseData['data'][0]['APK_Version']);
+      _androidVersion = responseData['data'][0]['APK_Version'].toString();
+      _iosVersion = responseData['data'][0]['IOS_Version'].toString();
     } on SocketException catch (_) {
       throw HttpException('خطا در ارتباط با سرور!');
     } catch (error) {
       throw error;
     }
+  }
+
+  bool isUpdateRequired() {
+    try {
+      checkConnectivity();
+    } on SocketException catch (_) {
+      throw HttpException('خطا در ارتباط با سرور!');
+    } catch (error) {
+      throw (error);
+    }
+    PackageInfo.fromPlatform().then(
+      (PackageInfo packageInfo) {
+        String appName = packageInfo.appName;
+        String packageName = packageInfo.packageName;
+        String version = packageInfo.version;
+        String buildNumber = packageInfo.buildNumber;
+      },
+    );
+    //notifyListeners();
+    return true;
   }
 
   Future<bool> tryAutoLogin() async {

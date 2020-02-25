@@ -3,9 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottery/models/lottery.dart';
 import 'package:lottery/widgets/countdown_timer.dart';
 import 'package:lottery/widgets/rec.dart';
-import 'package:lottery/widgets/update_progress.dart';
 import 'package:provider/provider.dart';
 import 'package:lottery/providers/lottery.dart';
+//import 'package:lottery/widgets/update_progress.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 class LotteryDetailScreen extends StatefulWidget {
@@ -30,48 +30,40 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
     });
   }
 
-  // _launchURL() async {
-  //   const url = 'http://hamibox.ir/main/app/download.html';
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
+  // void _showErrorDialog(String message) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (ctx) => AlertDialog(
+  //       title: Text('خطا!'),
+  //       content: Text(
+  //         message,
+  //         textAlign: TextAlign.justify,
+  //       ),
+  //       actions: <Widget>[
+  //         FlatButton(
+  //           textColor: Theme.of(context).accentColor,
+  //           color: Theme.of(context).primaryColor,
+  //           child: Text('بستن'),
+  //           onPressed: () {
+  //             Navigator.of(ctx).pop();
+  //           },
+  //         )
+  //       ],
+  //     ),
+  //   );
   // }
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('خطا!'),
-        content: Text(
-          message,
-          textAlign: TextAlign.justify,
-        ),
-        actions: <Widget>[
-          FlatButton(
-            textColor: Theme.of(context).accentColor,
-            color: Theme.of(context).primaryColor,
-            child: Text('بستن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
-    );
-  }
 
-  void _showCircularProgressIndicator() {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('در حال دانلود...'),
-        content: MyUpdateProgress(),
-        actions: <Widget>[],
-      ),
-    );
-  }
+  // void _showCircularProgressIndicator() {
+  //   showDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (ctx) => AlertDialog(
+  //       title: Text('در حال دانلود...'),
+  //       content: MyUpdateProgress(),
+  //       actions: <Widget>[],
+  //     ),
+  //   );
+  // }
 
   @override
   void initState() {
@@ -313,10 +305,8 @@ class _LotteryDetailScreenState extends State<LotteryDetailScreen> {
                                                     fontSize: 18,
                                                   ),
                                                 ),
-                                                //onPressed: _launchURL,
                                                 onPressed: () {
-                                                  //await tryOtaUpdate();
-                                                  _showCircularProgressIndicator();
+                                                  //_showCircularProgressIndicator();
                                                 },
                                               ),
                                       ],

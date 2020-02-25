@@ -8,7 +8,7 @@ class MyUpdateProgress extends StatefulWidget {
 
 class _MyUpdateProgressState extends State<MyUpdateProgress> {
   OtaEvent _currentEvent;
-  bool _isDownloadStarted = false;
+  //bool _isDownloadStarted = false;
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -55,7 +55,7 @@ class _MyUpdateProgressState extends State<MyUpdateProgress> {
               }
             case OtaStatus.DOWNLOADING:
               {
-                _isDownloadStarted = true;
+                //_isDownloadStarted = true;
                 break;
               }
             case OtaStatus.INSTALLING:
@@ -98,11 +98,14 @@ class _MyUpdateProgressState extends State<MyUpdateProgress> {
         _currentEvent?.status == OtaStatus.DOWNLOADING ?? false;
     return isDownloadStarted
         ? LinearProgressIndicator(
-            value: double.parse(_currentEvent.value) / 100)
-        : Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+            value: double.parse(_currentEvent.value) / 100,
+          )
+        : Flex(
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CircularProgressIndicator(),
+            ],
           );
   }
 }
