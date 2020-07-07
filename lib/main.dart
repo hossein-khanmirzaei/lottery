@@ -5,7 +5,6 @@ import 'package:lottery/providers/creditcard.dart';
 import 'package:lottery/providers/help.dart';
 import 'package:lottery/providers/lottery.dart';
 import 'package:lottery/providers/news.dart';
-import 'package:lottery/providers/overview.dart';
 import 'package:lottery/providers/store.dart';
 import 'package:lottery/providers/transaction.dart';
 import 'package:lottery/providers/user.dart';
@@ -43,9 +42,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: AuthProvider(),
         ),
-        // ChangeNotifierProxyProvider<AuthProvider, OverviewProvider>(
-        //   update: (_, auth, __) => OverviewProvider(auth.currentUser),
-        // ),
         ChangeNotifierProxyProvider<AuthProvider, TransactionProvider>(
           update: (_, auth, __) => TransactionProvider(auth.currentUser),
         ),

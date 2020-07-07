@@ -23,7 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final _mobileNumberFocusNode = FocusNode();
   var _isLoading = false;
 
-  _submitForm() async {
+  Future _submitForm() async {
     final isValid = _form.currentState.validate();
     if (!isValid) {
       return null;

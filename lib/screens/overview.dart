@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,7 +12,7 @@ import 'package:lottery/screens/tranaction.dart';
 import 'package:lottery/widgets/app_drawer.dart';
 import 'package:lottery/widgets/update_progress.dart';
 import 'package:provider/provider.dart';
-import 'package:lottery/providers/Auth.dart';
+import 'package:lottery/providers/auth.dart';
 import 'package:lottery/providers/transaction.dart';
 
 class OverviewScreen extends StatefulWidget {
@@ -50,12 +52,36 @@ class _OverviewScreenState extends State<OverviewScreen> {
   }
 
   Future<void> _checkForAppUpdate() async {
-    setState(() {
-      _isLoading = true;
-    });
-    if (Provider.of<AuthProvider>(context).isUpdateRequired()) {
+    if (Provider.of<AuthProvider>(context, listen: false).isUpdateRequired) {
       //void _showCircularProgressIndicator() {
-      showDialog(
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: Text("به روز رسانی"),
+            content: Text("آیا به روزرسانی انجام شود؟"),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              FlatButton(
+                child: Text("پذیرش"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text("لغو"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  return;
+                  //exit(0);
+                },
+              ),
+            ],
+          );
+        },
+      );
+      await showDialog(
         barrierDismissible: false,
         context: context,
         builder: (ctx) => AlertDialog(
@@ -66,9 +92,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
       );
       //}
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   Future<void> _getTotalCredit() async {
@@ -122,7 +145,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   void initState() {
-    _checkForAppUpdate();
     _getTotalCredit();
     _getTotalPayment();
     _firebaseMessaging.configure(
@@ -136,12 +158,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
       },
       onResume: (Map<String, dynamic> message) async {
         //_showErrorDialog(message['notification']['body']);
-        print("OnMResume: $message");
+        print("OnResume: $message");
       },
     );
     _firebaseMessaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
     super.initState();
+    //WidgetsBinding.instance.addPostFrameCallback((_) => _checkForAppUpdate());
   }
 
   @override

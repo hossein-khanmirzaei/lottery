@@ -16,6 +16,10 @@ class AuthProvider with ChangeNotifier {
   String _aboutUs;
   String _androidVersion;
   String _iosVersion;
+  String _appName;
+  String _packageName;
+  String _version;
+  String _buildNumber;
 
   Timer _authTimer;
 
@@ -39,6 +43,10 @@ class AuthProvider with ChangeNotifier {
       return _currentUser;
     }
     return null;
+  }
+
+  bool get isUpdateRequired {
+    return _version != _androidVersion;
   }
 
   Future<void> sendVerificationCode(String verificationCode) async {
@@ -217,31 +225,22 @@ class AuthProvider with ChangeNotifier {
       //print(responseData['data'][0]['APK_Version']);
       _androidVersion = responseData['data'][0]['APK_Version'].toString();
       _iosVersion = responseData['data'][0]['IOS_Version'].toString();
+      try {
+      } on SocketException catch (_) {
+        throw HttpException('خطا در ارتباط با سرور!');
+      } catch (error) {
+        throw (error);
+      }
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      _appName = packageInfo.appName;
+      _packageName = packageInfo.packageName;
+      _version = packageInfo.version;
+      _buildNumber = packageInfo.buildNumber;
     } on SocketException catch (_) {
       throw HttpException('خطا در ارتباط با سرور!');
     } catch (error) {
       throw error;
     }
-  }
-
-  bool isUpdateRequired() {
-    try {
-      checkConnectivity();
-    } on SocketException catch (_) {
-      throw HttpException('خطا در ارتباط با سرور!');
-    } catch (error) {
-      throw (error);
-    }
-    PackageInfo.fromPlatform().then(
-      (PackageInfo packageInfo) {
-        String appName = packageInfo.appName;
-        String packageName = packageInfo.packageName;
-        String version = packageInfo.version;
-        String buildNumber = packageInfo.buildNumber;
-      },
-    );
-    //notifyListeners();
-    return true;
   }
 
   Future<bool> tryAutoLogin() async {

@@ -60,7 +60,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     });
   }
 
-  _submitCode() async {
+  Future _submitCode() async {
     var code = _firstController.text +
         _secondController.text +
         _thirdController.text +
@@ -80,7 +80,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     try {
       await Provider.of<AuthProvider>(context, listen: false)
           .sendVerificationCode(code);
-      Navigator.of(context).pushNamedAndRemoveUntil(
+      await Navigator.of(context).pushNamedAndRemoveUntil(
           OverviewScreen.routeName, (Route<dynamic> route) => false);
     } catch (error) {
       _showErrorDialog(error.toString());

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ota_update/ota_update.dart';
 
@@ -51,6 +53,7 @@ class _MyUpdateProgressState extends State<MyUpdateProgress> {
             case OtaStatus.DOWNLOAD_ERROR:
               {
                 _showErrorDialog('خطا در دریافت فایل به-روزرسانی!');
+                exit(0);
                 break;
               }
             case OtaStatus.DOWNLOADING:
@@ -66,11 +69,13 @@ class _MyUpdateProgressState extends State<MyUpdateProgress> {
             case OtaStatus.INTERNAL_ERROR:
               {
                 _showErrorDialog('خطا در به-روز رسانی!');
+                exit(0);
                 break;
               }
             case OtaStatus.PERMISSION_NOT_GRANTED_ERROR:
               {
                 _showErrorDialog('خطای دسترسی!');
+                exit(0);
                 break;
               }
           }
@@ -78,6 +83,7 @@ class _MyUpdateProgressState extends State<MyUpdateProgress> {
       );
     } catch (e) {
       _showErrorDialog('خطا در به-روز رسانی!');
+      exit(0);
     }
   }
 

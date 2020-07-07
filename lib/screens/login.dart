@@ -3,7 +3,6 @@ import 'package:lottery/screens/overview.dart';
 import 'package:lottery/screens/signup.dart';
 import 'package:lottery/widgets/arc.dart';
 import 'package:provider/provider.dart';
-
 import 'package:lottery/providers/auth.dart';
 
 class LoginScreen extends StatefulWidget {
